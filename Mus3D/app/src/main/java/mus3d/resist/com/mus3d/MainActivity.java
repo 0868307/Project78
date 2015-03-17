@@ -1,17 +1,32 @@
 package mus3d.resist.com.mus3d;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    ArrayList<JSONObject> objectjsonarray = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        objectjsonarray = ObjectLoader.load(
+                getResources().openRawResource(R.raw.afmeerboeien),
+                getResources().openRawResource(R.raw.meerpalen),
+                getResources().openRawResource(R.raw.koningspalen),
+                getResources().openRawResource(R.raw.koningspalen_met_bedrijfsnamen),
+                getResources().openRawResource(R.raw.bolder_bedrijfsnaam),
+                getResources().openRawResource(R.raw.ligplaatsen)
+                );
     }
 
     @Override
