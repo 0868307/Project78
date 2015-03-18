@@ -1,5 +1,6 @@
 package mus3d.resist.com.mus3d;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,8 +9,7 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.SimpleLocationOverlay;
-import android.app.Activity;
-import android.os.Bundle;
+
 
 public class map extends ActionBarActivity {
     private MapView mapView;

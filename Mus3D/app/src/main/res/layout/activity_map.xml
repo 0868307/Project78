@@ -9,7 +9,8 @@
     <org.osmdroid.views.MapView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/mapview">
+        android:id="@+id/mapview"
+        >
     </org.osmdroid.views.MapView>
 
 </RelativeLayout>
