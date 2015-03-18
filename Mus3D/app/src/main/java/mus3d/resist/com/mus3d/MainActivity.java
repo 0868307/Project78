@@ -1,10 +1,12 @@
 package mus3d.resist.com.mus3d;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import org.json.JSONObject;
 
@@ -49,5 +51,10 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void btn_map(View view) {
+        Intent intent = new Intent(this, map.class);
+        startActivity(intent);
     }
 }
