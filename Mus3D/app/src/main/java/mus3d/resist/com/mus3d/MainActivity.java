@@ -1,6 +1,7 @@
 package mus3d.resist.com.mus3d;
 
 import android.content.Intent;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import mus3d.resist.com.mus3d.mapobjecten.ObjectLoader;
 
 public class MainActivity extends ActionBarActivity {
     private static List<JSONObject> objectJSON = null;
+    GISurfaceView giSurfaceView;
 
 	public static void setObjectJSON(List<JSONObject> list) {
 		objectJSON = list;
@@ -55,5 +57,10 @@ public class MainActivity extends ActionBarActivity {
     public void btn_map(View view) {
         Intent intent = new Intent(this, Map.class);
         startActivity(intent);
+    }
+
+    public void teken_2D(View view){
+        giSurfaceView = new GISurfaceView(this);
+        setContentView(giSurfaceView);
     }
 }
