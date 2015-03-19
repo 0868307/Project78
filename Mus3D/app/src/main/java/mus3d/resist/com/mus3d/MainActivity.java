@@ -12,25 +12,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import mus3d.resist.com.mus3d.mapobjecten.ObjectLoader;
 
 
 public class MainActivity extends ActionBarActivity {
+    private static List<JSONObject> objectJSON = null;
 
-    ArrayList<JSONObject> objectjsonarray = new ArrayList<>();
+	public static void setObjectJSON(List<JSONObject> list) {
+		objectJSON = list;
+	}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        objectjsonarray = ObjectLoader.load(
-                getResources().openRawResource(R.raw.afmeerboeien),
-                getResources().openRawResource(R.raw.meerpalen),
-                getResources().openRawResource(R.raw.koningspalen),
-                getResources().openRawResource(R.raw.koningspalen_met_bedrijfsnamen),
-                getResources().openRawResource(R.raw.bolder_bedrijfsnaam),
-                getResources().openRawResource(R.raw.ligplaatsen)
-        );
     }
 
     @Override
@@ -56,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void btn_map(View view) {
-        Intent intent = new Intent(this, map.class);
+        Intent intent = new Intent(this, Map.class);
         startActivity(intent);
     }
 }
