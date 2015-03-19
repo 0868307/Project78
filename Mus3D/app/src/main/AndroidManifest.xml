@@ -33,10 +33,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".map"
+            android:name=".Map"
             android:label="@string/title_activity_map" >
             <intent-filter>
-                <action android:name=".map" />
+                <action android:name=".Map" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
