@@ -17,8 +17,9 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import java.util.ArrayList;
 
 
-public class map extends ActionBarActivity {
+public class Map extends ActionBarActivity {
     private MapView mapView;
+    private String ikbenArmindo = "Ik kan geen bestand een normale naam geven";
     private MapController mapController;
     private LocationManager locationManager;
     private ArrayList<OverlayItem> overlayItemArray;
