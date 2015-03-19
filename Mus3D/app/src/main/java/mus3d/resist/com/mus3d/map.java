@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class Map extends ActionBarActivity {
     private MapView mapView;
-    private String ikbenArmindo = "Ik kan geen bestand een normale naam geven";
+    private String ikbenArmindo = "Ik kan niet een bestand een normale naam geven";
     private MapController mapController;
     private LocationManager locationManager;
     private ArrayList<OverlayItem> overlayItemArray;
