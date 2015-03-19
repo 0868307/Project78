@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import mus3d.resist.com.mus3d.mapobjecten.ObjectLoader;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -28,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
                 getResources().openRawResource(R.raw.koningspalen_met_bedrijfsnamen),
                 getResources().openRawResource(R.raw.bolder_bedrijfsnaam),
                 getResources().openRawResource(R.raw.ligplaatsen)
-                );
+        );
     }
 
     @Override
