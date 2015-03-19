@@ -1,4 +1,4 @@
-package mus3d.resist.com.mus3d;
+package mus3d.resist.com.mus3d.mapobjecten;
 
 import android.os.Environment;
 import android.util.Log;
@@ -20,12 +20,12 @@ import java.util.HashMap;
  */
 public class ObjectLoader {
     public static final String OBJECTPATH = "data/kaartobjecten/";
-    public static final String MEERPALEN = OBJECTPATH + "Meerpalen.json";
+    public static final String MEERPALEN = OBJECTPATH + "Meerpaal.json";
     public static final String LIGPLAATSEN = OBJECTPATH + "Ligplaatsen.json";
     public static final String KONINGSPALENBEDRIJF = OBJECTPATH + "Koningspalen_met_Bedrijfsnamen.json";
     public static final String KONINGSPALEN = OBJECTPATH + "Koningspalen.json";
     public static final String BOLDER_BEDRIJF = OBJECTPATH + "Bolder_Bedrijfsnaam.json";
-    public static final String AFMEERBOEIEN = OBJECTPATH + "Afmeerboeien.json";
+    public static final String AFMEERBOEIEN = OBJECTPATH + "Afmeerboei.json";
 
 
     public static ArrayList<JSONObject> load(InputStream ... streams ) {

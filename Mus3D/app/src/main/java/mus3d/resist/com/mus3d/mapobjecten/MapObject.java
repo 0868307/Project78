@@ -1,4 +1,4 @@
-package mus3d.resist.com.mus3d;
+package mus3d.resist.com.mus3d.mapobjecten;
 
 import android.graphics.Point;
 
@@ -6,17 +6,18 @@ import android.graphics.Point;
  * Created by Wouter on 3/17/2015.
  */
 public class MapObject {
-    private int ObjectId;
+    private int objectId;
     private int portmaint;
     private int status;
     private int surveyMeth;
     private int surveyPrec;
-    private double diameter;
     private String featureId;
     private String regionId;
     private String harbourId;
-    private String faciilityId;
+    private String facilityId;
     private String facsecId;
+    private String funcstartD;
+    private String funccendat;
     private String dataSource;
     private String surveyDate;
     private String createdBy;
