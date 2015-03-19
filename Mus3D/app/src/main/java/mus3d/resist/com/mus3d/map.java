@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.metalev.multitouch.controller.MultiTouchController;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
@@ -15,14 +16,13 @@ import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 public class Map extends ActionBarActivity {
     private MapView mapView;
-    private String ikbenArmindo = "Ik kan niet een bestand een normale naam geven";
     private MapController mapController;
     private LocationManager locationManager;
-    private ArrayList<OverlayItem> overlayItemArray;
+    private List<OverlayItem> overlayItemArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
