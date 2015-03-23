@@ -61,6 +61,6 @@ public class MainActivity extends ActionBarActivity {
 
     public void teken_2D(View view){
         giSurfaceView = new GISurfaceView(this);
-        setContentView(giSurfaceView);
+        setContentView(new GISurfaceView(this));
     }
 }

@@ -27,11 +27,13 @@ public class ObjectLoader extends AsyncTask<InputStream, Void, List<JSONObject>>
     public static final String BOLDER_BEDRIJF = OBJECTPATH + "Bolder_Bedrijfsnaam.json";
     public static final String AFMEERBOEIEN = OBJECTPATH + "Afmeerboei.json";
 
+
 	@Override
 	protected List<JSONObject> doInBackground(InputStream... streams) {
 		ArrayList<JSONObject> list = new ArrayList<>();
 		for(InputStream stream : streams){
 			BufferedReader reader = null;
+			/*
 			try {
 				reader = new BufferedReader(new InputStreamReader(stream));
 				StringBuilder json = new StringBuilder();
@@ -43,7 +45,7 @@ public class ObjectLoader extends AsyncTask<InputStream, Void, List<JSONObject>>
 				Log.d("PARSE ERROR", e.getMessage());
 			} catch (IOException e) {
 				Log.d("PARSE ERROR2",e.getMessage());
-			}
+			}*/
 		}
 		return list;
 	}
