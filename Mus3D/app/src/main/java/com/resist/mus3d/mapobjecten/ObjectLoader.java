@@ -1,4 +1,4 @@
-package mus3d.resist.com.mus3d.com.resist.mus3d.mapobjecten;
+package com.resist.mus3d.mapobjecten;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import mus3d.resist.com.mus3d.MainActivity;
+import com.resist.mus3d.MainActivity;
 
 /**
  * Created by Wouter on 3/17/2015.

@@ -1,10 +1,10 @@
-package mus3d.resist.com.mus3d.com.resist.mus3d;
+package com.resist.mus3d;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import mus3d.resist.com.mus3d.mapobjecten.ObjectLoader;
+import com.resist.mus3d.mapobjecten.ObjectLoader;
 
 public class Splash extends Activity {
     @Override

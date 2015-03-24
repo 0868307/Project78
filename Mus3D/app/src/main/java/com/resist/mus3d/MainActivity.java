@@ -1,4 +1,4 @@
-package mus3d.resist.com.mus3d.com.resist.mus3d;
+package com.resist.mus3d;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import mus3d.resist.com.mus3d.mapobjecten.ObjectLoader;
+import com.resist.mus3d.mapobjecten.ObjectLoader;
 
 
 public class MainActivity extends ActionBarActivity {

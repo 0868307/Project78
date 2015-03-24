@@ -1,4 +1,4 @@
-package mus3d.resist.com.mus3d.com.resist.mus3d;
+package com.resist.mus3d;
 
 import android.content.Context;
 import android.location.Location;
