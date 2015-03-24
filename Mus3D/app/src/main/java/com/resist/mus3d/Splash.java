@@ -26,12 +26,12 @@ public class Splash extends Activity {
 
 	private void loadObjects(Intent i) {
 		new ObjectLoader(this, i).execute(
-			getResources().openRawResource(R.raw.afmeerboeien),
-			getResources().openRawResource(R.raw.meerpalen),
-			getResources().openRawResource(R.raw.koningspalen),
-			getResources().openRawResource(R.raw.koningspalen_met_bedrijfsnamen),
-			getResources().openRawResource(R.raw.bolder_bedrijfsnaam),
-			getResources().openRawResource(R.raw.ligplaatsen)
+			R.raw.afmeerboeien,
+			R.raw.meerpalen,
+			R.raw.koningspalen,
+			R.raw.koningspalen_met_bedrijfsnamen,
+			R.raw.bolder_bedrijfsnaam,
+			R.raw.ligplaatsen
 		);
 	}
 }
