@@ -1,11 +1,11 @@
-package mus3d.resist.com.mus3d;
+package com.resist.mus3d;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import mus3d.resist.com.mus3d.mapobjecten.ObjectLoader;
+import com.resist.mus3d.mapobjecten.ObjectLoader;
 
 public class Splash extends Activity {
     @Override
@@ -13,8 +13,8 @@ public class Splash extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
         overridePendingTransition(R.anim.anim_in, R.anim.anim_out);
-		loadObjects();
 		final Intent i = new Intent(Splash.this, MainActivity.class);
+		loadObjects(i);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -24,14 +24,14 @@ public class Splash extends Activity {
         }, 500);
     }
 
-	private void loadObjects() {
-		new ObjectLoader().execute(
-			getResources().openRawResource(R.raw.afmeerboeien),
-			getResources().openRawResource(R.raw.meerpalen),
-			getResources().openRawResource(R.raw.koningspalen),
-			getResources().openRawResource(R.raw.koningspalen_met_bedrijfsnamen),
-			getResources().openRawResource(R.raw.bolder_bedrijfsnaam),
-			getResources().openRawResource(R.raw.ligplaatsen)
+	private void loadObjects(Intent i) {
+		new ObjectLoader(this, i).execute(
+			R.raw.afmeerboeien,
+			R.raw.meerpalen,
+			R.raw.koningspalen,
+			R.raw.koningspalen_met_bedrijfsnamen,
+			R.raw.bolder_bedrijfsnaam,
+			R.raw.ligplaatsen
 		);
 	}
 }
