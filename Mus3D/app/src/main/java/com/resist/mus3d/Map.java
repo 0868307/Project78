@@ -48,9 +48,9 @@ public class Map extends ActionBarActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if( location != null ) {
-            currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-        }
+            if( location != null ) {
+                currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+            }
 
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(this);
         mapView.getOverlays().add(myScaleBarOverlay);
@@ -64,7 +64,6 @@ public class Map extends ActionBarActivity {
             overlayItemArray.add(currentloc);
             ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
             mapView.getOverlays().add(itemizedIconOverlay);
-
         }
     }
 
