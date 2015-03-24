@@ -60,7 +60,7 @@ public class ObjectLoader extends AsyncTask<InputStream, Void, List<JSONObject>>
 	@Override
 	protected void onPostExecute(List<JSONObject> result) {
 		MainActivity.setObjectJSON(result);
-		parent.startActivity(child);
-		parent.finish();
+		//parent.startActivity(child);
+		//parent.finish();
 	}
 }
