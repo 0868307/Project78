@@ -19,13 +19,6 @@ import mus3d.resist.com.mus3d.MainActivity;
  * Created by Wouter on 3/17/2015.
  */
 public class ObjectLoader extends AsyncTask<InputStream, Void, List<JSONObject>> {
-    public static final String OBJECTPATH = "data/kaartobjecten/";
-    public static final String MEERPALEN = OBJECTPATH + "Meerpaal.json";
-    public static final String LIGPLAATSEN = OBJECTPATH + "Ligplaatsen.json";
-    public static final String KONINGSPALENBEDRIJF = OBJECTPATH + "Koningspalen_met_Bedrijfsnamen.json";
-    public static final String KONINGSPALEN = OBJECTPATH + "Koningspalen.json";
-    public static final String BOLDER_BEDRIJF = OBJECTPATH + "Bolder_Bedrijfsnaam.json";
-    public static final String AFMEERBOEIEN = OBJECTPATH + "Afmeerboei.json";
 
 	@Override
 	protected List<JSONObject> doInBackground(InputStream... streams) {
@@ -39,12 +32,13 @@ public class ObjectLoader extends AsyncTask<InputStream, Void, List<JSONObject>>
 				while ((inputStr = reader.readLine()) != null)
 					json.append(inputStr);
 				list.add(new JSONObject(json.toString()));
+                reader.close();
 			} catch (JSONException e) {
 				Log.d("PARSE ERROR", e.getMessage());
 			} catch (IOException e) {
 				Log.d("PARSE ERROR2",e.getMessage());
 			}
-		}
+        }
 		return list;
 	}
 

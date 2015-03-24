@@ -25,7 +25,7 @@ public class MapObject {
     private String editedBy;
     private String editedDate;
     private String astName;
-    private Point coordinates;
+    private float[] coordinates;
 
 
 }
