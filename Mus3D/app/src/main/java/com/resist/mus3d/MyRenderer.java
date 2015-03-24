@@ -1,8 +1,10 @@
-package mus3d.resist.com.mus3d;
+package com.resist.mus3d;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+
+import com.resist.mus3d.DrawingClass;
 
 import java.util.Arrays;
 
