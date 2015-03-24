@@ -1,5 +1,7 @@
-package mus3d.resist.com.mus3d.mapobjecten;
+package mus3d.resist.com.mus3d.com.resist.mus3d.mapobjecten;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -26,6 +28,13 @@ public class ObjectLoader extends AsyncTask<InputStream, Void, List<JSONObject>>
     public static final String KONINGSPALEN = OBJECTPATH + "Koningspalen.json";
     public static final String BOLDER_BEDRIJF = OBJECTPATH + "Bolder_Bedrijfsnaam.json";
     public static final String AFMEERBOEIEN = OBJECTPATH + "Afmeerboei.json";
+	private Activity parent;
+	private Intent child;
+
+	public ObjectLoader(Activity a, Intent i) {
+		this.parent = a;
+		this.child = i;
+	}
 
 	@Override
 	protected List<JSONObject> doInBackground(InputStream... streams) {
@@ -51,5 +60,7 @@ public class ObjectLoader extends AsyncTask<InputStream, Void, List<JSONObject>>
 	@Override
 	protected void onPostExecute(List<JSONObject> result) {
 		MainActivity.setObjectJSON(result);
+		parent.startActivity(child);
+		parent.finish();
 	}
 }

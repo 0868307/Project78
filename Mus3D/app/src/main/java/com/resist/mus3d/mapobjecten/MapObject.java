@@ -1,4 +1,4 @@
-package mus3d.resist.com.mus3d.mapobjecten;
+package mus3d.resist.com.mus3d.com.resist.mus3d.mapobjecten;
 
 import android.graphics.Point;
 
