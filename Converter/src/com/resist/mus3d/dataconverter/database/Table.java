@@ -6,16 +6,19 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.resist.mus3d.dataconverter.DataConverter;
+
 public abstract class Table {
 	private String name;
 	private Column[] columns;
+	protected boolean track = false;
 
 	public Table(String name, Column[] columns) {
 		this.name = name;
 		this.columns = columns;
 	}
 
-	private String getCreateColumns() {
+	protected String getCreateColumns() {
 		StringBuilder sb = new StringBuilder();
 		boolean first = true;
 		for(Column c : columns) {
@@ -45,7 +48,7 @@ public abstract class Table {
 		return "CREATE TABLE "+name+'('+getCreateColumns()+");";
 	}
 
-	private String getInsertKeys() {
+	protected String getInsertKeys() {
 		StringBuilder sb = new StringBuilder();
 		boolean first = true;
 		for(Column c : columns) {
@@ -59,12 +62,16 @@ public abstract class Table {
 		return sb.toString();
 	}
 
-	private String getParsedValues(JSONObject json) {
+	protected String getParsedValues(JSONObject json) {
+		if(track) {
+			DataConverter.COORDS.clear();
+		}
 		StringBuilder sb = new StringBuilder();
 		JSONArray features = json.getJSONArray("features");
 		Set<Object> primaryKeys = new HashSet<Object>();
 		for(int n=0; n<features.length(); n++) {
-			JSONObject properties = features.getJSONObject(n).getJSONObject("properties");
+			JSONObject feature = features.getJSONObject(n);
+			JSONObject properties = feature.getJSONObject("properties");
 			StringBuilder row = new StringBuilder();
 			boolean append = true;
 			if(n != 0) {
@@ -99,9 +106,13 @@ public abstract class Table {
 			}
 			row.append(')');
 			if(append) {
+				if(track) {
+					DataConverter.COORDS.add(feature);
+				}
 				sb.append(row);
 			}
 		}
+		track = false;
 		return sb.toString();
 	}
 

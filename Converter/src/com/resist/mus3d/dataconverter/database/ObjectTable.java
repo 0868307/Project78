@@ -1,5 +1,9 @@
 package com.resist.mus3d.dataconverter.database;
 
+import org.json.JSONObject;
+
+import com.resist.mus3d.dataconverter.DataConverter;
+
 public class ObjectTable extends Table {
 	private static final String name = "objecten";
 	private static final Column[] columns = {
@@ -13,5 +17,11 @@ public class ObjectTable extends Table {
 
 	public ObjectTable() {
 		super(name, columns);
+	}
+
+	public String getInsert(JSONObject json) {
+		track = true;
+		return "INSERT INTO "+name+" ("+getInsertKeys()+") VALUES "+getParsedValues(json)+";\n"+
+				DataConverter.COORDS.getInsert();
 	}
 }

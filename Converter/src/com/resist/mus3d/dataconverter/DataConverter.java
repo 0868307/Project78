@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.resist.mus3d.dataconverter.database.AlgemeenTable;
 import com.resist.mus3d.dataconverter.database.BolderTable;
+import com.resist.mus3d.dataconverter.database.CoordinateTable;
 import com.resist.mus3d.dataconverter.database.HavenTable;
 import com.resist.mus3d.dataconverter.database.KoningspaalTable;
 import com.resist.mus3d.dataconverter.database.LigplaatsTable;
@@ -17,14 +18,15 @@ import com.resist.mus3d.dataconverter.database.Table;
 
 
 public class DataConverter {
-	private static final Table OBJECT = new ObjectTable();
-	private static final Table ALGEMEEN = new AlgemeenTable();
-	private static final Table BOLDER = new BolderTable();
-	private static final Table HAVEN = new HavenTable();
-	private static final Table KONINGSPAAL = new KoningspaalTable();
-	private static final Table LIGPLAATS = new LigplaatsTable();
+	public static final Table OBJECT = new ObjectTable();
+	public static final Table ALGEMEEN = new AlgemeenTable();
+	public static final Table BOLDER = new BolderTable();
+	public static final Table HAVEN = new HavenTable();
+	public static final Table KONINGSPAAL = new KoningspaalTable();
+	public static final Table LIGPLAATS = new LigplaatsTable();
+	public static final CoordinateTable COORDS = new CoordinateTable();
 	private static final Table[] tables = {
-		OBJECT, ALGEMEEN, BOLDER, HAVEN, KONINGSPAAL, LIGPLAATS
+		OBJECT, ALGEMEEN, BOLDER, HAVEN, KONINGSPAAL, LIGPLAATS, COORDS
 	};
 	private String path;
 
