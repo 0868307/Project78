@@ -18,9 +18,6 @@ import java.util.List;
 /**
  * Created by Wouter on 3/17/2015.
  */
-<<<<<<< HEAD:Mus3D/app/src/main/java/mus3d/resist/com/mus3d/mapobjecten/ObjectLoader.java
-public class ObjectLoader extends AsyncTask<InputStream, Void, List<JSONObject>> {
-=======
 public class ObjectLoader extends AsyncTask<Integer, Void, List<JSONObject>> {
     public static final String OBJECTPATH = "data/kaartobjecten/";
     public static final String MEERPALEN = OBJECTPATH + "Meerpaal.json";
@@ -36,7 +33,6 @@ public class ObjectLoader extends AsyncTask<Integer, Void, List<JSONObject>> {
 		this.parent = a;
 		this.child = i;
 	}
->>>>>>> origin/master:Mus3D/app/src/main/java/com/resist/mus3d/mapobjecten/ObjectLoader.java
 
 	@Override
 	protected List<JSONObject> doInBackground(Integer... streams) {
@@ -44,17 +40,7 @@ public class ObjectLoader extends AsyncTask<Integer, Void, List<JSONObject>> {
 		for(int stream : streams){
 			BufferedReader reader = null;
 			try {
-<<<<<<< HEAD:Mus3D/app/src/main/java/mus3d/resist/com/mus3d/mapobjecten/ObjectLoader.java
-				reader = new BufferedReader(new InputStreamReader(stream));
-				StringBuilder json = new StringBuilder();
-				String inputStr;
-				while ((inputStr = reader.readLine()) != null)
-					json.append(inputStr);
-				list.add(new JSONObject(json.toString()));
-                reader.close();
-=======
 				list.add(new JSONObject(new FileReader(parent, stream).getData()));
->>>>>>> origin/master:Mus3D/app/src/main/java/com/resist/mus3d/mapobjecten/ObjectLoader.java
 			} catch (JSONException e) {
 				Log.d("PARSE ERROR", e.getMessage());
 			}
