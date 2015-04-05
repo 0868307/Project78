@@ -1,7 +1,7 @@
 package com.resist.mus3d.dataconverter.database;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,6 +20,7 @@ public abstract class Table {
 
 	protected String getCreateColumns() {
 		StringBuilder sb = new StringBuilder();
+		List<String> primaryKeys = new ArrayList<String>();
 		boolean first = true;
 		for(Column c : columns) {
 			if(first) {
@@ -34,8 +35,21 @@ public abstract class Table {
 				sb.append(Column.TYPE_INT).append(' ').append(Column.AUTO_INCREMENT);
 			}
 			if(c.isPrimary()) {
-				sb.append(' ').append(Column.PRIMARY_KEY);
+				primaryKeys.add(c.getName());
 			}
+		}
+		if(!primaryKeys.isEmpty()) {
+			first = true;
+			sb.append(", PRIMARY KEY(");
+			for(String key : primaryKeys) {
+				if(first) {
+					first = false;
+				} else {
+					sb.append(", ");
+				}
+				sb.append(key);
+			}
+			sb.append(')');
 		}
 		return sb.toString();
 	}
@@ -62,13 +76,12 @@ public abstract class Table {
 		return sb.toString();
 	}
 
-	protected String getParsedValues(JSONObject json) {
+	protected String getParsedValues(int type, JSONObject json) {
 		if(track) {
 			DataConverter.COORDS.clear();
 		}
 		StringBuilder sb = new StringBuilder();
 		JSONArray features = json.getJSONArray("features");
-		Set<Object> primaryKeys = new HashSet<Object>();
 		for(int n=0; n<features.length(); n++) {
 			JSONObject feature = features.getJSONObject(n);
 			JSONObject properties = feature.getJSONObject("properties");
@@ -85,15 +98,13 @@ public abstract class Table {
 				} else {
 					row.append(", ");
 				}
-				Object value = properties.get(c.getJSON());
-				if(c.isPrimary()) {
-					if(primaryKeys.contains(value)) {
-						append = false;
-						break;
-					} else {
-						primaryKeys.add(value);
-					}
+				Object value;
+				if(c.getJSON() == null) {
+					value = type;
+				} else {
+					value = properties.get(c.getJSON());
 				}
+				append = append && canAppend(c, value);
 				if(value != JSONObject.NULL) {
 					if(c.getType() == Column.TYPE_INT || c.getType() == Column.TYPE_FLOAT) {
 						row.append(value);
@@ -107,7 +118,7 @@ public abstract class Table {
 			row.append(')');
 			if(append) {
 				if(track) {
-					DataConverter.COORDS.add(feature);
+					DataConverter.COORDS.add(type, feature);
 				}
 				sb.append(row);
 			}
@@ -116,7 +127,11 @@ public abstract class Table {
 		return sb.toString();
 	}
 
-	public String getInsert(JSONObject json) {
-		return "INSERT INTO "+name+" ("+getInsertKeys()+") VALUES "+getParsedValues(json)+';';
+	protected boolean canAppend(Column c, Object value) {
+		return true;
+	}
+
+	public String getInsert(int type, JSONObject json) {
+		return "INSERT INTO "+name+" ("+getInsertKeys()+") VALUES "+getParsedValues(type, json)+';';
 	}
 }

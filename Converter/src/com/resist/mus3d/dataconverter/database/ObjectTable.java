@@ -7,6 +7,7 @@ import com.resist.mus3d.dataconverter.DataConverter;
 public class ObjectTable extends Table {
 	private static final String name = "objecten";
 	private static final Column[] columns = {
+		new Column("objecttype", Column.TYPE_INT, true),
 		new Column("objectid", Column.TYPE_INT, "OBJECTID", true),
 		new Column("createdBy", Column.TYPE_DATE, "CREATEDBY"),
 		new Column("createdAt", Column.TYPE_DATE, "CREATEDDAT"),
@@ -19,9 +20,9 @@ public class ObjectTable extends Table {
 		super(name, columns);
 	}
 
-	public String getInsert(JSONObject json) {
+	public String getInsert(int type, JSONObject json) {
 		track = true;
-		return "INSERT INTO "+name+" ("+getInsertKeys()+") VALUES "+getParsedValues(json)+";\n"+
+		return "INSERT INTO "+name+" ("+getInsertKeys()+") VALUES "+getParsedValues(type, json)+";\n"+
 				DataConverter.COORDS.getInsert();
 	}
 }

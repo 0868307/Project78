@@ -46,34 +46,34 @@ public class DataConverter {
 	}
 
 	public void createInsert() {
-		loadAlgemeen(loadFile(path+"/Afmeerboeien.json"));
-		loadBolders();
-		loadKoningspalen();
-		loadLigplaatsen();
-		loadAlgemeen(loadFile(path+"/Meerpalen.json"));
+		loadAlgemeen(0, loadFile(path+"/Afmeerboeien.json"));
+		loadBolders(1);
+		loadKoningspalen(2);
+		loadLigplaatsen(3);
+		loadAlgemeen(4, loadFile(path+"/Meerpalen.json"));
 	}
 
-	private void loadAlgemeen(JSONObject data) {
-		System.out.println(OBJECT.getInsert(data));
-		System.out.println(ALGEMEEN.getInsert(data));
+	private void loadAlgemeen(int index, JSONObject data) {
+		System.out.println(OBJECT.getInsert(index, data));
+		System.out.println(ALGEMEEN.getInsert(index, data));
 	}
 
-	private void loadBolders() {
+	private void loadBolders(int index) {
 		JSONObject data = loadFile(path+"/Bolder_Bedrijfsnaam.json");
-		loadAlgemeen(data);
-		System.out.println(BOLDER.getInsert(data));
+		loadAlgemeen(index, data);
+		System.out.println(BOLDER.getInsert(index, data));
 	}
 
-	private void loadKoningspalen() {
+	private void loadKoningspalen(int index) {
 		JSONObject data = loadFile(path+"/Koningspalen_met_Bedrijfsnamen.json");
-		loadAlgemeen(data);
-		System.out.println(KONINGSPAAL.getInsert(data));
+		loadAlgemeen(index, data);
+		System.out.println(KONINGSPAAL.getInsert(index, data));
 	}
 
-	private void loadLigplaatsen() {
+	private void loadLigplaatsen(int index) {
 		JSONObject data = loadFile(path+"/Ligplaatsen.json");
-		System.out.println(HAVEN.getInsert(data));
-		System.out.println(LIGPLAATS.getInsert(data));
+		System.out.println(HAVEN.getInsert(index, data));
+		System.out.println(LIGPLAATS.getInsert(index, data));
 	}
 
 	private JSONObject loadFile(String path) {
