@@ -24,10 +24,11 @@ public class MainActivity extends RajawaliActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myRenderer = new MyRenderer(this);
-        myRenderer.setSurfaceView(mSurfaceView);
-        super.setRenderer(myRenderer);
-       // setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
+        //myRenderer = new MyRenderer(this);
+        //myRenderer.setSurfaceView(mSurfaceView);
+        //super.setRenderer(myRenderer);
+
     }
 
     @Override

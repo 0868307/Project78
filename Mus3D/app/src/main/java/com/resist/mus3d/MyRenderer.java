@@ -44,6 +44,7 @@ public class MyRenderer extends RajawaliRenderer {
         mObject.addTexture(mTextureManager.addTexture(texture));
         mObject.setRotation(40, 0, 5);
         mObject.setScale(.1f);
+
     }
 
 }
