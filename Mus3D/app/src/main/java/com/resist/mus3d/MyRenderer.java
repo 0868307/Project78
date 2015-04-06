@@ -3,12 +3,15 @@ package com.resist.mus3d;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.opengl.EGLConfig;
 
 import javax.microedition.khronos.opengles.GL10;
 
 import rajawali.BaseObject3D;
+import rajawali.OrthographicCamera;
 import rajawali.lights.DirectionalLight;
 import rajawali.materials.SimpleMaterial;
+import rajawali.materials.ToonMaterial;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
 import rajawali.renderer.RajawaliRenderer;
@@ -29,6 +32,7 @@ public class MyRenderer extends RajawaliRenderer {
         mLight = new DirectionalLight(1f, 0.2f, -1.0f); // set the direction
         mLight.setColor(1.0f, 1.0f, 1.0f);
         mLight.setPower(2);
+
         ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
         try {
             parser.parse();
@@ -37,14 +41,20 @@ public class MyRenderer extends RajawaliRenderer {
         }
         BaseObject3D mObject = parser.getParsedObject();
         addChild(mObject);
-        mCamera.setZ(4.2f);
-        SimpleMaterial simple = new SimpleMaterial();
-        mObject.setMaterial(simple);
-        Bitmap texture = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.earthtruecolor_nasa_big);
-        mObject.addTexture(mTextureManager.addTexture(texture));
-        mObject.setRotation(40, 0, 5);
-        mObject.setScale(.1f);
 
+        ToonMaterial toonMat = new ToonMaterial();
+        toonMat.setToonColors(0xffffffff, 0xff000000, 0xff666666, 0xff000000);
+        mObject.setMaterial(toonMat);
+        mObject.addLight(mLight);
+
+        // -- Create an instance
+        OrthographicCamera camera = new OrthographicCamera();
+        // -- Set the zoom level
+        camera.setZoom(1); // -- this is the default
+        camera.setZoom(2);
+        // -- Set the look at coordinates
+        camera.setLookAt(1, 10, 3);
+        mObject.setScale(0.2f);
     }
 
 }
