@@ -7,15 +7,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import com.resist.mus3d.mapobjecten.ObjectLoader;
 
 
 public class MainActivity extends ActionBarActivity {
