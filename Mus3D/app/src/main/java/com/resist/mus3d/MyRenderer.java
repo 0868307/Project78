@@ -16,7 +16,6 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class MyRenderer implements GLSurfaceView.Renderer {
 
-
     private final float[] mMVPMatrix = new float[16];
     private final float[] mProjectionMatrix = new float[16];
     private final float[] mViewMatrix = new float[16];
@@ -46,8 +45,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
             0.3f,  0.2f,  1.0f,  1.0f,
     };
 
-
-
     public DrawingClass cube;
 
     @Override
@@ -69,7 +66,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         }
         // 3D Cube
         cube = new DrawingClass(3, verticesCube,colorsCube,indicesCube);
-
     }
 
     @Override
@@ -126,9 +122,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 
             mCubeRotation += 0.15f;
         }
-
-
-
     }
 
     public static int loadShader(int type, String shaderCode){

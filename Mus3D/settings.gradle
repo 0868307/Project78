@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':Rajawali'
+project(':Rajawali').projectDir = new File('app/libs/Rajawali')
