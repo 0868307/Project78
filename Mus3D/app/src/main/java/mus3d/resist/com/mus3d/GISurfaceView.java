@@ -13,7 +13,7 @@ public class GISurfaceView extends GLSurfaceView {
     MyRenderer renderer;
     MainActivity mainActivity;
 
-    public GISurfaceView(Context context){
+    public GISurfaceView(Context context) {
         super(context);
         mainActivity = (MainActivity) context;
         setEGLContextClientVersion(2);
@@ -24,23 +24,44 @@ public class GISurfaceView extends GLSurfaceView {
         final float[] mRotationMatrix = new float[16];
 
         renderer = new MyRenderer();
-        renderer.shouldDrawCube=true;
+        renderer.shouldDrawCube = true;
         setRenderer(renderer);
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
     }
 
+    float mPreviousX = -1, mPreviousY = -1;
+
     @Override
-    public boolean onTouchEvent(MotionEvent motionEvent){
+    public boolean onTouchEvent(MotionEvent motionEvent) {
         final float x = motionEvent.getX();
         final float y = motionEvent.getY();
-        Log.i("GL Surface View", "X = "+x+" Y = "+y);
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+
+                float dx = x - mPreviousX;
+                float dy = y - mPreviousY;
+
+                // reverse direction of rotation above the mid-line
+                if (y > getHeight() / 2) {
+                    dx = dx * -1;
+                }
+
+                // reverse direction of rotation to left of the mid-line
+                if (x < getWidth() / 2) {
+                    dy = dy * -1;
+                }
+
+
+        }
+        mPreviousX = x;
+        mPreviousY = y;
+        Log.i("GL Surface View", "X = " + x + " Y = " + y);
         mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mainActivity.setTitle("X = "+x+" Y ="+y);
+                mainActivity.setTitle("X = " + x + " Y =" + y);
             }
         });
-        return false;
+        return true;
     }
-
 }

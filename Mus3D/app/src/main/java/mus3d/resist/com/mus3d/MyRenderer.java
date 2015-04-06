@@ -55,11 +55,11 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         ////.................... Drawing Demo...................................................//
 
         // Line Demo..............................
-        line = new DrawingClass(3, new float[]{ -0.5f,  0.5f, 0.0f,     -0.5f, -0.5f, 0.0f,   -0.49f, -0.5f, 0.0f,       -0.49f,  0.5f, 0.0f }, new float[]{1.0f,0.0f,0.0f,1.0f},new short[]{0,1,2,0,2,3});
+        //line = new DrawingClass(3, new float[]{ -0.5f,  0.5f, 0.0f,     -0.5f, -0.5f, 0.0f,   -0.49f, -0.5f, 0.0f,       -0.49f,  0.5f, 0.0f }, new float[]{1.0f,0.0f,0.0f,1.0f},new short[]{0,1,2,0,2,3});
         // Rectangle Demo..............................
-        rect = new DrawingClass(3, new float[]{ -1.0f,  0.5f, 0.0f,     -1.0f, 1.0f, 0.0f,   0, 1.0f, 0.0f,       0,  .5f, 0.0f }, new float[]{0.0f,1.5f,0.0f,1.0f},new short[]{0,1,2,0,2,3});
+        //rect = new DrawingClass(3, new float[]{ -1.0f,  0.5f, 0.0f,     -1.0f, 1.0f, 0.0f,   0, 1.0f, 0.0f,       0,  .5f, 0.0f }, new float[]{0.0f,1.5f,0.0f,1.0f},new short[]{0,1,2,0,2,3});
         //Triangle..............................
-        triangle = new DrawingClass(3, new float[]{ 0.9f,  0.7f, 0.0f,     .9f,.2f, 0.0f,   .4f, .2f, 0.0f,  }, new float[]{0.0f,0.0f,1.0f,1.0f},new short[]{0,1,2});
+        //triangle = new DrawingClass(3, new float[]{ 0.9f,  0.7f, 0.0f,     .9f,.2f, 0.0f,   .4f, .2f, 0.0f,  }, new float[]{0.0f,0.0f,1.0f,1.0f},new short[]{0,1,2});
 
         for(int i=0;i<verticesCube.length;i++)
         {
@@ -97,9 +97,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 
         Matrix.multiplyMM(scratch, 0, mMVPMatrix, 0, mRotationMatrix, 0);
 
-        line.draw(mMVPMatrix);
-        rect.draw(mMVPMatrix);
-        triangle.draw(mMVPMatrix);
+        //line.draw(mMVPMatrix);
+        //rect.draw(mMVPMatrix);
+        //triangle.draw(mMVPMatrix);
 
         if(shouldDrawCube)
         {
