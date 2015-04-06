@@ -1,9 +1,7 @@
 package com.resist.mus3d;
 
 import android.content.Intent;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,19 +10,24 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import rajawali.RajawaliActivity;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends RajawaliActivity {
     private static List<JSONObject> objectJSON = null;
-    GISurfaceView giSurfaceView;
+
+    private MyRenderer myRenderer;
 
 	public static void setObjectJSON(List<JSONObject> list) {
 		objectJSON = list;
 	}
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        myRenderer = new MyRenderer(this);
+        myRenderer.setSurfaceView(mSurfaceView);
+        super.setRenderer(myRenderer);
+       // setContentView(R.layout.activity_main);
     }
 
     @Override
@@ -55,7 +58,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void teken_2D(View view){
-        giSurfaceView = new GISurfaceView(this);
-        setContentView(new GISurfaceView(this));
+        myRenderer = new MyRenderer(this);
+        myRenderer.setSurfaceView(mSurfaceView);
+        super.setRenderer(myRenderer);
     }
 }

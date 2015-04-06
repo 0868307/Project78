@@ -21,7 +21,7 @@ public class ObjectDatabase {
 
     public SQLiteDatabase open() {
         File file = ctx.getFileStreamPath(FILE);
-        if(!file.exists()) {
+        if(!file.exists() && !file.isDirectory()) {
             loadDatabase();
         }
         return SQLiteDatabase.openDatabase(file.toString(), null, SQLiteDatabase.OPEN_READWRITE);
