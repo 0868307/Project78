@@ -11,6 +11,7 @@ public class Rajawali extends RajawaliActivity {
         super.onCreate(savedInstanceState);
         myRenderer = new MyRenderer(this);
         myRenderer.setSurfaceView(mSurfaceView);
+
         super.setRenderer(myRenderer);
     }
 
