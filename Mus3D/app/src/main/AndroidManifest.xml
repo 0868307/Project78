@@ -35,7 +35,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -45,14 +44,18 @@
             android:parentActivityName=".MainActivity" >
             <intent-filter>
                 <action android:name=".Map" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".RajawaliActivity"
+            android:name=".Rajawali"
             android:label="@string/title_activity_rajawali" >
+            <intent-filter>
+                <action android:name=".Rajawali" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

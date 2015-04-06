@@ -2,6 +2,7 @@ package com.resist.mus3d;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,22 +13,17 @@ import java.util.List;
 
 import rajawali.RajawaliActivity;
 
-public class MainActivity extends RajawaliActivity {
+public class MainActivity extends ActionBarActivity {
     private static List<JSONObject> objectJSON = null;
-
-    private MyRenderer myRenderer;
 
 	public static void setObjectJSON(List<JSONObject> list) {
 		objectJSON = list;
 	}
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //myRenderer = new MyRenderer(this);
-        //myRenderer.setSurfaceView(mSurfaceView);
-        //super.setRenderer(myRenderer);
 
     }
 
@@ -59,8 +55,7 @@ public class MainActivity extends RajawaliActivity {
     }
 
     public void teken_2D(View view){
-        myRenderer = new MyRenderer(this);
-        myRenderer.setSurfaceView(mSurfaceView);
-        super.setRenderer(myRenderer);
+        Intent intent = new Intent(this, Rajawali.class);
+        startActivity(intent);
     }
 }
