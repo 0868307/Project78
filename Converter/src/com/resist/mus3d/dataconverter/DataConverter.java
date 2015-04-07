@@ -72,6 +72,7 @@ public class DataConverter {
 
 	private void loadLigplaatsen(int index) {
 		JSONObject data = loadFile(path+"/Ligplaatsen.json");
+		System.out.println(OBJECT.getInsert(index, data));
 		System.out.println(HAVEN.getInsert(index, data));
 		System.out.println(LIGPLAATS.getInsert(index, data));
 	}

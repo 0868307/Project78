@@ -21,13 +21,13 @@ public class ObjectDatabase {
 
     public SQLiteDatabase open() {
         File file = ctx.getFileStreamPath(FILE);
-        if(!file.exists() && !file.isDirectory()) {
-            loadDatabase();
+        if(file.exists() || (!file.exists() && loadDatabase())) {
+			return SQLiteDatabase.openDatabase(file.toString(), null, SQLiteDatabase.OPEN_READWRITE);
         }
-        return SQLiteDatabase.openDatabase(file.toString(), null, SQLiteDatabase.OPEN_READWRITE);
+		return null;
     }
 
-    private void loadDatabase() {
+    private boolean loadDatabase() {
         try {
             OutputStream out = ctx.openFileOutput(FILE, Context.MODE_APPEND);
             InputStream in = ctx.getResources().openRawResource(R.raw.objects);
@@ -38,8 +38,10 @@ public class ObjectDatabase {
             in.close();
             out.flush();
             out.close();
+			return true;
         } catch (IOException e) {
             Log.d("MUS3D", "Failed to load object database", e);
         }
+		return false;
     }
 }
