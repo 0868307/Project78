@@ -1,14 +1,22 @@
 package com.resist.mus3d.objects;
 
-/**
- * Created by EE on 7-4-2015.
- */
+import java.util.HashMap;
+import java.util.Map;
+
 public class Harbour {
+    private static Map<String, Harbour> harbours = new HashMap<>();
 	private String id;
 	private String name;
 
-	public Harbour(String id, String name) {
+	private Harbour(String id, String name) {
 		this.id = id;
 		this.name = name;
 	}
+
+    public static Harbour cacheHarbour(String id, String name) {
+        if(!harbours.containsKey(id)) {
+            harbours.put(id, new Harbour(id, name));
+        }
+        return harbours.get(id);
+    }
 }

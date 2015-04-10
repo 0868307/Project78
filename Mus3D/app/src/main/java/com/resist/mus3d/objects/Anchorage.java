@@ -3,7 +3,7 @@ package com.resist.mus3d.objects;
 import java.util.Date;
 
 public class Anchorage extends Object {
-	private int id;
+    public static final int TYPE = 3;
 	private String complexId;
 	private String globalId;
 	private String kenmerkZe;
@@ -23,9 +23,8 @@ public class Anchorage extends Object {
 	private String primaryFunction;
 	private String type;
 
-	public Anchorage(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, int id, String complexId, String globalId, String kenmerkZe, String lxmeText, Date occupiedFrom, String occRecNo, Date occupiedTill, String vacReason, String xmeText, String afmeerVz, String owner, String use, Harbour harbour, String anchorage, String nauticalState, String shoreNo, String primaryFunction, String type) {
+	public Anchorage(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String complexId, String globalId, String kenmerkZe, String lxmeText, Date occupiedFrom, String occRecNo, Date occupiedTill, String vacReason, String xmeText, String afmeerVz, String owner, String use, Harbour harbour, String anchorage, String nauticalState, String shoreNo, String primaryFunction, String type) {
 		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
-		this.id = id;
 		this.complexId = complexId;
 		this.globalId = globalId;
 		this.kenmerkZe = kenmerkZe;

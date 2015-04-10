@@ -5,6 +5,7 @@ import com.resist.mus3d.objects.coords.Coordinate;
 import java.util.Date;
 
 public class Object {
+    public static final int TYPE = -1;
 	private int objectid;
 	private String createdBy;
 	private Date createdAt;
