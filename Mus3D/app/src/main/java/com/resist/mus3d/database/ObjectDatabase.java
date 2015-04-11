@@ -23,7 +23,6 @@ import java.util.List;
 
 public class ObjectDatabase {
     private static final String FILE = "objectdatabase";
-    private static final DateFormat DATE = new SimpleDateFormat("yyyy/MM/dd");
     private Context ctx;
     private SQLiteDatabase db;
 
@@ -39,6 +38,10 @@ public class ObjectDatabase {
             throw new IOException("Failed to open database");
         }
     }
+
+	public SQLiteDatabase getDatabase() {
+		return db;
+	}
 
     private boolean loadDatabase() {
         try {
@@ -56,35 +59,5 @@ public class ObjectDatabase {
             Log.d("MUS3D", "Failed to load object database", e);
         }
 		return false;
-    }
-
-    public List<Afmeerboei> getAfmeerboeien() {
-        List<Afmeerboei> out = new ArrayList<>();
-        Cursor c = db.rawQuery("SELECT objecten.*, algemeen.*, havens.havenNaam FROM objecten LEFT JOIN algemeen ON (objecten.objecttype = algemeen.objecttype AND objecten.objectid = algemeen.id) LEFT JOIN havens ON(algemeen.harbourId = havens.havenAfkorting) WHERE objecten.objecttype = ?", new String[] {String.valueOf(Afmeerboei.TYPE)});
-        c.moveToFirst();
-        while(!c.isAfterLast()) {
-            try {
-                out.add(new Afmeerboei(
-                        c.getInt(c.getColumnIndex("objectid")),
-                        c.getString(c.getColumnIndex("createdBy")),
-                        DATE.parse(c.getString(c.getColumnIndex("createdAt"))),
-                        c.getString(c.getColumnIndex("editedBy")),
-                        DATE.parse(c.getString(c.getColumnIndex("editedAt"))),
-                        c.getString(c.getColumnIndex("featureId")),
-                        c.getString(c.getColumnIndex("facilityId")),
-                        c.getString(c.getColumnIndex("facilitySecId")),
-                        Harbour.cacheHarbour(
-                                c.getString(c.getColumnIndex("harbourId")),
-                                c.getString(c.getColumnIndex("havenNaam"))
-                        ),
-                        c.getString(c.getColumnIndex("regionId"))
-                ));
-            } catch (ParseException e) {
-                Log.e(Mus3D.LOG_TAG, "Failed to parse date", e);
-            }
-            c.moveToNext();
-        }
-        c.close();
-        return out;
     }
 }

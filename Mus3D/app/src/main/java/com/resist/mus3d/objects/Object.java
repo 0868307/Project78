@@ -1,5 +1,7 @@
 package com.resist.mus3d.objects;
 
+import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.objects.coords.Coordinate;
 
 import java.util.Date;
@@ -48,6 +50,9 @@ public class Object {
 	}
 
 	public Coordinate getLocation() {
+		if(location == null) {
+			location = new ObjectTable(Mus3D.getDatabase().getDatabase()).getCoordinates(this);
+		}
 		return location;
 	}
 }
