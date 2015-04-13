@@ -36,7 +36,7 @@ public class MyRenderer extends RajawaliRenderer {
         mLight.setColor(1.0f, 1.0f, 1.0f);
         mLight.setPower(2);
 
-        ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.kubus1_obj);
+        ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
 
         try {
             parser.parse();
@@ -68,5 +68,8 @@ public class MyRenderer extends RajawaliRenderer {
         mObject.setScale(0.2f);
          */
 
+    }
+    public void setCamera(float x, float y, float z){
+        mCamera.setPosition(x,y,z);
     }
 }
