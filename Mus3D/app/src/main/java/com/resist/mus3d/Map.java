@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.resist.mus3d.mapobjecten.LocationTracker;
 
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -44,7 +43,7 @@ public class Map extends ActionBarActivity {
 
         overlayItemArray = new ArrayList<OverlayItem>();
 
-        locationListener = new LocationTracker(this);
+        //locationListener = new LocationTracker(this);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);

@@ -9,7 +9,7 @@ public class ObjectTable extends Table {
 	private static final Column[] columns = {
 		new Column("objecttype", Column.TYPE_INT, true),
 		new Column("objectid", Column.TYPE_INT, "OBJECTID", true),
-		new Column("createdBy", Column.TYPE_DATE, "CREATEDBY"),
+		new Column("createdBy", Column.TYPE_TEXT, "CREATEDBY"),
 		new Column("createdAt", Column.TYPE_DATE, "CREATEDDAT"),
 		new Column("editedBy", Column.TYPE_TEXT, "EDITEDBY"),
 		new Column("editedAt", Column.TYPE_DATE, "EDITEDDATE"),
@@ -20,6 +20,7 @@ public class ObjectTable extends Table {
 		super(name, columns);
 	}
 
+	@Override
 	public String getInsert(int type, JSONObject json) {
 		track = true;
 		return "INSERT INTO "+name+" ("+getInsertKeys()+") VALUES "+getParsedValues(type, json)+";\n"+
