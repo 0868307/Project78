@@ -22,8 +22,8 @@ public class Afmeerboeien extends ObjectTable {
 	}
 
 	@Override
-	public List<com.resist.mus3d.objects.Object> getAll() {
-		List<Object> out = new ArrayList<>();
+	public List<Afmeerboei> getAll() {
+		List<Afmeerboei> out = new ArrayList<>();
 		Cursor c = db.rawQuery("SELECT objecten.*, algemeen.*, havens.havenNaam FROM objecten LEFT JOIN algemeen ON (objecten.objecttype = algemeen.objecttype AND objecten.objectid = algemeen.id) LEFT JOIN havens ON(algemeen.harbourId = havens.havenAfkorting) WHERE objecten.objecttype = ?", new String[] {String.valueOf(Afmeerboei.TYPE)});
 		c.moveToFirst();
 		while(!c.isAfterLast()) {

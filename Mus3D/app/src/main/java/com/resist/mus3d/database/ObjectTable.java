@@ -21,7 +21,7 @@ public class ObjectTable {
 		this.db = db;
 	}
 
-	public List<com.resist.mus3d.objects.Object> getAll() {
+	public List<? extends com.resist.mus3d.objects.Object> getAll() {
 		return new ArrayList<>();
 	}
 
