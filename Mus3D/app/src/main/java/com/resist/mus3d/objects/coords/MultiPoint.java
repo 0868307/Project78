@@ -1,7 +1,10 @@
 package com.resist.mus3d.objects.coords;
 
+import org.osmdroid.util.Position;
+
 public class MultiPoint implements Coordinate {
 	private Point[] points;
+	private Position cachedPosition;
 
 	public MultiPoint(Point[] points) {
 		this.points = points;
@@ -9,5 +12,17 @@ public class MultiPoint implements Coordinate {
 
 	public Point[] getPoints() {
 		return points;
+	}
+
+	public Position getPosition() {
+		if(cachedPosition == null) {
+			double x = 0, y = 0;
+			for(Point p : points) {
+				x += p.getX();
+				y += p.getY();
+			}
+			cachedPosition = new Position(x / points.length, y / points.length);
+		}
+		return cachedPosition;
 	}
 }
