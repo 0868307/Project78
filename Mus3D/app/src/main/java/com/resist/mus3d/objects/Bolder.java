@@ -20,4 +20,8 @@ public class Bolder extends Common {
 		this.partner = partner;
 		this.company = company;
 	}
+
+	public int getType() {
+		return TYPE;
+	}
 }

@@ -44,4 +44,8 @@ public class Anchorage extends Object {
 		this.primaryFunction = primaryFunction;
 		this.type = type;
 	}
+
+	public int getType() {
+		return TYPE;
+	}
 }

@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.objects.Afmeerboei;
 
 import java.io.IOException;
 import java.util.Arrays;

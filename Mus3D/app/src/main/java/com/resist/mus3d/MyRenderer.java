@@ -11,6 +11,8 @@ import android.os.AsyncTask;
 import com.resist.mus3d.database.Afmeerboeien;
 import com.resist.mus3d.objects.Afmeerboei;
 
+import org.osmdroid.util.Position;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -51,7 +53,7 @@ public class MyRenderer extends RajawaliRenderer {
             e.printStackTrace();
         }
         BaseObject3D mObject = parser.getParsedObject();
-        addChild(mObject);
+        //addChild(mObject);
         new LongOperation().execute();
         mCamera.setZ(4.2f);
         mCamera.setY(-1.5f);
@@ -79,11 +81,12 @@ public class MyRenderer extends RajawaliRenderer {
     public void setCamera(float x, float y, float z){
         mCamera.setPosition(x,y,z);
     }
-    private class LongOperation extends AsyncTask<String, Void, String> {
+    private class LongOperation extends AsyncTask<String, Void, Boolean> {
 
         @Override
-        protected String doInBackground(String... params) {
+        protected Boolean doInBackground(String... params) {
             Afmeerboeien afmeerboeien = new Afmeerboeien(Mus3D.getDatabase().getDatabase());
+            Position lastPos = null;
             for(Afmeerboei afmeerboei : afmeerboeien.getAll()){
                 ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
 
@@ -94,23 +97,26 @@ public class MyRenderer extends RajawaliRenderer {
                 }
                 BaseObject3D mObject = parser.getParsedObject();
                 addChild(mObject);
-                mObject.setPosition((float)(afmeerboei.getLocation().getPosition().getLatitude()),(float)(afmeerboei.getLocation().getPosition().getLongitude()),0);
+                lastPos = afmeerboei.getLocation().getPosition();
+                mObject.setPosition((float) (lastPos.getLatitude()), (float) (lastPos.getLongitude()), 0);
                 mObject.setRotation(90, 0, 90);
                 mObject.setScale(.3f);
                 mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
                 object3Ds.add(mObject);
             }
-
+            mCamera.setPosition((float) (lastPos.getLatitude()), (float) (lastPos.getLongitude()), -10);
             mCamera.rotateAround(object3Ds.get(0).getPosition(), 360);
-            return "Executed";
+            System.out.println("executed");
+            return true;
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(Boolean result) {
         }
 
         @Override
         protected void onPreExecute() {}
+
 
         @Override
         protected void onProgressUpdate(Void... values) {}

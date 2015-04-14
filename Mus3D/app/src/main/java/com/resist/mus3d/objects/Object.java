@@ -25,6 +25,10 @@ public class Object {
 		this.featureId = featureId;
 	}
 
+	public int getType() {
+		return TYPE;
+	}
+
 	public int getObjectid() {
 		return objectid;
 	}

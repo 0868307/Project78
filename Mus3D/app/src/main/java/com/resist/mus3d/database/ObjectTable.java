@@ -27,7 +27,7 @@ public class ObjectTable {
 
 	public Coordinate getCoordinates(com.resist.mus3d.objects.Object object) {
 		SparseArray<SparseArray<Point>> coords = new SparseArray<>();
-		Cursor c = db.rawQuery("SELECT * FROM coordinaten WHERE objecttype = ? AND id = ?", new String[] {String.valueOf(object.TYPE), String.valueOf(object.getObjectid())});
+		Cursor c = db.rawQuery("SELECT * FROM coordinaten WHERE objecttype = ? AND id = ?", new String[] {String.valueOf(object.getType()), String.valueOf(object.getObjectid())});
 		c.moveToFirst();
 		while(!c.isAfterLast()) {
 			int polygon = c.getInt(c.getColumnIndex("polygon"));

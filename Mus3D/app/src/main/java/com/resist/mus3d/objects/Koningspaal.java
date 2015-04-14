@@ -16,4 +16,8 @@ public class Koningspaal extends Common {
 		this.material = material;
 		this.wearMaterial = wearMaterial;
 	}
+
+	public int getType() {
+		return TYPE;
+	}
 }
