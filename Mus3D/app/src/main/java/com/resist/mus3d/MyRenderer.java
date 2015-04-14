@@ -5,7 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import android.opengl.GLES20;
+import android.os.AsyncTask;
 
+
+import com.resist.mus3d.database.Afmeerboeien;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -24,7 +30,7 @@ import rajawali.renderer.RajawaliRenderer;
 public class MyRenderer extends RajawaliRenderer {
     private DirectionalLight mLight;
     private BaseObject3D mSphere;
-
+    private ArrayList<BaseObject3D> object3Ds = new ArrayList<>();
     public MyRenderer(Context context) {
         super(context);
         setFrameRate(60);
@@ -71,5 +77,42 @@ public class MyRenderer extends RajawaliRenderer {
     }
     public void setCamera(float x, float y, float z){
         mCamera.setPosition(x,y,z);
+    }
+    private class LongOperation extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            Afmeerboeien afmeerboeien = new Afmeerboeien(Mus3D.getDatabase().getDatabase());
+            for(Object afmeerboei : afmeerboeien.getAll()){
+                ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
+
+                try {
+                    parser.parse();
+                } catch (AParser.ParsingException e) {
+                    e.printStackTrace();
+                }
+                BaseObject3D mObject = parser.getParsedObject();
+                addChild(mObject);
+                Random random = new Random();
+                mObject.setPosition(-1,mObject.getY() - (random.nextFloat()*10),mObject.getZ() - (random.nextFloat()*10));
+                mObject.setRotation(90, 0, 90);
+                mObject.setScale(.3f);
+                mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
+                object3Ds.add(mObject);
+            }
+
+            mCamera.rotateAround(object3Ds.get(0).getPosition(), 360);
+            return "Executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
     }
 }
