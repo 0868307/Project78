@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 
 
 import com.resist.mus3d.database.Afmeerboeien;
+import com.resist.mus3d.objects.Afmeerboei;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -51,7 +52,7 @@ public class MyRenderer extends RajawaliRenderer {
         }
         BaseObject3D mObject = parser.getParsedObject();
         addChild(mObject);
-
+        new LongOperation().execute();
         mCamera.setZ(4.2f);
         mCamera.setY(-1.5f);
         mObject.setRotation(40, 0, 70);
@@ -83,7 +84,7 @@ public class MyRenderer extends RajawaliRenderer {
         @Override
         protected String doInBackground(String... params) {
             Afmeerboeien afmeerboeien = new Afmeerboeien(Mus3D.getDatabase().getDatabase());
-            for(Object afmeerboei : afmeerboeien.getAll()){
+            for(Afmeerboei afmeerboei : afmeerboeien.getAll()){
                 ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
 
                 try {
@@ -93,8 +94,7 @@ public class MyRenderer extends RajawaliRenderer {
                 }
                 BaseObject3D mObject = parser.getParsedObject();
                 addChild(mObject);
-                Random random = new Random();
-                mObject.setPosition(-1,mObject.getY() - (random.nextFloat()*10),mObject.getZ() - (random.nextFloat()*10));
+                mObject.setPosition((float)(afmeerboei.getLocation().getPosition().getLatitude()),(float)(afmeerboei.getLocation().getPosition().getLongitude()),0);
                 mObject.setRotation(90, 0, 90);
                 mObject.setScale(.3f);
                 mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
