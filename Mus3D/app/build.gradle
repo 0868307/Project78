@@ -5,6 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
+
         applicationId "com.resist.mus3d"
         minSdkVersion 15
         targetSdkVersion 21
@@ -24,8 +25,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile files('libs/osmdroid-android-4.2.jar')
     compile files('libs/slf4j-android-1.6.1-RC1.jar')
+    compile project(':rajawali-0.9')
 }

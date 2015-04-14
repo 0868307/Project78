@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import rajawali.RajawaliActivity;
 
 public class MainActivity extends ActionBarActivity {
     private static List<JSONObject> objectJSON = null;
@@ -23,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     @Override
@@ -49,6 +51,11 @@ public class MainActivity extends ActionBarActivity {
 
     public void btn_map(View view) {
         Intent intent = new Intent(this, Map.class);
+        startActivity(intent);
+    }
+
+    public void teken_2D(View view){
+        Intent intent = new Intent(this, Rajawali.class);
         startActivity(intent);
     }
 }
