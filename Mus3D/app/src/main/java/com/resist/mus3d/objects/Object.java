@@ -53,6 +53,10 @@ public class Object {
 		return featureId;
 	}
 
+	public void setLocation(Coordinate coordinate) {
+		location = coordinate;
+	}
+
 	public Coordinate getLocation() {
 		if(location == null) {
 			location = new ObjectTable(Mus3D.getDatabase().getDatabase()).getCoordinates(this);

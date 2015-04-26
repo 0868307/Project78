@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Afmeerboeien extends ObjectTable {
-	private static final DateFormat DATE = new SimpleDateFormat("yyyy/MM/dd");
 
 	public Afmeerboeien(SQLiteDatabase db) {
 		super(db);

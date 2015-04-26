@@ -23,6 +23,10 @@ public class Anchorage extends Object {
 	private String primaryFunction;
 	private String type;
 
+	public Anchorage(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId) {
+		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
+	}
+
 	public Anchorage(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String complexId, String globalId, String kenmerkZe, String lxmeText, Date occupiedFrom, String occRecNo, Date occupiedTill, String vacReason, String xmeText, String afmeerVz, String owner, String use, Harbour harbour, String anchorage, String nauticalState, String shoreNo, String primaryFunction, String type) {
 		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
 		this.complexId = complexId;
