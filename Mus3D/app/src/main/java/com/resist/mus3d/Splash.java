@@ -14,7 +14,7 @@ public class Splash extends Activity {
     }
 
     private void loadInBackground() {
-        Intent i = new Intent(Splash.this, MainActivity.class);
+        Intent i = new Intent(Splash.this, RollSelector.class);
         new SplashLoader(this, i, 500).execute();
     }
 }

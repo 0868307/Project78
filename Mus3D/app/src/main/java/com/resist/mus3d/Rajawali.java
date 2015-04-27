@@ -1,7 +1,9 @@
 package com.resist.mus3d;
 
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import rajawali.RajawaliActivity;
 
 public class Rajawali extends RajawaliActivity {
@@ -13,6 +15,33 @@ public class Rajawali extends RajawaliActivity {
         myRenderer.setSurfaceView(mSurfaceView);
 
         super.setRenderer(myRenderer);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch(id) {
+            case R.id.settings_Settings:
+                Intent i = new Intent(this, Settings.class);
+                startActivity(i);
+                break;
+            case R.id.settings_Map:
+                Intent j = new Intent(this, Map.class);
+                startActivity(j);
+                break;
+            case R.id.settings_Rajawali:
+                Intent k = new Intent(this, Rajawali.class);
+                startActivity(k);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

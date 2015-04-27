@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">Mus3D</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Instellingen</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_rajawali">RajawaliActivity</string>
+    <string name="title_activity_settings">Instellingen</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_roll_selector">RollSelector</string>
+    <string name="rollSelector_btn_submit">Ga door</string>
+    <string name="rollSelector_tv">Selecteer uw rol. Via instellingen kunt u deze later alsnog aanpassen</string>
+    <string name="rollSelector_rb_Roeier">Roeier</string>
+    <string name="rollSelector_rb_Loods">Loods</string>
 </resources>

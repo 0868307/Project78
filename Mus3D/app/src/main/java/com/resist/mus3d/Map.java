@@ -1,15 +1,19 @@
 package com.resist.mus3d;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
+import android.widget.Toast;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
@@ -68,7 +72,7 @@ public class Map extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_map, menu);
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
 
@@ -76,8 +80,19 @@ public class Map extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id) {
+            case R.id.settings_Settings:
+                Intent i = new Intent(this, Settings.class);
+                startActivity(i);
+                break;
+            case R.id.settings_Map:
+                Intent j = new Intent(this, Map.class);
+                startActivity(j);
+                break;
+            case R.id.settings_Rajawali:
+                Intent k = new Intent(this, Rajawali.class);
+                startActivity(k);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
