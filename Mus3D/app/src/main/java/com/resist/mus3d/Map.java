@@ -56,6 +56,7 @@ public class Map extends ActionBarActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Log.d(Mus3D.LOG_TAG, location.toString());
 
         if( location != null ) {
                 currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
