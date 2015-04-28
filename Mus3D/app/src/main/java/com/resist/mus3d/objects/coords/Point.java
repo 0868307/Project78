@@ -14,8 +14,8 @@ public class Point implements Coordinate {
 	}
 
     public Point(GeoPoint geoPoint) {
-        this.x = geoPoint.getLatitude();
-        this.y = geoPoint.getLongitude();
+        this.y = geoPoint.getLatitude();
+        this.x = geoPoint.getLongitude();
     }
 
 	public double getX() {
@@ -28,7 +28,7 @@ public class Point implements Coordinate {
 
 	public Position getPosition() {
 		if(cachedPosition == null) {
-			cachedPosition = new Position(x, y);
+			cachedPosition = new Position(y, x);
 		}
 		return cachedPosition;
 	}
