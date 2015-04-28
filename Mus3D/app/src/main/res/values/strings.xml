@@ -7,9 +7,9 @@
     <string name="title_activity_settings">Instellingen</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_roll_selector">RollSelector</string>
-    <string name="rollSelector_btn_submit">Ga door</string>
-    <string name="rollSelector_tv">Selecteer uw rol. Via instellingen kunt u deze later alsnog aanpassen</string>
-    <string name="rollSelector_rb_Roeier">Roeier</string>
-    <string name="rollSelector_rb_Loods">Loods</string>
+    <string name="title_activity_roll_selector">RoleSelector</string>
+    <string name="roleSelector_btn_submit">Ga door</string>
+    <string name="roleSelector_tv">Selecteer uw rol. Via instellingen kunt u deze later alsnog aanpassen</string>
+    <string name="roleSelector_rb_Roeier">Roeier</string>
+    <string name="roleSelector_rb_Loods">Loods</string>
 </resources>
