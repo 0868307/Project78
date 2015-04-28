@@ -1,5 +1,8 @@
 package com.resist.mus3d;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -11,15 +14,15 @@ import org.osmdroid.util.GeoPoint;
  */
 public class LocationTracker implements LocationListener {
     private GeoPoint currentLocation;
-    private Map map;
+    private Activity activity;
 
-    public LocationTracker(Map map) {
-        this.map = map;
+    public LocationTracker(Activity activity) {
+        this.activity = activity;
     }
 
     public void onLocationChanged(Location location) {
         currentLocation = new GeoPoint(location);
-        map.displayMyCurrentLocationOverlay();
+        activity.recreate();
     }
 
     public void onProviderDisabled(String provider) {
