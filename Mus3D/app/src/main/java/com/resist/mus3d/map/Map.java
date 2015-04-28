@@ -49,7 +49,7 @@ public class Map extends ActionBarActivity {
         mapView.setMultiTouchControls(true);
         mapController = (MapController) this.mapView.getController();
         mapController.setZoom(16);
-		mapView.setMapListener(new DelayedMapListener(new MapScrollListener(this), 500));
+		mapView.setMapListener(new DelayedMapListener(new MapScrollListener(this), 300));
 
         overlayItemArray = new ArrayList<OverlayItem>();
 
@@ -71,7 +71,7 @@ public class Map extends ActionBarActivity {
 	public void updateMarkers(IGeoPoint location) {
 		List<OverlayItem> overlayItemArray = new ArrayList<>();
 		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-		List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.01);
+		List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.005);
 		Log.d(Mus3D.LOG_TAG, "Number of markers: "+list.size());
 
 		for(Object o : list) {
