@@ -20,6 +20,7 @@ import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
 
 import org.osmdroid.api.IGeoPoint;
+import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
@@ -48,7 +49,7 @@ public class Map extends ActionBarActivity {
         mapView.setMultiTouchControls(true);
         mapController = (MapController) this.mapView.getController();
         mapController.setZoom(16);
-		mapView.setMapListener(new MapScrollListener(this));
+		mapView.setMapListener(new DelayedMapListener(new MapScrollListener(this), 500));
 
         overlayItemArray = new ArrayList<OverlayItem>();
 

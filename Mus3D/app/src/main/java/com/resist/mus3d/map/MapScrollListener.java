@@ -1,11 +1,14 @@
 package com.resist.mus3d.map;
 
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.events.MapListener;
 import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.events.ZoomEvent;
 
 public class MapScrollListener implements MapListener {
 	private Map map;
+	private double lastLatitude;
+	private double lastLongitude;
 
 	public MapScrollListener(Map map) {
 		this.map = map;
@@ -13,7 +16,12 @@ public class MapScrollListener implements MapListener {
 
 	@Override
 	public boolean onScroll(ScrollEvent scrollEvent) {
-		map.updateMarkers(scrollEvent.getSource().getMapCenter());
+		IGeoPoint loc = scrollEvent.getSource().getMapCenter();
+		if(lastLatitude != loc.getLatitude() || lastLongitude != loc.getLongitude()) {
+			lastLatitude = loc.getLatitude();
+			lastLongitude = loc.getLongitude();
+			map.updateMarkers(loc);
+		}
 		return true;
 	}
 
