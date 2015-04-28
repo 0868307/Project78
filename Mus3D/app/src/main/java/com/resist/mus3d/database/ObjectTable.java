@@ -17,10 +17,7 @@ import org.osmdroid.util.Position;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ObjectTable {
 	protected static final DateFormat DATE = new SimpleDateFormat("yyyy/MM/dd");
@@ -38,9 +35,10 @@ public class ObjectTable {
 		int polygon = c.getInt(c.getColumnIndex("polygon"));
 		int multipoint = c.getInt(c.getColumnIndex("multipoint"));
 		Point p = new Point(
-				c.getInt(c.getColumnIndex("x")),
-				c.getInt(c.getColumnIndex("y"))
+				c.getDouble(c.getColumnIndex("x")),
+				c.getDouble(c.getColumnIndex("y"))
 		);
+
 		if(coords.get(polygon) == null) {
 			coords.put(polygon, new SparseArray<Point>());
 		}
@@ -96,11 +94,11 @@ public class ObjectTable {
 		Map<com.resist.mus3d.objects.Object, SparseArray<SparseArray<Point>>> coords = new HashMap<>();
 
 		Cursor c = db.rawQuery(
-				"SELECT objecten.*, coordinaten.polygon, coordinaten.multipoint, coordinaten.x, coordinaten.y" +
-				"FROM objecten" +
-				"JOIN coordinaten" +
-				"ON(objecten.objecttype = coordinaten.objecttype AND objecten.objectid = coordinaten.id)" +
-				"WHERE (x-?)*(x-?)+(y-?)*(y-?) <= ?" +
+				"SELECT objecten.*, coordinaten.polygon, coordinaten.multipoint, coordinaten.x, coordinaten.y " +
+				"FROM objecten " +
+				"JOIN coordinaten " +
+				"ON(objecten.objecttype = coordinaten.objecttype AND objecten.objectid = coordinaten.id) " +
+				"WHERE (x-?)*(x-?)+(y-?)*(y-?) <= ? " +
 				"ORDER BY objecttype, objectid",
 				new String[] {
 						x, x, y, y, String.valueOf(distance*distance)
@@ -126,6 +124,13 @@ public class ObjectTable {
 		return out;
 	}
 
+    protected Date parseDate(String date) throws ParseException {
+        if(date == null) {
+            return null;
+        }
+        return DATE.parse(date);
+    }
+
 	private com.resist.mus3d.objects.Object createObjectFromCursor(Cursor c) {
 		int type = c.getInt(c.getColumnIndex("objecttype"));
 		try {
@@ -133,46 +138,46 @@ public class ObjectTable {
 				return new Afmeerboei(
 						c.getInt(c.getColumnIndex("objectid")),
 						c.getString(c.getColumnIndex("createdBy")),
-						DATE.parse(c.getString(c.getColumnIndex("createdAt"))),
+                        parseDate(c.getString(c.getColumnIndex("createdAt"))),
 						c.getString(c.getColumnIndex("editedBy")),
-						DATE.parse(c.getString(c.getColumnIndex("editedAt"))),
+                        parseDate(c.getString(c.getColumnIndex("editedAt"))),
 						c.getString(c.getColumnIndex("featureId"))
 				);
 			} else if(type == Anchorage.TYPE) {
 				return new Anchorage(
-						c.getInt(c.getColumnIndex("objectid")),
-						c.getString(c.getColumnIndex("createdBy")),
-						DATE.parse(c.getString(c.getColumnIndex("createdAt"))),
-						c.getString(c.getColumnIndex("editedBy")),
-						DATE.parse(c.getString(c.getColumnIndex("editedAt"))),
-						c.getString(c.getColumnIndex("featureId"))
+                        c.getInt(c.getColumnIndex("objectid")),
+                        c.getString(c.getColumnIndex("createdBy")),
+                        parseDate(c.getString(c.getColumnIndex("createdAt"))),
+                        c.getString(c.getColumnIndex("editedBy")),
+                        parseDate(c.getString(c.getColumnIndex("editedAt"))),
+                        c.getString(c.getColumnIndex("featureId"))
 				);
 			} else if(type == Bolder.TYPE) {
 				return new Bolder(
-						c.getInt(c.getColumnIndex("objectid")),
-						c.getString(c.getColumnIndex("createdBy")),
-						DATE.parse(c.getString(c.getColumnIndex("createdAt"))),
-						c.getString(c.getColumnIndex("editedBy")),
-						DATE.parse(c.getString(c.getColumnIndex("editedAt"))),
-						c.getString(c.getColumnIndex("featureId"))
+                        c.getInt(c.getColumnIndex("objectid")),
+                        c.getString(c.getColumnIndex("createdBy")),
+                        parseDate(c.getString(c.getColumnIndex("createdAt"))),
+                        c.getString(c.getColumnIndex("editedBy")),
+                        parseDate(c.getString(c.getColumnIndex("editedAt"))),
+                        c.getString(c.getColumnIndex("featureId"))
 				);
 			} else if(type == Koningspaal.TYPE) {
 				return new Koningspaal(
-						c.getInt(c.getColumnIndex("objectid")),
-						c.getString(c.getColumnIndex("createdBy")),
-						DATE.parse(c.getString(c.getColumnIndex("createdAt"))),
-						c.getString(c.getColumnIndex("editedBy")),
-						DATE.parse(c.getString(c.getColumnIndex("editedAt"))),
-						c.getString(c.getColumnIndex("featureId"))
+                        c.getInt(c.getColumnIndex("objectid")),
+                        c.getString(c.getColumnIndex("createdBy")),
+                        parseDate(c.getString(c.getColumnIndex("createdAt"))),
+                        c.getString(c.getColumnIndex("editedBy")),
+                        parseDate(c.getString(c.getColumnIndex("editedAt"))),
+                        c.getString(c.getColumnIndex("featureId"))
 				);
 			} else if(type == Meerpaal.TYPE) {
 				return new Meerpaal(
-						c.getInt(c.getColumnIndex("objectid")),
-						c.getString(c.getColumnIndex("createdBy")),
-						DATE.parse(c.getString(c.getColumnIndex("createdAt"))),
-						c.getString(c.getColumnIndex("editedBy")),
-						DATE.parse(c.getString(c.getColumnIndex("editedAt"))),
-						c.getString(c.getColumnIndex("featureId"))
+                        c.getInt(c.getColumnIndex("objectid")),
+                        c.getString(c.getColumnIndex("createdBy")),
+                        parseDate(c.getString(c.getColumnIndex("createdAt"))),
+                        c.getString(c.getColumnIndex("editedBy")),
+                        parseDate(c.getString(c.getColumnIndex("editedAt"))),
+                        c.getString(c.getColumnIndex("featureId"))
 				);
 			}
 		} catch (ParseException e) {

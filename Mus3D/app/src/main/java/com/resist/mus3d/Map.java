@@ -9,11 +9,17 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
 import android.widget.Toast;
+import com.resist.mus3d.database.Afmeerboeien;
+import com.resist.mus3d.database.ObjectTable;
+import com.resist.mus3d.objects.*;
+import com.resist.mus3d.objects.Object;
+import com.resist.mus3d.objects.coords.Point;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
@@ -32,7 +38,6 @@ public class Map extends ActionBarActivity {
     private List<OverlayItem> overlayItemArray;
     private LocationListener locationListener;
     private GeoPoint currentLocation;
-    private SimpleLocationOverlay currentLocationOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +56,34 @@ public class Map extends ActionBarActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if( location != null ) {
+
+        if( location != null ) {
                 currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
             }
 
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(this);
         mapView.getOverlays().add(myScaleBarOverlay);
+        displayMyCurrentLocationOverlay();
     }
 
     public void displayMyCurrentLocationOverlay() {
-        if( currentLocation != null) {
+        if(currentLocation != null) {
             mapView.getController().setCenter(currentLocation);
             overlayItemArray.clear();
-            OverlayItem currentloc = new OverlayItem("location", "Current location", currentLocation);
-            overlayItemArray.add(currentloc);
+
+            OverlayItem currentLoc = new OverlayItem("location", "Huidige location", currentLocation);
+            ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
+            List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(currentLocation), 0.00000000000001);
+            Log.d(Mus3D.LOG_TAG, list.size()+"");
+
+            for(Object o : list) {
+                GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLongitude(), o.getLocation().getPosition().getLatitude());
+
+                OverlayItem objectLoc = new OverlayItem(o.getObjectid() +" "+ o.getType(), o.getLocation().toString(), object);
+                overlayItemArray.add(objectLoc);
+            }
+
+            overlayItemArray.add(currentLoc);
             ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
             mapView.getOverlays().add(itemizedIconOverlay);
         }
