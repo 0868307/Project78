@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference     android:title="Huidige rol"
                         android:summary="Selecteer uw huidige rol"
-                        android:key="rollSelector"
+                        android:key="roleSelector"
                         android:defaultValue="1"
                         android:entries="@array/listArray"
                         android:entryValues="@array/listValues" />
