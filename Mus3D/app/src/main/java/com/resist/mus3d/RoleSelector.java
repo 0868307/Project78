@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 
+import com.resist.mus3d.map.Map;
+
 public class RoleSelector extends Activity {
 	public static final String ROLE_ROEIER = "1";
 	public static final String ROLE_LOODS = "2";

@@ -7,11 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.resist.mus3d.map.Map;
+
 import org.json.JSONObject;
 
 import java.util.List;
-
-import rajawali.RajawaliActivity;
 
 public class MainActivity extends ActionBarActivity {
     private static List<JSONObject> objectJSON = null;

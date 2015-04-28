@@ -89,8 +89,8 @@ public class ObjectTable {
 	public List<? extends com.resist.mus3d.objects.Object> getObjectsAround(Coordinate location, double distance) {
 		List<com.resist.mus3d.objects.Object> out = new ArrayList<>();
 		Position pos = location.getPosition();
-		String y = String.valueOf(pos.getLatitude());
 		String x = String.valueOf(pos.getLongitude());
+		String y = String.valueOf(pos.getLatitude());
 		Map<com.resist.mus3d.objects.Object, SparseArray<SparseArray<Point>>> coords = new HashMap<>();
 
 		Cursor c = db.rawQuery(
@@ -99,7 +99,7 @@ public class ObjectTable {
 				"JOIN coordinaten " +
 				"ON(objecten.objecttype = coordinaten.objecttype AND objecten.objectid = coordinaten.id) " +
 				"WHERE (x-?)*(x-?)+(y-?)*(y-?) <= ? " +
-				"ORDER BY objecttype, objectid",
+				"ORDER BY objecten.objecttype, objectid",
 				new String[] {
 						x, x, y, y, String.valueOf(distance*distance)
 				}

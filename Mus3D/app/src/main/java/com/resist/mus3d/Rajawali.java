@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.resist.mus3d.map.Map;
+
 import rajawali.RajawaliActivity;
 
 public class Rajawali extends RajawaliActivity {
