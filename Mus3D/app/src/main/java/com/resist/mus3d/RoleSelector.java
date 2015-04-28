@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.RadioButton;
 
 public class RoleSelector extends Activity {
-	private static final int ROEIER = 1;
-	private static final int LOODS = 2;
+	public static final int ROLE_ROEIER = 1;
+	public static final int ROLE_LOODS = 2;
     private SharedPreferences prefs;
-    private int storedRoll;
+    private int storedRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class RoleSelector extends Activity {
         setContentView(R.layout.activity_role_selector);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        storedRoll = prefs.getInt("roleSelector", 0);
+        storedRole = prefs.getInt("roleSelector", 0);
     }
 
     public void submit(View view) {
@@ -33,14 +33,14 @@ public class RoleSelector extends Activity {
         RadioButton rbLoods = (RadioButton) findViewById(R.id.rb_RolLoods);
 
         if(rbRoeier.isChecked()) {
-            editor.putInt("roleSelector", ROEIER);
+            editor.putInt("roleSelector", ROLE_ROEIER);
             editor.apply();
 
             Intent intent = new Intent(this, Map.class);
             startActivity(intent);
             finish();
         } else if(rbLoods.isChecked()) {
-            editor.putInt("roleSelector", LOODS);
+            editor.putInt("roleSelector", ROLE_LOODS);
             editor.apply();
 
             Intent intent = new Intent(this, Rajawali.class);

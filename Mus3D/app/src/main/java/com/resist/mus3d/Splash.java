@@ -2,7 +2,9 @@ package com.resist.mus3d;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 public class Splash extends Activity {
     @Override
@@ -14,7 +16,16 @@ public class Splash extends Activity {
     }
 
     private void loadInBackground() {
-        Intent i = new Intent(Splash.this, RoleSelector.class);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		int storedRole = prefs.getInt("roleSelector", 0);
+		Intent i;
+		if(storedRole == 0) {
+			i = new Intent(Splash.this, RoleSelector.class);
+		} else if(storedRole == RoleSelector.ROLE_ROEIER) {
+			i = new Intent(Splash.this, Map.class);
+		} else {
+			i = new Intent(Splash.this, Rajawali.class);
+		}
         new SplashLoader(this, i, 500).execute();
     }
 }
