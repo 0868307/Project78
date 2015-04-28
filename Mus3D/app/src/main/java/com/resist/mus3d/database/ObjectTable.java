@@ -91,6 +91,7 @@ public class ObjectTable {
 		Position pos = location.getPosition();
 		String x = String.valueOf(pos.getLongitude());
 		String y = String.valueOf(pos.getLatitude());
+		String d = String.valueOf(distance);
 		Map<com.resist.mus3d.objects.Object, SparseArray<SparseArray<Point>>> coords = new HashMap<>();
 
 		Cursor c = db.rawQuery(
@@ -98,10 +99,10 @@ public class ObjectTable {
 				"FROM objecten " +
 				"JOIN coordinaten " +
 				"ON(objecten.objecttype = coordinaten.objecttype AND objecten.objectid = coordinaten.id) " +
-				"WHERE (x-?)*(x-?)+(y-?)*(y-?) <= ? " +
+				"WHERE (coordinaten.x-?)*(coordinaten.x-?)+(coordinaten.y-?)*(coordinaten.y-?) <= ?*? " +
 				"ORDER BY objecten.objecttype, objectid",
 				new String[] {
-						x, x, y, y, String.valueOf(distance*distance)
+						x, x, y, y, d, d
 				}
 		);
 		com.resist.mus3d.objects.Object current = null;

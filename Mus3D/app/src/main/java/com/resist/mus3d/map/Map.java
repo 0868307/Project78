@@ -70,8 +70,8 @@ public class Map extends ActionBarActivity {
 	public void updateMarkers(IGeoPoint location) {
 		List<OverlayItem> overlayItemArray = new ArrayList<>();
 		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-		List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.00000000000001);
-		Log.d(Mus3D.LOG_TAG, list.size()+"");
+		List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.01);
+		Log.d(Mus3D.LOG_TAG, "Number of markers: "+list.size());
 
 		for(Object o : list) {
 			GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLongitude(), o.getLocation().getPosition().getLatitude());
@@ -80,6 +80,7 @@ public class Map extends ActionBarActivity {
 			overlayItemArray.add(objectLoc);
 		}
 		ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
+		mapView.getOverlays().clear();
 		mapView.getOverlays().add(itemizedIconOverlay);
 	}
 
