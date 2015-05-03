@@ -55,6 +55,7 @@ public class MyRenderer extends RajawaliRenderer {
         BaseObject3D mObject = parser.getParsedObject();
         //addChild(mObject);
         new LongOperation().execute();
+        mCamera.setLookAt(0,0,0);
         mCamera.setZ(4.2f);
         mCamera.setY(-1.5f);
         mObject.setRotation(40, 0, 70);
@@ -81,6 +82,8 @@ public class MyRenderer extends RajawaliRenderer {
     public void setCamera(float x, float y, float z){
         mCamera.setPosition(x,y,z);
     }
+    public void setCameraRotation(float x, float y, float z){
+        mCamera.setRotation(x,y,z);}
     private class LongOperation extends AsyncTask<String, Void, Boolean> {
 
         @Override
@@ -104,8 +107,6 @@ public class MyRenderer extends RajawaliRenderer {
                 mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
                 object3Ds.add(mObject);
             }
-            mCamera.setPosition((float) (lastPos.getLatitude()), (float) (lastPos.getLongitude()), -10);
-            mCamera.rotateAround(object3Ds.get(0).getPosition(), 360);
             System.out.println("executed");
             return true;
         }

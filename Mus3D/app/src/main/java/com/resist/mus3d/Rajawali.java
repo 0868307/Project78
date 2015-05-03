@@ -74,16 +74,20 @@ public class Rajawali extends RajawaliActivity implements GpsActivity{
     public void update() {
         if(locationListener != null) {
             if (locationListener.getCurrentLocation() != null) {
-                System.out.println("");
+                /*System.out.println("");
                 System.out.println(
-                        "\n latitude : " + (float) locationListener.getCurrentLocation().getLatitude() +
+                        "latitude : " + (float) locationListener.getCurrentLocation().getLatitude() +
                                 "\n longtitude : " + (float) locationListener.getCurrentLocation().getLongitude() +
-                                "\n altitude : " + (float) locationListener.getCurrentLocation().getAltitude());
+                                "\n altitude : " + (float) locationListener.getCurrentLocation().getAltitude()+
+                        "\n angle : " +  locationListener.getLastDirection()
+                );
+                */
                 myRenderer.setCamera(
                         (float) locationListener.getCurrentLocation().getLatitude(),
                         (float) locationListener.getCurrentLocation().getLongitude(),
-                        (float) locationListener.getCurrentLocation().getAltitude()
+                        0
                 );
+                myRenderer.setCameraRotation(locationListener.getLastDirection(),0,0);
             }
         }
     }
