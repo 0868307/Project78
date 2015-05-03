@@ -59,7 +59,17 @@ public class Rajawali extends RajawaliActivity implements GpsActivity{
         }
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    protected void onStop() {
+        locationListener.onStop();
+        super.onStop();
+    }
 
+    @Override
+    protected void onResume() {
+        locationListener.onResume();
+        super.onResume();
+    }
     @Override
     public void update() {
         if(locationListener.getCurrentLocation() != null){
