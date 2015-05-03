@@ -1,7 +1,5 @@
 package com.resist.mus3d.map;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
@@ -10,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.resist.mus3d.GpsActivity;
 import com.resist.mus3d.Mus3D;
@@ -21,6 +20,7 @@ import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
 
 import org.osmdroid.api.IGeoPoint;
+import org.osmdroid.api.Marker;
 import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -32,7 +32,7 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Map extends ActionBarActivity implements GpsActivity{
+public class Map extends ActionBarActivity implements GpsActivity {
     private MapView mapView;
     private MapController mapController;
     private LocationManager locationManager;
@@ -49,7 +49,7 @@ public class Map extends ActionBarActivity implements GpsActivity{
         mapView.setMultiTouchControls(true);
         mapController = (MapController) this.mapView.getController();
         mapController.setZoom(16);
-		mapView.setMapListener(new DelayedMapListener(new MapScrollListener(this), 300));
+        mapView.setMapListener(new DelayedMapListener(new MapScrollListener(this), 300));
 
         overlayItemArray = new ArrayList<OverlayItem>();
 
@@ -59,48 +59,53 @@ public class Map extends ActionBarActivity implements GpsActivity{
         displayMyCurrentLocationOverlay();
     }
 
-	public void updateMarkers(IGeoPoint location) {
-		List<OverlayItem> overlayItemArray = new ArrayList<>();
-		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-		List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.005);
+    public void updateMarkers(IGeoPoint location) {
+        List<OverlayItem> overlayItemArray = new ArrayList<>();
+        ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
+        List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.005);
 
-		for(Object o : list) {
-			GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLongitude(), o.getLocation().getPosition().getLatitude());
+        for (Object o : list) {
+            GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLongitude(), o.getLocation().getPosition().getLatitude());
+            OverlayItem objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
 
-			OverlayItem objectLoc = new OverlayItem(o.getType()+"", o.getObjectid()+"", object);
-            if(objectLoc.getTitle().equals("0")) {
-                //Wat is deze??
-            }else if(objectLoc.getTitle().equals("1")) {
+            if (objectLoc.getTitle().equals("0")) {
+                //Afmeerboei
+                Drawable icon = this.getResources().getDrawable(R.drawable.ic_afmeerboei);
+                objectLoc.setMarker(icon);
+            } else if (objectLoc.getTitle().equals("1")) {
                 //Bolders
                 Drawable icon = this.getResources().getDrawable(R.drawable.ic_bolder);
                 objectLoc.setMarker(icon);
-                icon.setBounds(0 - icon.getIntrinsicWidth() / 2, 0 - icon.getIntrinsicHeight(), icon.getIntrinsicWidth() / 2, 0);
-            }else if(objectLoc.getTitle().equals("2")) {
-                // Koningspalen denk ik?
+            } else if (objectLoc.getTitle().equals("2")) {
+                // Koningspalen
                 Drawable icon = this.getResources().getDrawable(R.drawable.ic_koningspaal);
                 objectLoc.setMarker(icon);
-                icon.setBounds(0 - icon.getIntrinsicWidth() / 2, 0 - icon.getIntrinsicHeight(), icon.getIntrinsicWidth() / 2, 0);
+            } else if (objectLoc.getTitle().equals("3")) {
+                //aanlegplaats
+                Drawable icon = this.getResources().getDrawable(R.drawable.ic_aanlegplaats);
+                objectLoc.setMarker(icon);
+            } else if (objectLoc.getTitle().equals("4")) {
+                //Meerpaal
+                Drawable icon = this.getResources().getDrawable(R.drawable.ic_meerpaal);
+                objectLoc.setMarker(icon);
             } else {
                 //Al het andere
                 Drawable icon = this.getResources().getDrawable(R.drawable.ic_onbekend);
                 objectLoc.setMarker(icon);
-                icon.setBounds(0 - icon.getIntrinsicWidth() / 2, 0 - icon.getIntrinsicHeight(), icon.getIntrinsicWidth() / 2, 0);
             }
-                overlayItemArray.add(objectLoc);
-		}
+            overlayItemArray.add(objectLoc);
+        }
 
-		ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
-
+        ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
 
         mapView.getOverlays().clear();
-		mapView.getOverlays().add(itemizedIconOverlay);
-	}
+        mapView.getOverlays().add(itemizedIconOverlay);
+    }
 
     public void displayMyCurrentLocationOverlay() {
-        if(locationListener != null){
-            if(locationListener.getCurrentLocation() != null){
-
-                GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(),locationListener.getCurrentLocation().getLongitude());
+        if (locationListener != null) {
+            if (locationListener.getCurrentLocation() != null) {
+                GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(), locationListener.getCurrentLocation().getLongitude());
                 mapView.getController().setCenter(currentLocation);
                 overlayItemArray.clear();
 
@@ -124,7 +129,7 @@ public class Map extends ActionBarActivity implements GpsActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch(id) {
+        switch (id) {
             case R.id.settings_Settings:
                 Intent i = new Intent(this, Settings.class);
                 startActivity(i);
