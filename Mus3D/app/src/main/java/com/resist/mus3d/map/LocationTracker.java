@@ -28,7 +28,8 @@ public class LocationTracker implements LocationListener {
     }
 
     public void onLocationChanged(Location location) {
-       currentLocation = location;
+        currentLocation = location;
+        activity.update();
     }
 
     public void onProviderDisabled(String provider) {

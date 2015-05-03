@@ -74,16 +74,19 @@ public class Map extends ActionBarActivity implements GpsActivity{
 	}
 
     public void displayMyCurrentLocationOverlay() {
-        GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(),locationListener.getCurrentLocation().getLongitude());
-        if(currentLocation != null) {
-            mapView.getController().setCenter(currentLocation);
-            overlayItemArray.clear();
+        if(locationListener != null){
+            if(locationListener.getCurrentLocation() != null){
 
-            OverlayItem currentLoc = new OverlayItem("location", "Huidige location", currentLocation);
+                GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(),locationListener.getCurrentLocation().getLongitude());
+                mapView.getController().setCenter(currentLocation);
+                overlayItemArray.clear();
 
-            overlayItemArray.add(currentLoc);
-            ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
-            mapView.getOverlays().add(itemizedIconOverlay);
+                OverlayItem currentLoc = new OverlayItem("location", "Huidige location", currentLocation);
+
+                overlayItemArray.add(currentLoc);
+                ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
+                mapView.getOverlays().add(itemizedIconOverlay);
+            }
         }
     }
 
@@ -128,6 +131,6 @@ public class Map extends ActionBarActivity implements GpsActivity{
 
     @Override
     public void update() {
-
+        displayMyCurrentLocationOverlay();
     }
 }
