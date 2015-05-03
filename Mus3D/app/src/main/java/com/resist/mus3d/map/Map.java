@@ -1,6 +1,9 @@
 package com.resist.mus3d.map;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -60,16 +63,36 @@ public class Map extends ActionBarActivity implements GpsActivity{
 		List<OverlayItem> overlayItemArray = new ArrayList<>();
 		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
 		List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.005);
-		Log.d(Mus3D.LOG_TAG, "Number of markers: "+list.size());
 
 		for(Object o : list) {
 			GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLongitude(), o.getLocation().getPosition().getLatitude());
 
-			OverlayItem objectLoc = new OverlayItem(o.getObjectid() +" "+ o.getType(), o.getLocation().toString(), object);
-			overlayItemArray.add(objectLoc);
+			OverlayItem objectLoc = new OverlayItem(o.getType()+"", o.getObjectid()+"", object);
+            if(objectLoc.getTitle().equals("0")) {
+                //Wat is deze??
+            }else if(objectLoc.getTitle().equals("1")) {
+                //Bolders
+                Drawable icon = this.getResources().getDrawable(R.drawable.ic_bolder);
+                objectLoc.setMarker(icon);
+                icon.setBounds(0 - icon.getIntrinsicWidth() / 2, 0 - icon.getIntrinsicHeight(), icon.getIntrinsicWidth() / 2, 0);
+            }else if(objectLoc.getTitle().equals("2")) {
+                // Koningspalen denk ik?
+                Drawable icon = this.getResources().getDrawable(R.drawable.ic_koningspaal);
+                objectLoc.setMarker(icon);
+                icon.setBounds(0 - icon.getIntrinsicWidth() / 2, 0 - icon.getIntrinsicHeight(), icon.getIntrinsicWidth() / 2, 0);
+            } else {
+                //Al het andere
+                Drawable icon = this.getResources().getDrawable(R.drawable.ic_onbekend);
+                objectLoc.setMarker(icon);
+                icon.setBounds(0 - icon.getIntrinsicWidth() / 2, 0 - icon.getIntrinsicHeight(), icon.getIntrinsicWidth() / 2, 0);
+            }
+                overlayItemArray.add(objectLoc);
 		}
+
 		ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
-		mapView.getOverlays().clear();
+
+
+        mapView.getOverlays().clear();
 		mapView.getOverlays().add(itemizedIconOverlay);
 	}
 
@@ -85,6 +108,7 @@ public class Map extends ActionBarActivity implements GpsActivity{
 
                 overlayItemArray.add(currentLoc);
                 ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
+
                 mapView.getOverlays().add(itemizedIconOverlay);
             }
         }
@@ -131,6 +155,7 @@ public class Map extends ActionBarActivity implements GpsActivity{
 
     @Override
     public void update() {
-        displayMyCurrentLocationOverlay();
+        //Commented omdat je anders heel de tijd naar huidige locatie gaat en je dus geen objecten kan bekijken.
+        //displayMyCurrentLocationOverlay();
     }
 }

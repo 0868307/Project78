@@ -1,23 +1,12 @@
 package com.resist.mus3d;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.map.Map;
-
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.overlay.OverlayItem;
-
-import java.util.List;
-
 import rajawali.RajawaliActivity;
 
 public class Rajawali extends RajawaliActivity implements GpsActivity{

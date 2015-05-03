@@ -65,13 +65,13 @@ public class LocationTracker implements LocationListener, SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        System.out.println(
+        /*System.out.println(
                 "directions :"+"\n"+
                         "\n"+event.values[0]+
                         "\n"+event.values[1]+
                         "\n"+event.values[2]
 
-        );
+        );*/
         lastDirection = event.values[0];
     }
 

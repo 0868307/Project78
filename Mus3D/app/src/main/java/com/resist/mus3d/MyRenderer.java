@@ -19,17 +19,11 @@ import java.util.Random;
 import javax.microedition.khronos.opengles.GL10;
 
 import rajawali.BaseObject3D;
-import rajawali.OrthographicCamera;
 import rajawali.lights.DirectionalLight;
-import rajawali.materials.SimpleMaterial;
-import rajawali.materials.ToonMaterial;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
 import rajawali.renderer.RajawaliRenderer;
 
-/**
- * Created by Thomas on 23-3-2015.
- */
 public class MyRenderer extends RajawaliRenderer {
     private DirectionalLight mLight;
     private BaseObject3D mSphere;
