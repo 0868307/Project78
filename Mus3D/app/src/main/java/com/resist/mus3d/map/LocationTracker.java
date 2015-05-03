@@ -2,27 +2,32 @@ package com.resist.mus3d.map;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import com.resist.mus3d.map.Map;
-import org.osmdroid.util.GeoPoint;
+
+import com.resist.mus3d.GpsActivity;
+
 
 /**
  * Created by Armindo on 24-3-2015.
  */
 public class LocationTracker implements LocationListener {
-    private GeoPoint currentLocation;
-    private Activity activity;
+    private Location currentLocation;
+    private LocationManager mlocManager;
+    private GpsActivity activity;
 
-    public LocationTracker(Activity activity) {
+    public LocationTracker(GpsActivity activity) {
         this.activity = activity;
+
+        mlocManager = (LocationManager) ((Activity)activity).getSystemService(Context.LOCATION_SERVICE);
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        Location location = mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }
 
     public void onLocationChanged(Location location) {
-        currentLocation = new GeoPoint(location);
-        activity.recreate();
+       currentLocation = location;
     }
 
     public void onProviderDisabled(String provider) {
@@ -32,5 +37,8 @@ public class LocationTracker implements LocationListener {
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
+    public Location getCurrentLocation() {
+        return currentLocation;
     }
 }

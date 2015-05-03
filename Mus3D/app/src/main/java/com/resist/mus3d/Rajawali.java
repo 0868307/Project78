@@ -1,16 +1,28 @@
 package com.resist.mus3d;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.map.Map;
+
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.OverlayItem;
+
+import java.util.List;
 
 import rajawali.RajawaliActivity;
 
-public class Rajawali extends RajawaliActivity {
+public class Rajawali extends RajawaliActivity implements GpsActivity{
     private MyRenderer myRenderer;
+    private LocationTracker locationListener;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +30,7 @@ public class Rajawali extends RajawaliActivity {
         myRenderer.setSurfaceView(mSurfaceView);
 
         super.setRenderer(myRenderer);
+        locationListener = new LocationTracker(this);
     }
 
     @Override
@@ -47,4 +60,14 @@ public class Rajawali extends RajawaliActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void update() {
+        if(locationListener.getCurrentLocation() != null){
+            myRenderer.setCamera(
+                    (float)locationListener.getCurrentLocation().getLatitude(),
+                    (float)locationListener.getCurrentLocation().getLongitude(),
+                    (float)locationListener.getCurrentLocation().getAltitude()
+            );
+        }
+    }
 }
