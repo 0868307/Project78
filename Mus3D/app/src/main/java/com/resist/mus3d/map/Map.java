@@ -115,6 +115,18 @@ public class Map extends ActionBarActivity implements GpsActivity{
     }
 
     @Override
+    protected void onStop() {
+        locationListener.onStop();
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        locationListener.onResume();
+        super.onResume();
+    }
+
+    @Override
     public void update() {
 
     }
