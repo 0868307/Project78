@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>KML converter</title>
+<script>
+window.addEventListener('load',function() {
+	document.getElementsByTagName('form')[0].addEventListener('submit',function($e){
+		$e.preventDefault();
+		var $doc = new DOMParser().parseFromString(document.getElementById('input').value, 'text/xml');
+		document.getElementById('output').value = parseXML($doc.documentElement);
+	},null);
+
+	function parseXML($xml) {
+		var $out = {
+			"type" : "FeatureCollection",
+			"crs" : {
+				"type" : "name",
+				"properties" : {
+					"name" : "urn:ogc:def:crs:OGC:1.3:CRS84"
+				}
+			},
+			"features" : []
+		},
+		$types = parseTypes($xml.getElementsByTagName('Schema')[0]),
+		$objects = $xml.getElementsByTagName('Placemark');
+		for(var $n=0,$length=$objects.length;$n < $length;$n++) {
+			$out.features.push(parseObject($objects[$n], $types));
+		}
+		return JSON.stringify($out);
+	}
+
+	function parseTypes($xml) {
+		var $out = {},
+		$types = $xml.getElementsByTagName('SimpleField');
+		for(var $n=0;$n < $types.length;$n++) {
+			$out[$types[$n].getAttribute('name')] = $types[$n].getAttribute('type');
+		}
+		return $out;
+	}
+
+	function parseObject($xml, $types) {
+		var $out = {
+			type: 'Feature',
+			properties: {},
+			geometry: {
+				type: 'Polygon',
+				coordinates: []
+			}
+		},
+		$data = $xml.getElementsByTagName('SchemaData')[0].getElementsByTagName('SimpleData'),
+		$coords = $xml.getElementsByTagName('Polygon')[0].getElementsByTagName('coordinates');
+		for(var $n=0,$length=$data.length;$n < $length;$n++) {
+			var $name = $data[$n].getAttribute('name'),
+			$value = parseData($data[$n].firstChild.nodeValue, $types[$name]);
+			$out.properties[$name] = $value;
+		}
+		for(var $key in $types) {
+			if($out.properties[$key] === undefined) {
+				$out.properties[$key] = null;
+			}
+		}
+		for(var $n=0,$length=$coords.length;$n < $length;$n++) {
+			var $c = $coords[$n].firstChild.nodeValue.trim().split(' '),
+			$ll = [];
+			for(var $i=0;$i<$c.length;$i++) {
+				var $l = $c[$i].split(',');
+				$ll.push([$l[0]-0, $l[1]-0]);
+			}
+			$out.geometry.coordinates.push($ll);
+		}
+		return $out;
+	}
+
+	function parseData($value, $type) {
+		if($type == 'int') {
+			return parseInt($value, 10);
+		} else if($type == 'float') {
+			return parseFloat($value, 10);
+		}
+		return $value;
+	}
+},null);
+</script>
+</head>
+<body>
+<h2>Input</h1>
+<form method="post">
+<textarea id="input"></textarea> <input type="submit" />
+</form>
+<h2>Output</h2>
+<textarea id="output">
+</textarea>
+</body>
+</html>
