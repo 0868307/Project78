@@ -16,6 +16,11 @@ import com.resist.mus3d.R;
 import com.resist.mus3d.Rajawali;
 import com.resist.mus3d.Settings;
 import com.resist.mus3d.database.ObjectTable;
+import com.resist.mus3d.objects.Afmeerboei;
+import com.resist.mus3d.objects.Anchorage;
+import com.resist.mus3d.objects.Bolder;
+import com.resist.mus3d.objects.Koningspaal;
+import com.resist.mus3d.objects.Meerpaal;
 import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
 
@@ -67,36 +72,26 @@ public class Map extends ActionBarActivity implements GpsActivity {
         for (Object o : list) {
             GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLongitude(), o.getLocation().getPosition().getLatitude());
             OverlayItem objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
-
-            if (objectLoc.getTitle().equals("0")) {
-                //Afmeerboei
-                Drawable icon = this.getResources().getDrawable(R.drawable.ic_afmeerboei);
-                objectLoc.setMarker(icon);
-            } else if (objectLoc.getTitle().equals("1")) {
-                //Bolders
-                Drawable icon = this.getResources().getDrawable(R.drawable.ic_bolder);
-                objectLoc.setMarker(icon);
-            } else if (objectLoc.getTitle().equals("2")) {
-                // Koningspalen
-                Drawable icon = this.getResources().getDrawable(R.drawable.ic_koningspaal);
-                objectLoc.setMarker(icon);
-            } else if (objectLoc.getTitle().equals("3")) {
-                //aanlegplaats
-                Drawable icon = this.getResources().getDrawable(R.drawable.ic_aanlegplaats);
-                objectLoc.setMarker(icon);
-            } else if (objectLoc.getTitle().equals("4")) {
-                //Meerpaal
-                Drawable icon = this.getResources().getDrawable(R.drawable.ic_meerpaal);
-                objectLoc.setMarker(icon);
+			Drawable icon;
+            if (o instanceof Afmeerboei) {
+                icon = this.getResources().getDrawable(R.drawable.ic_afmeerboei);
+            } else if (o instanceof Bolder) {
+                icon = this.getResources().getDrawable(R.drawable.ic_bolder);
+            } else if (o instanceof Koningspaal) {
+                icon = this.getResources().getDrawable(R.drawable.ic_koningspaal);
+            } else if (o instanceof Anchorage) {
+                icon = this.getResources().getDrawable(R.drawable.ic_aanlegplaats);
+            } else if (o instanceof Meerpaal) {
+                icon = this.getResources().getDrawable(R.drawable.ic_meerpaal);
             } else {
                 //Al het andere
-                Drawable icon = this.getResources().getDrawable(R.drawable.ic_onbekend);
-                objectLoc.setMarker(icon);
+                icon = this.getResources().getDrawable(R.drawable.ic_onbekend);
             }
+			objectLoc.setMarker(icon);
             overlayItemArray.add(objectLoc);
         }
 
-        ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
+        ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, new MarkerListener(this));
 
         mapView.getOverlays().clear();
         mapView.getOverlays().add(itemizedIconOverlay);
