@@ -13,4 +13,6 @@
     <string name="roleSelector_rb_Roeier">Roeier</string>
     <string name="roleSelector_rb_Loods">Loods</string>
     <string name="cancel">Sluit</string>
+    <string name="action_2D">2D</string>
+    <string name="action_3D">3D</string>
 </resources>

@@ -5,10 +5,8 @@ import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.resist.mus3d.GpsActivity;
 import com.resist.mus3d.Mus3D;
@@ -25,7 +23,6 @@ import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
 
 import org.osmdroid.api.IGeoPoint;
-import org.osmdroid.api.Marker;
 import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -117,7 +114,7 @@ public class Map extends ActionBarActivity implements GpsActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        getMenuInflater().inflate(R.menu.menu_settings2d, menu);
         return true;
     }
 
@@ -130,13 +127,9 @@ public class Map extends ActionBarActivity implements GpsActivity {
                 Intent i = new Intent(this, Settings.class);
                 startActivity(i);
                 break;
-            case R.id.settings_Map:
-                Intent j = new Intent(this, Map.class);
+            case R.id.action_3D:
+                Intent j = new Intent(this, Rajawali.class);
                 startActivity(j);
-                break;
-            case R.id.settings_Rajawali:
-                Intent k = new Intent(this, Rajawali.class);
-                startActivity(k);
                 break;
         }
         return super.onOptionsItemSelected(item);

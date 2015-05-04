@@ -24,7 +24,7 @@ public class MarkerListener implements ItemizedIconOverlay.OnItemGestureListener
     @Override
     public boolean onItemSingleTapUp(int i, OverlayItem o) {
         if (o.getTitle().equals("0")) {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
                     .setMessage(o.getSnippet())
                     .setTitle("Afmeerboei")
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -35,7 +35,7 @@ public class MarkerListener implements ItemizedIconOverlay.OnItemGestureListener
                     .create();
             dialog.show();
         } else if (o.getTitle().equals("1")) {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
                     .setMessage(o.getSnippet())
                     .setTitle("Bolder")
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -46,7 +46,7 @@ public class MarkerListener implements ItemizedIconOverlay.OnItemGestureListener
                     .create();
             dialog.show();
         } else if (o.getTitle().equals("2")) {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
                     .setMessage(o.getSnippet())
                     .setTitle("Koningspaal")
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -57,7 +57,7 @@ public class MarkerListener implements ItemizedIconOverlay.OnItemGestureListener
                     .create();
             dialog.show();
         } else if (o.getTitle().equals("3")) {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
                     .setMessage(o.getSnippet())
                     .setTitle("Aanlegplaats")
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -68,7 +68,7 @@ public class MarkerListener implements ItemizedIconOverlay.OnItemGestureListener
                     .create();
             dialog.show();
         } else if (o.getTitle().equals("4")) {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
                     .setMessage(o.getSnippet())
                     .setTitle("Meerpaal")
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -79,7 +79,7 @@ public class MarkerListener implements ItemizedIconOverlay.OnItemGestureListener
                     .create();
             dialog.show();
         } else {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
                     .setMessage(o.getSnippet())
                     .setTitle(o.getTitle())
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

@@ -24,7 +24,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        getMenuInflater().inflate(R.menu.menu_settings3d, menu);
         return true;
     }
 
@@ -37,13 +37,9 @@ public class Rajawali extends RajawaliActivity implements GpsActivity{
                 Intent i = new Intent(this, Settings.class);
                 startActivity(i);
                 break;
-            case R.id.settings_Map:
+            case R.id.action_2D:
                 Intent j = new Intent(this, Map.class);
                 startActivity(j);
-                break;
-            case R.id.settings_Rajawali:
-                Intent k = new Intent(this, Rajawali.class);
-                startActivity(k);
                 break;
         }
         return super.onOptionsItemSelected(item);
