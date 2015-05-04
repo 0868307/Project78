@@ -73,6 +73,7 @@ public class Map extends ActionBarActivity implements GpsActivity {
             GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLongitude(), o.getLocation().getPosition().getLatitude());
             OverlayItem objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
 			Drawable icon;
+
             if (o instanceof Afmeerboei) {
                 icon = this.getResources().getDrawable(R.drawable.ic_afmeerboei);
             } else if (o instanceof Bolder) {

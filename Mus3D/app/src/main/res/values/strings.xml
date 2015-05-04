@@ -12,4 +12,5 @@
     <string name="roleSelector_tv">Selecteer uw rol. Via instellingen kunt u deze later alsnog aanpassen</string>
     <string name="roleSelector_rb_Roeier">Roeier</string>
     <string name="roleSelector_rb_Loods">Loods</string>
+    <string name="cancel">Sluit</string>
 </resources>
