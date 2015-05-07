@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.resist.mus3d.GpsActivity;
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.Rajawali;

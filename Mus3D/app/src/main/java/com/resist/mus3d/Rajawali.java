@@ -5,13 +5,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.resist.mus3d.map.GpsActivity;
 import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.map.Map;
+import com.resist.mus3d.sensor.SensorActivity;
+import com.resist.mus3d.sensor.SensorTracker;
+
 import rajawali.RajawaliActivity;
 
-public class Rajawali extends RajawaliActivity implements GpsActivity{
+public class Rajawali extends RajawaliActivity implements GpsActivity, SensorActivity {
     private MyRenderer myRenderer;
     private LocationTracker locationListener;
+    private SensorTracker sensorTracker;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +25,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity{
 
         super.setRenderer(myRenderer);
         locationListener = new LocationTracker(this);
+        sensorTracker = new SensorTracker(this);
     }
 
     @Override
@@ -47,33 +53,40 @@ public class Rajawali extends RajawaliActivity implements GpsActivity{
     @Override
     protected void onStop() {
         locationListener.onStop();
+        sensorTracker.onStop();
         super.onStop();
     }
 
     @Override
     protected void onResume() {
         locationListener.onResume();
+        sensorTracker.onResume();
         super.onResume();
     }
     @Override
     public void update() {
         if(locationListener != null) {
-            if (locationListener.getCurrentLocation() != null) {
-                /*System.out.println("");
-                System.out.println(
-                        "latitude : " + (float) locationListener.getCurrentLocation().getLatitude() +
-                                "\n longtitude : " + (float) locationListener.getCurrentLocation().getLongitude() +
-                                "\n altitude : " + (float) locationListener.getCurrentLocation().getAltitude()+
-                        "\n angle : " +  locationListener.getLastDirection()
-                );
-                */
-                myRenderer.setCamera(
-                        (float) locationListener.getCurrentLocation().getLatitude(),
-                        (float) locationListener.getCurrentLocation().getLongitude(),
-                        0
-                );
-                myRenderer.setCameraRotation(locationListener.getLastDirection(),0,0);
-            }
+            /*System.out.println("");
+            System.out.println(
+                    "latitude : " + (float) locationListener.getCurrentLocation().getLatitude() +
+                            "\n longtitude : " + (float) locationListener.getCurrentLocation().getLongitude() +
+                            "\n altitude : " + (float) locationListener.getCurrentLocation().getAltitude()+
+                    "\n angle : " +  locationListener.getLastDirection()
+            );
+            */
+            myRenderer.setCamera(
+                    (float) locationListener.getCurrentLocation().getLatitude(),
+                    (float) locationListener.getCurrentLocation().getLongitude(),
+                    0
+            );
+
+        }
+    }
+
+    @Override
+    public void updateSensor() {
+        if(sensorTracker != null){
+            myRenderer.setCameraRotation(sensorTracker.getLastDirection(),0,0);
         }
     }
 }
