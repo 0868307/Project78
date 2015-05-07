@@ -15,7 +15,7 @@ public class SensorTracker implements SensorEventListener {
     SensorActivity activity;
     private SensorManager sensorManager;
     private final Sensor mAccelerometer;
-    private float lastDirection;
+    private float directionX;
 
     public SensorTracker(SensorActivity activity) {
         this.activity = activity;
@@ -25,7 +25,7 @@ public class SensorTracker implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        lastDirection = event.values[0];
+        directionX = (360+directionX+event.values[0])%360;
         activity.updateSensor();
     }
 
@@ -39,7 +39,7 @@ public class SensorTracker implements SensorEventListener {
     public void onResume(){
         sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
-    public float getLastDirection(){
-        return lastDirection;
+    public float getDirectionX(){
+        return directionX;
     }
 }
