@@ -47,7 +47,7 @@ public class MyRenderer extends RajawaliRenderer {
             e.printStackTrace();
         }
         BaseObject3D mObject = parser.getParsedObject();
-        //addChild(mObject);
+        addChild(mObject);
         new LongOperation().execute();
         mCamera.setLookAt(0,0,0);
         mCamera.setZ(4.2f);
@@ -55,7 +55,7 @@ public class MyRenderer extends RajawaliRenderer {
         mObject.setRotation(40, 0, 70);
         mObject.setScale(.3f);
         mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
-
+        //setCamera(0,0,0);
 
         /** ToonMaterial toonMat = new ToonMaterial();
         toonMat.setToonColors(0xffffffff, 0xff000000, 0xff666666, 0xff000000);
@@ -84,7 +84,7 @@ public class MyRenderer extends RajawaliRenderer {
         protected Boolean doInBackground(String... params) {
             Afmeerboeien afmeerboeien = new Afmeerboeien(Mus3D.getDatabase().getDatabase());
             Position lastPos = null;
-            for(Afmeerboei afmeerboei : afmeerboeien.getAll()){
+            /*for(Afmeerboei afmeerboei : afmeerboeien.getAll()){
                 ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
 
                 try {
@@ -102,6 +102,7 @@ public class MyRenderer extends RajawaliRenderer {
                 object3Ds.add(mObject);
             }
             System.out.println("executed");
+            */
             return true;
         }
 
