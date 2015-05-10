@@ -1,9 +1,14 @@
 package com.resist.mus3d;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.opengl.GLES20;
 import android.os.AsyncTask;
 
@@ -13,6 +18,7 @@ import com.resist.mus3d.objects.Afmeerboei;
 
 import org.osmdroid.util.Position;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,14 +28,17 @@ import rajawali.BaseObject3D;
 import rajawali.lights.DirectionalLight;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
+import rajawali.primitives.Plane;
 import rajawali.renderer.RajawaliRenderer;
 
 public class MyRenderer extends RajawaliRenderer {
     private DirectionalLight mLight;
     private BaseObject3D mSphere;
     private ArrayList<BaseObject3D> object3Ds = new ArrayList<>();
+    Rajawali context;
     public MyRenderer(Context context) {
         super(context);
+        this.context = (Rajawali)context;
         setFrameRate(60);
         setBackgroundColor(7.0f, 2.0f, 0.0f, .20f);
     }
@@ -38,7 +47,7 @@ public class MyRenderer extends RajawaliRenderer {
         mLight = new DirectionalLight(1f, 0.2f, -1.0f); // set the direction
         mLight.setColor(1.0f, 1.0f, 1.0f);
         mLight.setPower(2);
-
+        /*
         ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
 
         try {
@@ -52,11 +61,11 @@ public class MyRenderer extends RajawaliRenderer {
         mCamera.setLookAt(0,0,0);
         mCamera.setZ(4.2f);
         mCamera.setY(-1.5f);
-        mObject.setRotation(40, 0, 70);
+        mObject.setRotation(40, 0, 90);
         mObject.setScale(.3f);
         mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
         //setCamera(0,0,0);
-
+        */
         /** ToonMaterial toonMat = new ToonMaterial();
         toonMat.setToonColors(0xffffffff, 0xff000000, 0xff666666, 0xff000000);
         mObject.setMaterial(toonMat);
@@ -74,17 +83,29 @@ public class MyRenderer extends RajawaliRenderer {
 
     }
     public void setCamera(float x, float y, float z){
-        mCamera.setPosition(x,y,z);
+        mCamera.setPosition(x, y, z);
     }
     public void setCameraRotation(float x, float y, float z){
-        mCamera.setRotation(x,y,z);}
+        mCamera.setRotation(x, y, z);}
+
+    public void drawValues(final String... values){
+        System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-");
+        for (int i = 0; i < values.length; i++) {
+            System.out.println("value "+i+" : "+values[i]);
+            System.out.println("...........................");
+
+        }
+
+        System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-");
+    }
+
     private class LongOperation extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
             Afmeerboeien afmeerboeien = new Afmeerboeien(Mus3D.getDatabase().getDatabase());
             Position lastPos = null;
-            /*for(Afmeerboei afmeerboei : afmeerboeien.getAll()){
+            for(Afmeerboei afmeerboei : afmeerboeien.getAll()){
                 ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
 
                 try {
@@ -102,7 +123,7 @@ public class MyRenderer extends RajawaliRenderer {
                 object3Ds.add(mObject);
             }
             System.out.println("executed");
-            */
+
             return true;
         }
 

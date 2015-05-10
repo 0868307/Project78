@@ -74,20 +74,19 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
                     "\n angle : " +  locationListener.getLastDirection()
             );
             */
-            /*myRenderer.setCamera(
+            myRenderer.setCamera(
                     (float) locationListener.getCurrentLocation().getLatitude(),
                     (float) locationListener.getCurrentLocation().getLongitude(),
-                    0
-            );*/
+                    (float) locationListener.getCurrentLocation().getAltitude()
+            );
 
         }
     }
 
     @Override
-    public void updateSensor() {
+    public void updateSensor(float x,float y,float z) {
         if(sensorTracker != null){
-            System.out.println(sensorTracker.getDirectionX());
-            myRenderer.setCameraRotation(sensorTracker.getDirectionX(),0,0);
+            myRenderer.setCameraRotation(-x,y,z);
         }
     }
 }
