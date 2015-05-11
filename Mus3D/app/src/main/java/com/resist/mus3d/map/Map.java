@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -63,10 +64,10 @@ public class Map extends ActionBarActivity implements GpsActivity {
     public void updateMarkers(IGeoPoint location) {
         List<OverlayItem> overlayItemArray = new ArrayList<>();
         ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-        List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.005);
+        List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.003);
 
         for (Object o : list) {
-            GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLongitude(), o.getLocation().getPosition().getLatitude());
+            GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLatitude(), o.getLocation().getPosition().getLongitude());
             OverlayItem objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
 			Drawable icon;
 

@@ -18,8 +18,9 @@ public class MultiPoint implements Coordinate {
 		if(cachedPosition == null) {
 			double x = 0, y = 0;
 			for(Point p : points) {
-				x += p.getX();
-				y += p.getY();
+                Position pos = p.getPosition();
+                x += pos.getLatitude();
+                y += pos.getLongitude();
 			}
 			cachedPosition = new Position(x / points.length, y / points.length);
 		}
