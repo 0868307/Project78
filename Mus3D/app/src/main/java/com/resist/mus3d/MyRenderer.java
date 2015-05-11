@@ -32,6 +32,7 @@ import rajawali.BaseObject3D;
 import rajawali.lights.DirectionalLight;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
+import rajawali.primitives.Cube;
 import rajawali.primitives.Plane;
 import rajawali.renderer.RajawaliRenderer;
 
@@ -45,7 +46,7 @@ public class MyRenderer extends RajawaliRenderer {
         super(context);
         this.context = (Rajawali)context;
         setFrameRate(60);
-        setBackgroundColor(7.0f, 2.0f, 0.0f, .20f);
+        setBackgroundColor(Color.LTGRAY);
     }
 
     public void initScene() {
@@ -110,6 +111,7 @@ public class MyRenderer extends RajawaliRenderer {
         protected Boolean doInBackground(String... params) {
             ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
             List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), 0.001);
+            List<BaseObject3D> newobject3Ds = new ArrayList<>();
             Position lastPos = null;
             System.out.println("lat = "+context.getLocation().getLatitude()*MULTIPLIER+" long = "+context.getLocation().getLongitude()*MULTIPLIER);
             System.out.println("list size = "+list.size());
@@ -128,13 +130,18 @@ public class MyRenderer extends RajawaliRenderer {
                 mObject.setRotation(90, 0, 0);
                 mObject.setScale(.1f);
                 mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
-                object3Ds.add(mObject);
+                newobject3Ds.add(mObject);
                 System.out.println("++++++++++++++++++++++++++++++++++++");
                 System.out.println(lastPos.getLatitude()*MULTIPLIER);
                 System.out.println(lastPos.getLongitude()*MULTIPLIER);
                 System.out.println("||||||||||||||||||||||||||||||||||||");
             }
             System.out.println("executed");
+            for(BaseObject3D o : object3Ds){
+                removeChild(o);
+            }
+            object3Ds = newobject3Ds;
+            System.out.println("old objects removed");
 
             return true;
         }
