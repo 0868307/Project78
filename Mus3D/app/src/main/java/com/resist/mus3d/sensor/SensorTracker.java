@@ -46,9 +46,7 @@ public class SensorTracker implements SensorEventListener {
             Double degrees = (values[i] * 180) / Math.PI;
             values[i] = degrees.floatValue();
         }
-
-        return values[0];
-
+        return values[0]%5 >=3 ? values[0] + 5-(values[0]%5) : values[0]-(values[0]%5);
     }
 
     @Override
@@ -80,8 +78,8 @@ public class SensorTracker implements SensorEventListener {
         sensorManager.unregisterListener(this);
     }
     public void onResume(){
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), sensorManager.SENSOR_DELAY_GAME);
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), sensorManager.SENSOR_DELAY_GAME);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), sensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), sensorManager.SENSOR_DELAY_UI);
     }
     public float getDirectionX(){
         return directionX;

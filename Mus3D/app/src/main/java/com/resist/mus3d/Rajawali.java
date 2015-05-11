@@ -18,7 +18,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
     private MyRenderer myRenderer;
     private LocationTracker locationListener;
     private SensorTracker sensorTracker;
-    private boolean first = true;
+    private int counter = 1000;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,11 +81,12 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
                     (float) locationListener.getCurrentLocation().getLatitude()*MyRenderer.MULTIPLIER,
                     0
             );
-            if(first){
+            if(counter > 1000){
                 myRenderer.makeObjects();
-                first = false;
+                counter = 0;
             }
         }
+        counter++;
     }
     public Location getLocation(){
         if(locationListener != null && locationListener.getCurrentLocation() != null)
