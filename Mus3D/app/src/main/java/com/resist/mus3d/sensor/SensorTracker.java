@@ -65,7 +65,7 @@ public class SensorTracker implements SensorEventListener {
                 return;
         }
         if(mGravity != null && mMagnetic != null) {
-            float x = getDirection();
+            float x = (getDirection()+180)%360;
             float y = -10;
             float z = 0;
             activity.updateSensor(x,y,z);

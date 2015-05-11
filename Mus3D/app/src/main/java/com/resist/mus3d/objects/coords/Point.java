@@ -1,5 +1,7 @@
 package com.resist.mus3d.objects.coords;
 
+import android.location.Location;
+
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.Position;
@@ -14,10 +16,15 @@ public class Point implements Coordinate {
 		this.y = y;
 	}
 
-    public Point(IGeoPoint geoPoint) {
-        this.y = geoPoint.getLatitude();
-        this.x = geoPoint.getLongitude();
-    }
+	public Point(IGeoPoint geoPoint) {
+		this.y = geoPoint.getLatitude();
+		this.x = geoPoint.getLongitude();
+	}
+
+	public Point(Location location) {
+		this.y = location.getLatitude();
+		this.x = location.getLongitude();
+	}
 
 	public double getX() {
 		return x;

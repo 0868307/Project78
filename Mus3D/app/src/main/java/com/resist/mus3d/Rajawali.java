@@ -1,6 +1,7 @@
 package com.resist.mus3d;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
     private MyRenderer myRenderer;
     private LocationTracker locationListener;
     private SensorTracker sensorTracker;
+    private boolean first = true;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +77,23 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
             );
             */
             myRenderer.setCamera(
-                    (float) locationListener.getCurrentLocation().getLatitude(),
-                    (float) locationListener.getCurrentLocation().getLongitude(),
-                    (float) locationListener.getCurrentLocation().getAltitude()
+                    (float) locationListener.getCurrentLocation().getLongitude()*MyRenderer.MULTIPLIER,
+                    (float) locationListener.getCurrentLocation().getLatitude()*MyRenderer.MULTIPLIER,
+                    0
             );
-
+            if(first){
+                myRenderer.makeObjects();
+                first = false;
+            }
         }
+    }
+    public Location getLocation(){
+        if(locationListener != null && locationListener.getCurrentLocation() != null)
+            return locationListener.getCurrentLocation();
+        Location location = new Location((String)null);
+        location.setLatitude(0);
+        location.setLongitude(0);
+        return location;
     }
 
     @Override
