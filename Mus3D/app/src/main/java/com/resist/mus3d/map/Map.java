@@ -46,6 +46,9 @@ public class Map extends ActionBarActivity implements GpsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        overlayItemArray = new ArrayList<OverlayItem>();
+        locationListener = new LocationTracker(this);
+
         mapView = (MapView) this.findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
@@ -53,9 +56,6 @@ public class Map extends ActionBarActivity implements GpsActivity {
         mapController.setZoom(16);
         mapView.setMapListener(new DelayedMapListener(new MapScrollListener(this), 300));
 
-        overlayItemArray = new ArrayList<OverlayItem>();
-
-        locationListener = new LocationTracker(this);
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(this);
         mapView.getOverlays().add(myScaleBarOverlay);
         displayMyCurrentLocationOverlay();
@@ -150,6 +150,6 @@ public class Map extends ActionBarActivity implements GpsActivity {
     @Override
     public void update() {
         //Commented omdat je anders heel de tijd naar huidige locatie gaat en je dus geen objecten kan bekijken.
-        //displayMyCurrentLocationOverlay();
+        displayMyCurrentLocationOverlay();
     }
 }
