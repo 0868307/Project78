@@ -4,16 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.opengl.GLES20;
 import android.os.AsyncTask;
-
 import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
-
 import org.osmdroid.util.Position;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import rajawali.BaseObject3D;
 import rajawali.lights.DirectionalLight;
 import rajawali.parser.AParser;
@@ -25,8 +22,9 @@ import rajawali.util.OnObjectPickedListener;
 public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListener {
     public static final int MULTIPLIER = 10000;
     private DirectionalLight mLight;
-    private BaseObject3D mSphere;
-    private List<BaseObject3D> object3Ds = new ArrayList<>();
+
+    private Map<BaseObject3D, Object> object3Ds = new HashMap<>();
+    private BaseObject3D selectedObject;
     private Rajawali context;
     private ObjectColorPicker mPicker;
     private OnObjectPickedListener mObjectPickedListener;
@@ -59,8 +57,11 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
         mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
         //setCamera(0,0,0);
         mPicker = new ObjectColorPicker(this);
-        mPicker.setOnObjectPickedListener(mObjectPickedListener);
+        mPicker.setOnObjectPickedListener(this);
         mPicker.registerObject(mObject);
+        System.out.println("Dus, ja"+mPicker);
+
+
         /** ToonMaterial toonMat = new ToonMaterial();
         toonMat.setToonColors(0xffffffff, 0xff000000, 0xff666666, 0xff000000);
         mObject.setMaterial(toonMat);
@@ -97,12 +98,15 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 
     @Override
     public void onObjectPicked(BaseObject3D object) {
-        System.out.println("Object picked"+object.getX());
+        selectedObject = object;
+        Object mijnObject = object3Ds.get(object);
+
+
 
     }
 
     public void getObjectAt(float x, float y) {
-        mPicker.getObjectAt(x, y);
+        mPicker.getObjectAt(x,y);
 
     }
 
@@ -112,7 +116,7 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
         protected Boolean doInBackground(String... params) {
             ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
             List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), 0.001);
-            List<BaseObject3D> newobject3Ds = new ArrayList<>();
+            Map<BaseObject3D, Object> newobject3Ds = new HashMap<>();
             Position lastPos = null;
             System.out.println("lat = "+context.getLocation().getLatitude()*MULTIPLIER+" long = "+context.getLocation().getLongitude()*MULTIPLIER);
             System.out.println("list size = "+list.size());
@@ -126,20 +130,22 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
                 }
                 BaseObject3D mObject = parser.getParsedObject();
                 addChild(mObject);
+                mPicker.registerObject(mObject);
+                System.out.println(mPicker);
                 lastPos = o.getLocation().getPosition();
                 mObject.setPosition( (float) (lastPos.getLongitude()*MULTIPLIER),(float) (lastPos.getLatitude()*MULTIPLIER), 0);
                 mObject.setRotation(90, 0, 0);
                 mObject.setScale(.1f);
                 mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
-                newobject3Ds.add(mObject);
+                newobject3Ds.put(mObject,o);
                 System.out.println("++++++++++++++++++++++++++++++++++++");
                 System.out.println(lastPos.getLatitude()*MULTIPLIER);
                 System.out.println(lastPos.getLongitude()*MULTIPLIER);
                 System.out.println("||||||||||||||||||||||||||||||||||||");
             }
             System.out.println("executed");
-            for(BaseObject3D o : object3Ds){
-                removeChild(o);
+            for (Map.Entry<BaseObject3D, Object> o : object3Ds.entrySet()) {
+                removeChild(o.getKey());
             }
             object3Ds = newobject3Ds;
             System.out.println("old objects removed");
@@ -160,8 +166,6 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
         @Override
         protected void onProgressUpdate(Void... values) {}
 
-        public void setOnObjectPickedListener(OnObjectPickedListener objectPickedListener) {
-            mObjectPickedListener = objectPickedListener;
-        }
+
     }
 }

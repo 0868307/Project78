@@ -3,10 +3,13 @@ package com.resist.mus3d;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.resist.mus3d.map.GpsActivity;
 import com.resist.mus3d.map.LocationTracker;
@@ -27,6 +30,21 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
         myRenderer = new MyRenderer(this);
         myRenderer.setSurfaceView(mSurfaceView);
         mSurfaceView.setOnTouchListener(this);
+
+        LinearLayout ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        ll.setGravity(Gravity.CENTER);
+
+        TextView label = new TextView(this);
+        label.setText("Hola");
+        label.setTextSize(20);
+        label.setGravity(Gravity.CENTER);
+
+        label.setHeight(100);
+        ll.addView(label);
+
+        mLayout.addView(ll);
+
 
         super.setRenderer(myRenderer);
         locationListener = new LocationTracker(this);

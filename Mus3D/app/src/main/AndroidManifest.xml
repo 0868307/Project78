@@ -43,7 +43,7 @@
         <activity
             android:name=".Rajawali"
             android:label="@string/title_activity_rajawali"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name=".Rajawali" />
 
