@@ -5,6 +5,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.resist.mus3d.map.GpsActivity;
 import com.resist.mus3d.map.LocationTracker;
@@ -14,7 +16,7 @@ import com.resist.mus3d.sensor.SensorTracker;
 
 import rajawali.RajawaliActivity;
 
-public class Rajawali extends RajawaliActivity implements GpsActivity, SensorActivity {
+public class Rajawali extends RajawaliActivity implements GpsActivity, SensorActivity, View.OnTouchListener {
     private MyRenderer myRenderer;
     private LocationTracker locationListener;
     private SensorTracker sensorTracker;
@@ -24,6 +26,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
         super.onCreate(savedInstanceState);
         myRenderer = new MyRenderer(this);
         myRenderer.setSurfaceView(mSurfaceView);
+        mSurfaceView.setOnTouchListener(this);
 
         super.setRenderer(myRenderer);
         locationListener = new LocationTracker(this);
@@ -102,5 +105,16 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
         if(sensorTracker != null){
             myRenderer.setCameraRotation(-x,y,z);
         }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            myRenderer.getObjectAt(event.getX(), event.getY());
+
+        }
+
+        return super.onTouchEvent(event);
     }
 }

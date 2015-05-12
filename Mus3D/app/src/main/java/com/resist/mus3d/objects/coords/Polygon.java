@@ -2,7 +2,7 @@ package com.resist.mus3d.objects.coords;
 
 import org.osmdroid.util.Position;
 
-public class Polygon implements Coordinate {
+public class Polygon extends Coordinate {
 	private MultiPoint[] multiPoints;
 	private Position cachedPosition;
 
