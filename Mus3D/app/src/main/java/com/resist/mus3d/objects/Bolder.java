@@ -1,5 +1,10 @@
 package com.resist.mus3d.objects;
 
+import android.database.sqlite.SQLiteDatabase;
+
+import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.database.Bolders;
+
 import java.util.Date;
 
 public class Bolder extends Common {
@@ -68,13 +73,6 @@ public class Bolder extends Common {
 		this.anchor = anchor;
 	}
 
-	public void setType(String type) {
-		if(!isComplete()) {
-			load();
-		}
-		this.type = type;
-	}
-
 	public String getPartner() {
 		if(!isComplete()) {
 			load();
@@ -105,5 +103,11 @@ public class Bolder extends Common {
 
 	public int getType() {
 		return TYPE;
+	}
+
+	@Override
+	protected void load() {
+		super.load();
+		new Bolders(Mus3D.getDatabase().getDatabase()).loadObject(this);
 	}
 }
