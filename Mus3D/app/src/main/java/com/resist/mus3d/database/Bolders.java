@@ -10,7 +10,7 @@ public class Bolders extends CommonTable {
 		super(db);
 	}
 
-	public void load(Bolder object) {
+	public void loadObject(Bolder object) {
 		Cursor c = db.rawQuery("SELECT * FROM bolders WHERE id = ?", new String[] {String.valueOf(object.getObjectid())});
 		if(c.moveToFirst()) {
 			object.setMaterial(c.getString(c.getColumnIndex("materiaal")));
