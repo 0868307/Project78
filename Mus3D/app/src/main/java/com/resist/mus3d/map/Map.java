@@ -68,21 +68,27 @@ public class Map extends ActionBarActivity implements GpsActivity {
 
         for (Object o : list) {
             GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLatitude(), o.getLocation().getPosition().getLongitude());
-            OverlayItem objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
+            OverlayItem objectLoc;
 			Drawable icon;
 
             if (o instanceof Afmeerboei) {
+                objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_afmeerboei);
             } else if (o instanceof Bolder) {
+                objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_bolder);
             } else if (o instanceof Koningspaal) {
+                objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_koningspaal);
             } else if (o instanceof Anchorage) {
+                Anchorage a = (Anchorage)o;
+                objectLoc = new OverlayItem(a.getType() + "", a.getObjectid() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_aanlegplaats);
             } else if (o instanceof Meerpaal) {
+                objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_meerpaal);
             } else {
-                //Al het andere
+                objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_onbekend);
             }
 			objectLoc.setMarker(icon);
@@ -150,6 +156,6 @@ public class Map extends ActionBarActivity implements GpsActivity {
     @Override
     public void update() {
         //Commented omdat je anders heel de tijd naar huidige locatie gaat en je dus geen objecten kan bekijken.
-        displayMyCurrentLocationOverlay();
+        //displayMyCurrentLocationOverlay();
     }
 }
