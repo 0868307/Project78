@@ -62,44 +62,15 @@ public class Map extends ActionBarActivity implements GpsActivity {
     }
 
     public void updateMarkers(IGeoPoint location) {
-        List<OverlayItem> overlayItemArray = new ArrayList<>();
+        List<Marker> overlayItemArray = new ArrayList<>();
         ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
         List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.003);
 
         for (Object o : list) {
-            GeoPoint object = new GeoPoint(o.getLocation().getPosition().getLatitude(), o.getLocation().getPosition().getLongitude());
-            OverlayItem objectLoc;
-			Drawable icon;
-
-            if (o instanceof Afmeerboei) {
-                Afmeerboei ab =(Afmeerboei)o;
-                objectLoc = new OverlayItem(ab.getType() + "", ab.getObjectid() + "", object);
-                icon = this.getResources().getDrawable(R.drawable.ic_afmeerboei);
-            } else if (o instanceof Bolder) {
-                Bolder b = (Bolder)o;
-                objectLoc = new OverlayItem(b.getType() + "", b.getDescription() + "\n"+ b.getObjectid() + "\n"+ b.getMaterial() + "\n"+ b.getCompany() + "", object);
-                icon = this.getResources().getDrawable(R.drawable.ic_bolder);
-            } else if (o instanceof Koningspaal) {
-                Koningspaal k = (Koningspaal)o;
-                objectLoc = new OverlayItem(k.getType() + "", k.getDescription() + "\n"+ k.getObjectid() + "\n"+ k.getMaterial() + "\n"+ k.getWearMaterial() + "", object);
-                icon = this.getResources().getDrawable(R.drawable.ic_koningspaal);
-            } else if (o instanceof Anchorage) {
-                Anchorage a = (Anchorage)o;
-                objectLoc = new OverlayItem(a.getType() + "", a.getObjectid() + "\n"+ a.getXmeText() + "\n"+ a.getKenmerkZe()+ "\n"+ a.getVacReason() + "\n"+ a.getAfmeerVz() + "", object);
-                icon = this.getResources().getDrawable(R.drawable.ic_aanlegplaats);
-            } else if (o instanceof Meerpaal) {
-                Meerpaal m = (Meerpaal)o;
-                objectLoc = new OverlayItem(m.getType() + "", m.getObjectid() + "", object);
-                icon = this.getResources().getDrawable(R.drawable.ic_meerpaal);
-            } else {
-                objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
-                icon = this.getResources().getDrawable(R.drawable.ic_onbekend);
-            }
-			objectLoc.setMarker(icon);
-            overlayItemArray.add(objectLoc);
+            overlayItemArray.add(new Marker(this, o));
         }
 
-        ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, new MarkerListener(this));
+        ItemizedIconOverlay<Marker> itemizedIconOverlay = new ItemizedIconOverlay<>(this, overlayItemArray, new MarkerListener(this));
 
         mapView.getOverlays().clear();
         mapView.getOverlays().add(itemizedIconOverlay);

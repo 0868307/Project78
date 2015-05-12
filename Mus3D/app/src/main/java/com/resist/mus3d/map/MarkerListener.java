@@ -14,7 +14,7 @@ import com.resist.mus3d.objects.Meerpaal;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
-public class MarkerListener implements ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
+public class MarkerListener implements ItemizedIconOverlay.OnItemGestureListener<Marker> {
     private Activity ctx;
 
     public MarkerListener(Activity ctx) {
@@ -22,79 +22,13 @@ public class MarkerListener implements ItemizedIconOverlay.OnItemGestureListener
     }
 
     @Override
-    public boolean onItemSingleTapUp(int i, OverlayItem o) {
-        if (o.getTitle().equals("0")) {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
-                    .setMessage(o.getSnippet())
-                    .setTitle("Afmeerboei")
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    })
-                    .create();
-            dialog.show();
-        } else if (o.getTitle().equals("1")) {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
-                    .setMessage(o.getSnippet())
-                    .setTitle("Bolder")
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    })
-                    .create();
-            dialog.show();
-        } else if (o.getTitle().equals("2")) {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
-                    .setMessage(o.getSnippet())
-                    .setTitle("Koningspaal")
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    })
-                    .create();
-            dialog.show();
-        } else if (o.getTitle().equals("3")) {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
-                    .setMessage(o.getSnippet())
-                    .setTitle("Aanlegplaats")
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    })
-                    .create();
-            dialog.show();
-        } else if (o.getTitle().equals("4")) {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
-                    .setMessage(o.getSnippet())
-                    .setTitle("Meerpaal")
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    })
-                    .create();
-            dialog.show();
-        } else {
-            AlertDialog dialog = new AlertDialog.Builder(ctx, R.style.AppCompatAlertDialogStyle)
-                    .setMessage(o.getSnippet())
-                    .setTitle(o.getTitle())
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    })
-                    .create();
-            dialog.show();
-        }
+    public boolean onItemSingleTapUp(int i, Marker o) {
+		o.getDialog().show();
         return false;
     }
 
     @Override
-    public boolean onItemLongPress(int i, OverlayItem o) {
+    public boolean onItemLongPress(int i, Marker o) {
         return false;
     }
 }
