@@ -296,7 +296,7 @@ public class Anchorage extends Object {
 	}
 
 	@Override
-	public void load() {
+	protected void load() {
 		super.load();
 		new Aanlegplaatsen(Mus3D.getDatabase().getDatabase()).loadObject(this);
 	}

@@ -16,7 +16,7 @@ public class Aanlegplaatsen extends ObjectTable {
 	}
 
 	public void loadObject(Anchorage object) {
-		Cursor c = db.rawQuery("SELECT ligplaatsen.*, havens.havenNaam FROM ligplaatsen LEFT JOIN havens ON(ligplaatsen.havenAfkorting = havens.havenAfkorting) WHERE id = ?", new String[] {String.valueOf(object.getObjectid())});
+		Cursor c = db.rawQuery("SELECT ligplaatsen.*, havens.havenNaam FROM ligplaatsen LEFT JOIN havens ON(ligplaatsen.havenAfkorting = havens.havenAfkorting) WHERE ligplaatsen.id = ?", new String[] {String.valueOf(object.getObjectid())});
 		if(c.moveToFirst()) {
 			object.setAfmeerVz(c.getString(c.getColumnIndex("afmeerVz")));
 			object.setAnchorage(c.getString(c.getColumnIndex("ligplaats")));

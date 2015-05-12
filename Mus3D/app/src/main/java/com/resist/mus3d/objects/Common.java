@@ -1,5 +1,8 @@
 package com.resist.mus3d.objects;
 
+import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.database.CommonTable;
+
 import java.util.Date;
 
 public class Common extends Object {
@@ -75,5 +78,11 @@ public class Common extends Object {
 			load();
 		}
 		this.regionId = regionId;
+	}
+
+	@Override
+	protected void load() {
+		super.load();
+		new CommonTable(Mus3D.getDatabase().getDatabase()).loadObject(this);
 	}
 }
