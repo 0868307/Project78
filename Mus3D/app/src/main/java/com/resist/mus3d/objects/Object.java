@@ -15,6 +15,7 @@ public class Object {
 	private Date editedAt;
 	private String featureId;
 	private Coordinate location;
+	private boolean complete = false;
 
 	public Object(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId) {
 		this.objectid = objectid;
@@ -62,5 +63,13 @@ public class Object {
 			location = new ObjectTable(Mus3D.getDatabase().getDatabase()).getCoordinates(this);
 		}
 		return location;
+	}
+
+	protected boolean isComplete() {
+		return complete;
+	}
+
+	protected void load() {
+		complete = true;
 	}
 }

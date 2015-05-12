@@ -18,5 +18,62 @@ public class Common extends Object {
 		this.facilitySecId = facilitySecId;
 		this.harbour = harbour;
 		this.regionId = regionId;
+		super.load();
+	}
+
+	public String getFacilityId() {
+		if(!isComplete()) {
+			load();
+		}
+		return facilityId;
+	}
+
+	public void setFacilityId(String facilityId) {
+		if(!isComplete()) {
+			load();
+		}
+		this.facilityId = facilityId;
+	}
+
+	public String getFacilitySecId() {
+		if(!isComplete()) {
+			load();
+		}
+		return facilitySecId;
+	}
+
+	public void setFacilitySecId(String facilitySecId) {
+		if(!isComplete()) {
+			load();
+		}
+		this.facilitySecId = facilitySecId;
+	}
+
+	public Harbour getHarbour() {
+		if(!isComplete()) {
+			load();
+		}
+		return harbour;
+	}
+
+	public void setHarbour(Harbour harbour) {
+		if(!isComplete()) {
+			load();
+		}
+		this.harbour = harbour;
+	}
+
+	public String getRegionId() {
+		if(!isComplete()) {
+			load();
+		}
+		return regionId;
+	}
+
+	public void setRegionId(String regionId) {
+		if(!isComplete()) {
+			load();
+		}
+		this.regionId = regionId;
 	}
 }

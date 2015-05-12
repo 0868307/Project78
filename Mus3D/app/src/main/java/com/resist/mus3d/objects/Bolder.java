@@ -23,6 +23,84 @@ public class Bolder extends Common {
 		this.type = type;
 		this.partner = partner;
 		this.company = company;
+		super.load();
+	}
+
+	public String getDescription() {
+		if(!isComplete()) {
+			load();
+		}
+		return description;
+	}
+
+	public void setDescription(String description) {
+		if(!isComplete()) {
+			load();
+		}
+		this.description = description;
+	}
+
+	public String getMaterial() {
+		if(!isComplete()) {
+			load();
+		}
+		return material;
+	}
+
+	public void setMaterial(String material) {
+		if(!isComplete()) {
+			load();
+		}
+		this.material = material;
+	}
+
+	public String getAnchor() {
+		if(!isComplete()) {
+			load();
+		}
+		return anchor;
+	}
+
+	public void setAnchor(String anchor) {
+		if(!isComplete()) {
+			load();
+		}
+		this.anchor = anchor;
+	}
+
+	public void setType(String type) {
+		if(!isComplete()) {
+			load();
+		}
+		this.type = type;
+	}
+
+	public String getPartner() {
+		if(!isComplete()) {
+			load();
+		}
+		return partner;
+	}
+
+	public void setPartner(String partner) {
+		if(!isComplete()) {
+			load();
+		}
+		this.partner = partner;
+	}
+
+	public String getCompany() {
+		if(!isComplete()) {
+			load();
+		}
+		return company;
+	}
+
+	public void setCompany(String company) {
+		if(!isComplete()) {
+			load();
+		}
+		this.company = company;
 	}
 
 	public int getType() {

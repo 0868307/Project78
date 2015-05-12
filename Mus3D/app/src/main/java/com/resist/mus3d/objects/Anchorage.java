@@ -1,5 +1,8 @@
 package com.resist.mus3d.objects;
 
+import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.database.Aanlegplaatsen;
+
 import java.util.Date;
 
 public class Anchorage extends Object {
@@ -47,9 +50,254 @@ public class Anchorage extends Object {
 		this.shoreNo = shoreNo;
 		this.primaryFunction = primaryFunction;
 		this.type = type;
+		super.load();
+	}
+
+	public String getComplexId() {
+		if(!isComplete()) {
+			load();
+		}
+		return complexId;
+	}
+
+	public void setComplexId(String complexId) {
+		if(!isComplete()) {
+			load();
+		}
+		this.complexId = complexId;
+	}
+
+	public String getGlobalId() {
+		if(!isComplete()) {
+			load();
+		}
+		return globalId;
+	}
+
+	public void setGlobalId(String globalId) {
+		if(!isComplete()) {
+			load();
+		}
+		this.globalId = globalId;
+	}
+
+	public String getKenmerkZe() {
+		if(!isComplete()) {
+			load();
+		}
+		return kenmerkZe;
+	}
+
+	public void setKenmerkZe(String kenmerkZe) {
+		if(!isComplete()) {
+			load();
+		}
+		this.kenmerkZe = kenmerkZe;
+	}
+
+	public String getLxmeText() {
+		if(!isComplete()) {
+			load();
+		}
+		return lxmeText;
+	}
+
+	public void setLxmeText(String lxmeText) {
+		if(!isComplete()) {
+			load();
+		}
+		this.lxmeText = lxmeText;
+	}
+
+	public Date getOccupiedFrom() {
+		if(!isComplete()) {
+			load();
+		}
+		return occupiedFrom;
+	}
+
+	public void setOccupiedFrom(Date occupiedFrom) {
+		if(!isComplete()) {
+			load();
+		}
+		this.occupiedFrom = occupiedFrom;
+	}
+
+	public String getOccRecNo() {
+		if(!isComplete()) {
+			load();
+		}
+		return occRecNo;
+	}
+
+	public void setOccRecNo(String occRecNo) {
+		if(!isComplete()) {
+			load();
+		}
+		this.occRecNo = occRecNo;
+	}
+
+	public Date getOccupiedTill() {
+		if(!isComplete()) {
+			load();
+		}
+		return occupiedTill;
+	}
+
+	public void setOccupiedTill(Date occupiedTill) {
+		if(!isComplete()) {
+			load();
+		}
+		this.occupiedTill = occupiedTill;
+	}
+
+	public String getVacReason() {
+		if(!isComplete()) {
+			load();
+		}
+		return vacReason;
+	}
+
+	public void setVacReason(String vacReason) {
+		if(!isComplete()) {
+			load();
+		}
+		this.vacReason = vacReason;
+	}
+
+	public String getXmeText() {
+		if(!isComplete()) {
+			load();
+		}
+		return xmeText;
+	}
+
+	public void setXmeText(String xmeText) {
+		if(!isComplete()) {
+			load();
+		}
+		this.xmeText = xmeText;
+	}
+
+	public String getAfmeerVz() {
+		if(!isComplete()) {
+			load();
+		}
+		return afmeerVz;
+	}
+
+	public void setAfmeerVz(String afmeerVz) {
+		if(!isComplete()) {
+			load();
+		}
+		this.afmeerVz = afmeerVz;
+	}
+
+	public String getOwner() {
+		if(!isComplete()) {
+			load();
+		}
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		if(!isComplete()) {
+			load();
+		}
+		this.owner = owner;
+	}
+
+	public String getUse() {
+		if(!isComplete()) {
+			load();
+		}
+		return use;
+	}
+
+	public void setUse(String use) {
+		if(!isComplete()) {
+			load();
+		}
+		this.use = use;
+	}
+
+	public Harbour getHarbour() {
+		if(!isComplete()) {
+			load();
+		}
+		return harbour;
+	}
+
+	public void setHarbour(Harbour harbour) {
+		if(!isComplete()) {
+			load();
+		}
+		this.harbour = harbour;
+	}
+
+	public String getAnchorage() {
+		if(!isComplete()) {
+			load();
+		}
+		return anchorage;
+	}
+
+	public void setAnchorage(String anchorage) {
+		if(!isComplete()) {
+			load();
+		}
+		this.anchorage = anchorage;
+	}
+
+	public String getNauticalState() {
+		if(!isComplete()) {
+			load();
+		}
+		return nauticalState;
+	}
+
+	public void setNauticalState(String nauticalState) {
+		if(!isComplete()) {
+			load();
+		}
+		this.nauticalState = nauticalState;
+	}
+
+	public String getShoreNo() {
+		if(!isComplete()) {
+			load();
+		}
+		return shoreNo;
+	}
+
+	public void setShoreNo(String shoreNo) {
+		if(!isComplete()) {
+			load();
+		}
+		this.shoreNo = shoreNo;
+	}
+
+	public String getPrimaryFunction() {
+		if(!isComplete()) {
+			load();
+		}
+		return primaryFunction;
+	}
+
+	public void setPrimaryFunction(String primaryFunction) {
+		if(!isComplete()) {
+			load();
+		}
+		this.primaryFunction = primaryFunction;
 	}
 
 	public int getType() {
 		return TYPE;
+	}
+
+	@Override
+	public void load() {
+		super.load();
+		new Aanlegplaatsen(Mus3D.getDatabase().getDatabase()).loadObject(this);
 	}
 }
