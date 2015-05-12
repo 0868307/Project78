@@ -72,20 +72,24 @@ public class Map extends ActionBarActivity implements GpsActivity {
 			Drawable icon;
 
             if (o instanceof Afmeerboei) {
-                objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
+                Afmeerboei ab =(Afmeerboei)o;
+                objectLoc = new OverlayItem(ab.getType() + "", ab.getObjectid() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_afmeerboei);
             } else if (o instanceof Bolder) {
-                objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
+                Bolder b = (Bolder)o;
+                objectLoc = new OverlayItem(b.getType() + "", b.getDescription() + "\n"+ b.getObjectid() + "\n"+ b.getMaterial() + "\n"+ b.getCompany() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_bolder);
             } else if (o instanceof Koningspaal) {
-                objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
+                Koningspaal k = (Koningspaal)o;
+                objectLoc = new OverlayItem(k.getType() + "", k.getDescription() + "\n"+ k.getObjectid() + "\n"+ k.getMaterial() + "\n"+ k.getWearMaterial() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_koningspaal);
             } else if (o instanceof Anchorage) {
                 Anchorage a = (Anchorage)o;
-                objectLoc = new OverlayItem(a.getType() + "", a.getObjectid() + "", object);
+                objectLoc = new OverlayItem(a.getType() + "", a.getObjectid() + "\n"+ a.getXmeText() + "\n"+ a.getKenmerkZe()+ "\n"+ a.getVacReason() + "\n"+ a.getAfmeerVz() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_aanlegplaats);
             } else if (o instanceof Meerpaal) {
-                objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
+                Meerpaal m = (Meerpaal)o;
+                objectLoc = new OverlayItem(m.getType() + "", m.getObjectid() + "", object);
                 icon = this.getResources().getDrawable(R.drawable.ic_meerpaal);
             } else {
                 objectLoc = new OverlayItem(o.getType() + "", o.getObjectid() + "", object);
