@@ -16,7 +16,7 @@ public class Koningspalen extends CommonTable {
 			object.setConfirmation(c.getString(c.getColumnIndex("bevestiging")));
 			object.setDescription(c.getString(c.getColumnIndex("description")));
 			object.setMaterial(c.getString(c.getColumnIndex("materiaal")));
-			object.setWearMaterial(c.getColumnName(c.getColumnIndex("slijtMateriaal")));
+			object.setWearMaterial(c.getString(c.getColumnIndex("slijtMateriaal")));
 		}
 		c.close();
 	}
