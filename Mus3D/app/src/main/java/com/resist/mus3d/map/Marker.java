@@ -39,21 +39,61 @@ public class Marker extends OverlayItem {
 
 	private String getDialogTitle() {
 		if (object instanceof Afmeerboei) {
-			return "Afmeerboei";
+			return "Afmeerboei " + object.getObjectid();
 		} else if (object instanceof Bolder) {
-			return "Bolder";
+			return "Bolder " + object.getObjectid();
 		} else if (object instanceof Koningspaal) {
-			return "Koningspaal";
+			return "Koningspaal " + object.getObjectid();
 		} else if (object instanceof Anchorage) {
-			return "Ligplaats";
+			return "Ligplaats " + object.getObjectid();
 		} else if (object instanceof Meerpaal) {
-			return "Meerpaal";
+			return "Meerpaal " + object.getObjectid();
 		}
 		return "Onbekend";
 	}
 
 	private String getDialogMessage() {
-		return "";
+		String descriptionLabel = "Description: ";
+		String materialLabel = "Materiaal: ";
+
+		StringBuilder sb = new StringBuilder();
+		append(sb, "FeatureId: ", object.getFeatureId());
+		if(object instanceof Common) {
+			Common c = (Common)object;
+			append(sb, null, c.getFacilitySecId());
+			if(c.getHarbour() != null) {
+				append(sb, "Haven: ", c.getHarbour().getName());
+			}
+		}
+		if(object instanceof Anchorage) {
+			Anchorage a = (Anchorage)object;
+			append(sb, "XME Text: ", a.getXmeText());
+			append(sb, "KenmerkZe: ", a.getKenmerkZe());
+			append(sb, "Vac Reden: ", a.getVacReason());
+			append(sb, "Afmeer Vz: ", a.getAfmeerVz());
+		} else if(object instanceof Bolder) {
+			Bolder b = (Bolder)object;
+			append(sb, descriptionLabel, b.getDescription());
+			append(sb, materialLabel, b.getMaterial());
+			append(sb, "Bedrijf: ", b.getCompany());
+		} else if(object instanceof Koningspaal) {
+			Koningspaal k = (Koningspaal)object;
+			append(sb, descriptionLabel, k.getDescription());
+			append(sb, materialLabel, k.getMaterial());
+			append(sb, "Slijtmateriaal: ", k.getWearMaterial());
+		}
+
+		return sb.toString();
+
+	}
+
+	private void append(StringBuilder sb, String key, String value) {
+		if(value != null) {
+			if(key != null) {
+				sb.append(key);
+			}
+			sb.append(value).append('\n');
+		}
 	}
 
 	public AlertDialog getDialog() {

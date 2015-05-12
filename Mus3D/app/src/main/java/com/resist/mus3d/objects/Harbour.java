@@ -19,4 +19,8 @@ public class Harbour {
         }
         return harbours.get(id);
     }
+
+    public String getName() {
+        return name;
+    }
 }
