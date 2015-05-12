@@ -61,9 +61,7 @@ public class Marker extends OverlayItem {
 		if(object instanceof Common) {
 			Common c = (Common)object;
 			append(sb, null, c.getFacilitySecId());
-			if(c.getHarbour() != null) {
-				append(sb, "Haven: ", c.getHarbour().getName());
-			}
+			append(sb, "Haven: ", c.getHarbourId());
 		}
 		if(object instanceof Anchorage) {
 			Anchorage a = (Anchorage)object;

@@ -10,8 +10,8 @@ public class Afmeerboei extends Common {
 		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
 	}
 
-    public Afmeerboei(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String facilityId, String facilitySecId, Harbour harbour, String regionId) {
-        super(objectid, createdBy, createdAt, editedBy, editedAt, featureId, facilityId, facilitySecId, harbour, regionId);
+    public Afmeerboei(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String facilityId, String facilitySecId, String regionId, String harbourId) {
+        super(objectid, createdBy, createdAt, editedBy, editedAt, featureId, facilityId, facilitySecId, regionId, harbourId);
     }
 
     public int getType() {

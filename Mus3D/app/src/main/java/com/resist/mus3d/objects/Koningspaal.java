@@ -16,8 +16,8 @@ public class Koningspaal extends Common {
 		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
 	}
 
-	public Koningspaal(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String facilityId, String facilitySecId, Harbour harbour, String regionId, String confirmation, String description, String material, String wearMaterial) {
-		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId, facilityId, facilitySecId, harbour, regionId);
+	public Koningspaal(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String facilityId, String facilitySecId, String regionId, String confirmation, String description, String material, String wearMaterial, String harbourId) {
+		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId, facilityId, facilitySecId, regionId, harbourId);
 		this.confirmation = confirmation;
 		this.description = description;
 		this.material = material;

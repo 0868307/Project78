@@ -8,20 +8,28 @@ import java.util.Date;
 public class Common extends Object {
 	private String facilityId;
 	private String facilitySecId;
-	private Harbour harbour;
 	private String regionId;
+	private String harbourId;
 
 	public Common(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId) {
 		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
 	}
 
-	public Common(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String facilityId, String facilitySecId, Harbour harbour, String regionId) {
+	public Common(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String facilityId, String facilitySecId, String regionId, String harbourId) {
 		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
 		this.facilityId = facilityId;
 		this.facilitySecId = facilitySecId;
-		this.harbour = harbour;
 		this.regionId = regionId;
+		this.harbourId = harbourId;
 		super.load();
+	}
+
+	public String getHarbourId() {
+		return harbourId;
+	}
+
+	public void setHarbourId(String harbourId) {
+		this.harbourId = harbourId;
 	}
 
 	public String getFacilityId() {
@@ -50,20 +58,6 @@ public class Common extends Object {
 			load();
 		}
 		this.facilitySecId = facilitySecId;
-	}
-
-	public Harbour getHarbour() {
-		if(!isComplete()) {
-			load();
-		}
-		return harbour;
-	}
-
-	public void setHarbour(Harbour harbour) {
-		if(!isComplete()) {
-			load();
-		}
-		this.harbour = harbour;
 	}
 
 	public String getRegionId() {

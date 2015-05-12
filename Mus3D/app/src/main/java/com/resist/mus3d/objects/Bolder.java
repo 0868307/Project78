@@ -20,8 +20,8 @@ public class Bolder extends Common {
 		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
 	}
 
-	public Bolder(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String facilityId, String facilitySecId, Harbour harbour, String regionId, String description, String material, String anchor, String type, String partner, String company) {
-		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId, facilityId, facilitySecId, harbour, regionId);
+	public Bolder(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String facilityId, String facilitySecId, String regionId, String description, String material, String anchor, String type, String partner, String company, String harbourId) {
+		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId, facilityId, facilitySecId, regionId, harbourId);
 		this.description = description;
 		this.material = material;
 		this.anchor = anchor;

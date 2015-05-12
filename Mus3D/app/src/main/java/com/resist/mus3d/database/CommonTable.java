@@ -12,12 +12,12 @@ public class CommonTable extends ObjectTable {
 	}
 
 	public void loadObject(Common object) {
-		Cursor c = db.rawQuery("SELECT algemeen.*, havens.havenNaam FROM algemeen LEFT JOIN havens ON(algemeen.harbourId = havens.havenAfkorting) WHERE algemeen.objecttype = ? AND algemeen.id = ?", new String[] {String.valueOf(object.getType()), String.valueOf(object.getObjectid())});
+		Cursor c = db.rawQuery("SELECT algemeen.* FROM algemeen WHERE algemeen.objecttype = ? AND algemeen.id = ?", new String[] {String.valueOf(object.getType()), String.valueOf(object.getObjectid())});
 		if(c.moveToFirst()) {
 			object.setFacilityId(c.getString(c.getColumnIndex("facilityId")));
 			object.setFacilitySecId(c.getString(c.getColumnIndex("facilitySecId")));
 			object.setRegionId(c.getString(c.getColumnIndex("regionId")));
-			object.setHarbour(Harbour.cacheHarbour(c.getString(c.getColumnIndex("harbourId")), c.getString(c.getColumnIndex("havenNaam"))));
+			object.setHarbourId(c.getString(c.getColumnIndex("harbourId")));
 		}
 		c.close();
 	}
