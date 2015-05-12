@@ -1,25 +1,15 @@
 package com.resist.mus3d.database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
-import com.resist.mus3d.objects.Afmeerboei;
-import com.resist.mus3d.objects.Harbour;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class ObjectDatabase {
     private static final String FILE = "objectdatabase";

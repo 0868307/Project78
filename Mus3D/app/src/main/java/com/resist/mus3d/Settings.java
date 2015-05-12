@@ -1,9 +1,8 @@
 package com.resist.mus3d;
 
-import android.app.ActionBar;
+import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 
 

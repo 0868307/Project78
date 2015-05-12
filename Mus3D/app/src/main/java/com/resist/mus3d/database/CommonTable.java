@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.resist.mus3d.objects.Common;
-import com.resist.mus3d.objects.Harbour;
 
 public class CommonTable extends ObjectTable {
 	public CommonTable(SQLiteDatabase db) {

@@ -1,11 +1,9 @@
 package com.resist.mus3d.map;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,11 +12,6 @@ import com.resist.mus3d.R;
 import com.resist.mus3d.Rajawali;
 import com.resist.mus3d.Settings;
 import com.resist.mus3d.database.ObjectTable;
-import com.resist.mus3d.objects.Afmeerboei;
-import com.resist.mus3d.objects.Anchorage;
-import com.resist.mus3d.objects.Bolder;
-import com.resist.mus3d.objects.Koningspaal;
-import com.resist.mus3d.objects.Meerpaal;
 import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
 

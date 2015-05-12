@@ -1,7 +1,5 @@
 package com.resist.mus3d.objects;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.database.Bolders;
 

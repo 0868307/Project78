@@ -2,10 +2,7 @@ package com.resist.mus3d.objects.coords;
 
 import android.location.Location;
 
-import com.resist.mus3d.Mus3D;
-
 import org.osmdroid.api.IGeoPoint;
-import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.Position;
 
 public class Point extends Coordinate {

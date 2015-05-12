@@ -5,7 +5,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import com.resist.mus3d.R;
-import com.resist.mus3d.objects.*;
+import com.resist.mus3d.objects.Afmeerboei;
+import com.resist.mus3d.objects.Anchorage;
+import com.resist.mus3d.objects.Bolder;
+import com.resist.mus3d.objects.Common;
+import com.resist.mus3d.objects.Koningspaal;
+import com.resist.mus3d.objects.Meerpaal;
 import com.resist.mus3d.objects.Object;
 
 import org.osmdroid.util.GeoPoint;

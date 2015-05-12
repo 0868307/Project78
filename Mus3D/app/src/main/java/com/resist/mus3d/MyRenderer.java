@@ -1,39 +1,23 @@
 package com.resist.mus3d;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.opengl.GLES20;
 import android.os.AsyncTask;
 
-
-import com.resist.mus3d.database.Afmeerboeien;
 import com.resist.mus3d.database.ObjectTable;
-import com.resist.mus3d.objects.*;
 import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
 
 import org.osmdroid.util.Position;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
-import javax.microedition.khronos.opengles.GL10;
 
 import rajawali.BaseObject3D;
 import rajawali.lights.DirectionalLight;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
-import rajawali.primitives.Cube;
-import rajawali.primitives.Plane;
 import rajawali.renderer.RajawaliRenderer;
 import rajawali.util.ObjectColorPicker;
 import rajawali.util.OnObjectPickedListener;
@@ -118,7 +102,7 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
     }
 
     public void getObjectAt(float x, float y) {
-        mPicker.getObjectAt(x,y);
+        mPicker.getObjectAt(x, y);
 
     }
 
