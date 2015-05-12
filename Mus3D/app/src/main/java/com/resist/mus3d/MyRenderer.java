@@ -35,13 +35,17 @@ import rajawali.parser.ObjParser;
 import rajawali.primitives.Cube;
 import rajawali.primitives.Plane;
 import rajawali.renderer.RajawaliRenderer;
+import rajawali.util.ObjectColorPicker;
+import rajawali.util.OnObjectPickedListener;
 
-public class MyRenderer extends RajawaliRenderer {
+public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListener {
     public static final int MULTIPLIER = 10000;
     private DirectionalLight mLight;
     private BaseObject3D mSphere;
     private List<BaseObject3D> object3Ds = new ArrayList<>();
     private Rajawali context;
+    private ObjectColorPicker mPicker;
+    private OnObjectPickedListener mObjectPickedListener;
     public MyRenderer(Context context) {
         super(context);
         this.context = (Rajawali)context;
@@ -54,7 +58,7 @@ public class MyRenderer extends RajawaliRenderer {
         mLight.setColor(1.0f, 1.0f, 1.0f);
         mLight.setPower(2);
         mCamera.setLookAt(0, 0, 0);
-        /*
+
         ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
 
         try {
@@ -70,7 +74,9 @@ public class MyRenderer extends RajawaliRenderer {
         mObject.setScale(.3f);
         mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
         //setCamera(0,0,0);
-        */
+        mPicker = new ObjectColorPicker(this);
+        mPicker.setOnObjectPickedListener(mObjectPickedListener);
+        mPicker.registerObject(mObject);
         /** ToonMaterial toonMat = new ToonMaterial();
         toonMat.setToonColors(0xffffffff, 0xff000000, 0xff666666, 0xff000000);
         mObject.setMaterial(toonMat);
@@ -103,6 +109,17 @@ public class MyRenderer extends RajawaliRenderer {
     }
     public void makeObjects(){
         new LongOperation().execute();
+    }
+
+    @Override
+    public void onObjectPicked(BaseObject3D object) {
+        System.out.println("Object picked"+object.getX());
+
+    }
+
+    public void getObjectAt(float x, float y) {
+        mPicker.getObjectAt(x,y);
+
     }
 
     private class LongOperation extends AsyncTask<String, Void, Boolean> {
@@ -146,6 +163,8 @@ public class MyRenderer extends RajawaliRenderer {
             return true;
         }
 
+
+
         @Override
         protected void onPostExecute(Boolean result) {
         }
@@ -156,5 +175,9 @@ public class MyRenderer extends RajawaliRenderer {
 
         @Override
         protected void onProgressUpdate(Void... values) {}
+
+        public void setOnObjectPickedListener(OnObjectPickedListener objectPickedListener) {
+            mObjectPickedListener = objectPickedListener;
+        }
     }
 }
