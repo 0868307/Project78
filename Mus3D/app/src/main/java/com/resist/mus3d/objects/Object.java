@@ -1,8 +1,11 @@
 package com.resist.mus3d.objects;
 
+import android.location.Location;
+
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.objects.coords.Coordinate;
+import com.resist.mus3d.objects.coords.Point;
 
 import java.util.Date;
 
@@ -73,5 +76,11 @@ public class Object {
 		complete = true;
 	}
 
+	public double getDistanceTo(Object object) {
+		return getLocation().getDistanceTo(object.getLocation());
+	}
 
+	public double getDistanceTo(Location location) {
+		return getLocation().getDistanceTo(new Point(location));
+	}
 }
