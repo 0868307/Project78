@@ -110,6 +110,22 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 
     }
 
+    public int[] getIntArray(Integer number){
+
+        int[] characterizedArray = new int[number.toString().length()];
+        String tussenweg;
+
+        for (int i = 0; i < number.toString().length() ; i++) {
+            char numberAsChar = number.toString().charAt(i);
+            tussenweg =""+numberAsChar;
+            int parsedInt = Integer.parseInt(tussenweg);
+            characterizedArray[i] = parsedInt;
+        }
+
+
+        return characterizedArray;
+    }
+
     private class LongOperation extends AsyncTask<String, Void, Boolean> {
 
         @Override
