@@ -175,7 +175,22 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
         public void drawNumber(int number,float x,float y,float z , Map<BaseObject3D, Object> map, Object o){
             int[] numbers = getIntArray(number);
             for(int i=0;i<numbers.length;i++){
-                ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
+                int resId;
+                switch (number){
+                    case 0:
+                        resId = R.raw.n0_obj;
+                        break;
+                    case 1:
+                        resId = R.raw.n1_obj;
+                        break;
+                    case 2:
+                        resId = R.raw.n2_obj;
+                        break;
+                    default:
+                        resId = R.raw.n0_obj;
+                        break;
+                }
+                ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, resId);
                 try {
                     parser.parse();
                 } catch (AParser.ParsingException e) {
@@ -186,7 +201,7 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
                 mPicker.registerObject(mObject);
                 System.out.println(mPicker);
                 mObject.setPosition(x + (i * 10), y - 50, z);
-                mObject.setRotation(0, 0, 0);
+                mObject.setRotation(0, 0, 20);
                 mObject.setScale(.1f);
                 mObject.setDrawingMode(1);
                 map.put(mObject,o);
