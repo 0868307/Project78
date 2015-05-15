@@ -2,10 +2,16 @@ package com.resist.mus3d.sensor;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.view.Display;
+import android.view.Surface;
+import android.view.WindowManager;
+
+import com.resist.mus3d.Rajawali;
 
 /**
  * Created by Wouter on 5/7/2015.
@@ -33,7 +39,7 @@ public class SensorTracker implements SensorEventListener {
 
         //Remap to camera's point-of-view
         SensorManager.remapCoordinateSystem(temp,
-                SensorManager.AXIS_X,
+                SensorManager.AXIS_Y,
                 SensorManager.AXIS_Z, R);
 
         //Return the orientation values
@@ -62,10 +68,11 @@ public class SensorTracker implements SensorEventListener {
                 return;
         }
         if(mGravity != null && mMagnetic != null) {
-            float x = -10;
+            float x = 0;
             float y = (getDirection()+180)%360;
-            float z = -90;
-            activity.updateSensor(x,y,z);
+            float z = 0;
+
+            activity.updateSensor(x, y, z);
         }
     }
 

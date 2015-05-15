@@ -106,7 +106,7 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
     }
 
     public void getObjectAt(float x, float y) {
-        mPicker.getObjectAt(x,y);
+        mPicker.getObjectAt(x, y);
 
     }
 
@@ -133,8 +133,8 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
                 mPicker.registerObject(mObject);
                 System.out.println(mPicker);
                 lastPos = o.getLocation().getPosition();
-                mObject.setPosition( (float) (lastPos.getLongitude()*MULTIPLIER),(float) (lastPos.getLatitude()*MULTIPLIER), 0);
-                mObject.setRotation(90, 0, 0);
+                mObject.setPosition((float) (lastPos.getLongitude()*MULTIPLIER) ,0, (float) (lastPos.getLatitude()*MULTIPLIER) );
+                mObject.setRotation(0, 0, 0);
                 mObject.setScale(.1f);
                 mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
                 newobject3Ds.put(mObject,o);
