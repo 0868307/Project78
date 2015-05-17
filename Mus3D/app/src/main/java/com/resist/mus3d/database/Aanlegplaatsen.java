@@ -7,8 +7,10 @@ import android.util.Log;
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.objects.Anchorage;
 import com.resist.mus3d.objects.Harbour;
+import com.resist.mus3d.objects.coords.Coordinate;
 
 import java.text.ParseException;
+import java.util.List;
 
 public class Aanlegplaatsen extends ObjectTable {
 	public Aanlegplaatsen(SQLiteDatabase db) {
@@ -41,4 +43,9 @@ public class Aanlegplaatsen extends ObjectTable {
 		}
 		c.close();
 	}
+
+    @Override
+    public List<Anchorage> getObjectsAround(Coordinate location, double distance) {
+        return (List<Anchorage>)getObjectsAround(location, distance, new int[] {Anchorage.TYPE});
+    }
 }
