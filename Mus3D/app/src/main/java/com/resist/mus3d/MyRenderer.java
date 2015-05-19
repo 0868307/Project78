@@ -1,27 +1,22 @@
 package com.resist.mus3d;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.opengl.GLES20;
 import android.os.AsyncTask;
+
 import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.objects.Object;
-import com.resist.mus3d.objects.coords.Coordinate;
 import com.resist.mus3d.objects.coords.Point;
+
 import org.osmdroid.util.Position;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import rajawali.BaseObject3D;
 import rajawali.lights.DirectionalLight;
-import rajawali.materials.TextureInfo;
-import rajawali.materials.ToonMaterial;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
 import rajawali.renderer.RajawaliRenderer;
@@ -68,7 +63,7 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
         mPicker = new ObjectColorPicker(this);
         mPicker.setOnObjectPickedListener(this);
         mPicker.registerObject(mObject);
-        System.out.println("Dus, ja"+mPicker);
+        System.out.println("Dus, ja" + mPicker);
 
 
         /** ToonMaterial toonMat = new ToonMaterial();
@@ -160,7 +155,7 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
                 mObject.setScale(.1f);
                 mObject.setDrawingMode(1);
                 newobject3Ds.put(mObject, o);
-                drawNumber((int)o.getLocation().getDistanceTo(new Point(mCamera.getX(),mCamera.getY())),objectPosX,objectPosY,objectPosZ,newobject3Ds,o);
+                drawNumber((int) o.getLocation().getDistanceTo(new Point(mCamera.getX(), mCamera.getY())), objectPosX, objectPosY, objectPosZ, newobject3Ds, o);
             }
             System.out.println("executed");
             for (Map.Entry<BaseObject3D, Object> o : object3Ds.entrySet()) {

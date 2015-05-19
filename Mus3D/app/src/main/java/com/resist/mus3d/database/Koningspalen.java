@@ -3,7 +3,6 @@ package com.resist.mus3d.database;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.resist.mus3d.objects.Anchorage;
 import com.resist.mus3d.objects.Koningspaal;
 import com.resist.mus3d.objects.coords.Coordinate;
 

@@ -2,16 +2,10 @@ package com.resist.mus3d.sensor;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.view.Display;
-import android.view.Surface;
-import android.view.WindowManager;
-
-import com.resist.mus3d.Rajawali;
 
 /**
  * Created by Wouter on 5/7/2015.
