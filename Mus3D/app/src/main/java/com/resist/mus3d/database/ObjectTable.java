@@ -94,43 +94,69 @@ public class ObjectTable {
 		return new MultiPoint(points);
 	}
 
+    public List<? extends com.resist.mus3d.objects.Object> getObjectsAround(Coordinate location, double distance, int[] types) {
+        List<com.resist.mus3d.objects.Object> out = new ArrayList<>();
+        Position pos = location.getPosition();
+        String x = String.valueOf(pos.getLongitude());
+        String y = String.valueOf(pos.getLatitude());
+        String d = String.valueOf(distance);
+        Map<com.resist.mus3d.objects.Object, SparseArray<SparseArray<Point>>> coords = new HashMap<>();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT objecten.*, coordinaten.polygon, coordinaten.multipoint, coordinaten.x, coordinaten.y ")
+                .append("FROM objecten ")
+                .append("JOIN coordinaten ")
+                .append("ON(objecten.objecttype = coordinaten.objecttype AND objecten.objectid = coordinaten.id) ")
+                .append("WHERE ");
+        int typeLength = 0;
+        String[] args = new String[6];
+        if(types != null) {
+            typeLength = types.length;
+            args = new String[6 + typeLength];
+            sb.append("objecten.objecttype IN (");
+            for(int n=0; n < types.length; n++) {
+                args[n] = String.valueOf(types[n]);
+                if(n > 0) {
+                    sb.append(", ");
+                }
+                sb.append('?');
+            }
+            sb.append(") AND ");
+        }
+        sb.append("(coordinaten.x-?)*(coordinaten.x-?)+(coordinaten.y-?)*(coordinaten.y-?) <= ?*? ")
+                .append("ORDER BY objecten.objecttype, objectid");
+        args[typeLength] = x;
+        args[typeLength + 1] = x;
+        args[typeLength + 2] = y;
+        args[typeLength + 3] = y;
+        args[typeLength + 4] = d;
+        args[typeLength + 5] = d;
+        Cursor c = db.rawQuery(
+                sb.toString(),
+                args
+        );
+        com.resist.mus3d.objects.Object current = null;
+        c.moveToFirst();
+        while(!c.isAfterLast()) {
+            if(current == null || c.getInt(c.getColumnIndex("objecttype")) != current.getType() || c.getInt(c.getColumnIndex("objectid")) != current.getObjectid()) {
+                current = createObjectFromCursor(c);
+                out.add(current);
+                coords.put(current, new SparseArray<SparseArray<Point>>());
+            }
+            putCoordinates(c, coords.get(current));
+            c.moveToNext();
+        }
+        c.close();
+
+        for(com.resist.mus3d.objects.Object o : out) {
+            o.setLocation(buildCoordinates(coords.get(o)));
+        }
+
+        return out;
+    }
+
 	public List<? extends com.resist.mus3d.objects.Object> getObjectsAround(Coordinate location, double distance) {
-		List<com.resist.mus3d.objects.Object> out = new ArrayList<>();
-		Position pos = location.getPosition();
-		String x = String.valueOf(pos.getLongitude());
-		String y = String.valueOf(pos.getLatitude());
-		String d = String.valueOf(distance);
-		Map<com.resist.mus3d.objects.Object, SparseArray<SparseArray<Point>>> coords = new HashMap<>();
-
-		Cursor c = db.rawQuery(
-				"SELECT objecten.*, coordinaten.polygon, coordinaten.multipoint, coordinaten.x, coordinaten.y " +
-				"FROM objecten " +
-				"JOIN coordinaten " +
-				"ON(objecten.objecttype = coordinaten.objecttype AND objecten.objectid = coordinaten.id) " +
-				"WHERE (coordinaten.x-?)*(coordinaten.x-?)+(coordinaten.y-?)*(coordinaten.y-?) <= ?*? " +
-				"ORDER BY objecten.objecttype, objectid",
-				new String[] {
-						x, x, y, y, d, d
-				}
-		);
-		com.resist.mus3d.objects.Object current = null;
-		c.moveToFirst();
-		while(!c.isAfterLast()) {
-			if(current == null || c.getInt(c.getColumnIndex("objecttype")) != current.getType() || c.getInt(c.getColumnIndex("objectid")) != current.getObjectid()) {
-				current = createObjectFromCursor(c);
-				out.add(current);
-				coords.put(current, new SparseArray<SparseArray<Point>>());
-			}
-			putCoordinates(c, coords.get(current));
-			c.moveToNext();
-		}
-		c.close();
-
-		for(com.resist.mus3d.objects.Object o : out) {
-			o.setLocation(buildCoordinates(coords.get(o)));
-		}
-
-		return out;
+		return getObjectsAround(location, distance, null);
 	}
 
     protected Date parseDate(String date) throws ParseException {

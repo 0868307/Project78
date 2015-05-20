@@ -4,6 +4,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.resist.mus3d.objects.Bolder;
+import com.resist.mus3d.objects.coords.Coordinate;
+
+import java.util.List;
 
 public class Bolders extends CommonTable {
 	public Bolders(SQLiteDatabase db) {
@@ -21,4 +24,9 @@ public class Bolders extends CommonTable {
 		}
 		c.close();
 	}
+
+    @Override
+    public List<Bolder> getObjectsAround(Coordinate location, double distance) {
+        return (List<Bolder>)getObjectsAround(location, distance, new int[] {Bolder.TYPE});
+    }
 }

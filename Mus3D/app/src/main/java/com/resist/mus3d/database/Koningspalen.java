@@ -4,6 +4,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.resist.mus3d.objects.Koningspaal;
+import com.resist.mus3d.objects.coords.Coordinate;
+
+import java.util.List;
 
 public class Koningspalen extends CommonTable {
 	public Koningspalen(SQLiteDatabase db) {
@@ -20,4 +23,9 @@ public class Koningspalen extends CommonTable {
 		}
 		c.close();
 	}
+
+    @Override
+    public List<Koningspaal> getObjectsAround(Coordinate location, double distance) {
+        return (List<Koningspaal>)getObjectsAround(location, distance, new int[] {Koningspaal.TYPE});
+    }
 }
