@@ -28,4 +28,5 @@
 
     <string name="menu_open">Open menu</string>
     <string name="menu_close">Sluit menu</string>
+    <string name="content_fragment">Start de app</string>
 </resources>

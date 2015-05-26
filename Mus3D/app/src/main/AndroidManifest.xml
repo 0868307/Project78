@@ -58,6 +58,10 @@
             android:name=".RoleSelector"
             android:label="@string/title_activity_roll_selector" >
         </activity>
+        <activity
+            android:name=".ScreenSlidePagerActivity"
+            android:label="@string/content_fragment" >
+        </activity>
     </application>
 
 </manifest>
