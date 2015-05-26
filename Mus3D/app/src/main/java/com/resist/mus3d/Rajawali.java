@@ -1,8 +1,6 @@
 package com.resist.mus3d;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,11 +11,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-
 import com.resist.mus3d.map.GpsActivity;
 import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.map.Map;
@@ -39,6 +35,13 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		myRenderer = new MyRenderer(this);
 		myRenderer.setSurfaceView(mSurfaceView);
 		mSurfaceView.setOnTouchListener(this);
+		super.setRenderer(myRenderer);
+		createUI();
+		locationListener = new LocationTracker(this);
+		sensorTracker = new SensorTracker(this);
+	}
+
+	private void createUI(){
 
 		RelativeLayout rl = new RelativeLayout(this);
 		LinearLayout ll = new LinearLayout(this);
@@ -54,9 +57,6 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		rl.addView(progressBarObjects);
 		mLayout.addView(rl);
 
-		super.setRenderer(myRenderer);
-		locationListener = new LocationTracker(this);
-		sensorTracker = new SensorTracker(this);
 	}
 
 	public void onObjectLoadingProgress(double progress) {
