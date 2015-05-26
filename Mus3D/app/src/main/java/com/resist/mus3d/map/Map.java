@@ -57,7 +57,7 @@ public class Map extends ActionBarActivity implements GpsActivity {
 
     public void updateMarkers(IGeoPoint location) {
         List<Marker> overlayItemArray = new ArrayList<>();
-        ObjectTable objectTable = new Bolders(Mus3D.getDatabase().getDatabase());
+        ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
         List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.003);
 
         for (Object o : list) {
