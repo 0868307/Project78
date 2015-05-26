@@ -33,7 +33,8 @@
         </activity>
         <activity
             android:name=".map.Map"
-            android:label="@string/title_activity_map">
+            android:label="@string/title_activity_map"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
             <intent-filter>
                 <action android:name=".Map" />
 

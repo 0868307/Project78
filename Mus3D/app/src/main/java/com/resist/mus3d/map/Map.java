@@ -1,5 +1,6 @@
 package com.resist.mus3d.map;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.LocationManager;
@@ -62,6 +63,7 @@ public class Map extends Activity implements GpsActivity {
         //TODO checkboxes aanpassen aan opgeslagen gecheckte waarden
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, menuDrawer, null, R.string.menu_open, R.string.menu_close);
         menuDrawer.setDrawerListener(drawerToggle);
+        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
     }
 
     public void onCheckBoxClick(View v) {
@@ -88,7 +90,7 @@ public class Map extends Activity implements GpsActivity {
         if (locationListener != null && locationListener.getCurrentLocation() != null) {
             GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(), locationListener.getCurrentLocation().getLongitude());
             OverlayItem currentLoc = new OverlayItem("location", "Huidige location", currentLocation);
-            ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<>(this, null, null);
+            ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<>(this, new ArrayList<OverlayItem>(), null);
             itemizedIconOverlay.addItem(currentLoc);
             mapView.getOverlays().add(itemizedIconOverlay);
         }
