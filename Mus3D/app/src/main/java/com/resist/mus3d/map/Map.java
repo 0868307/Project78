@@ -3,6 +3,7 @@ package com.resist.mus3d.map;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -64,6 +65,7 @@ public class Map extends Activity implements GpsActivity {
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, menuDrawer, null, R.string.menu_open, R.string.menu_close);
         menuDrawer.setDrawerListener(drawerToggle);
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
+        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.primary)));
     }
 
     public void onCheckBoxClick(View v) {
