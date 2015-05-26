@@ -18,4 +18,6 @@
     <string name="action_3D">3D</string>
     <string name="load_gps">Uw GPS coördinaten worden bepaald.</string>
     <string name="load_objects">De objecten worden geladen.</string>
+
+    <string name="content_fragment">Start de app</string>
 </resources>
