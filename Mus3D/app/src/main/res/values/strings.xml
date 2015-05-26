@@ -16,6 +16,6 @@
     <string name="cancel">Sluit</string>
     <string name="action_2D">2D</string>
     <string name="action_3D">3D</string>
-    <string name="load_gps">Uw GPS coordinaten worden bepaald.</string>
+    <string name="load_gps">Uw GPS coördinaten worden bepaald.</string>
     <string name="load_objects">De objecten worden geladen.</string>
 </resources>
