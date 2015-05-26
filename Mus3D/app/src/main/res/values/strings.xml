@@ -18,4 +18,14 @@
     <string name="action_3D">3D</string>
     <string name="load_gps">Uw GPS coördinaten worden bepaald.</string>
     <string name="load_objects">De objecten worden geladen.</string>
+
+    <string name="object_afmeerboei">Afmeerboei</string>
+    <string name="object_bolder">Bolder</string>
+    <string name="object_koningspaal">Koningspaal</string>
+    <string name="object_ligplaats">Ligplaats</string>
+    <string name="object_meerpaal">Meerpaal</string>
+    <string name="object_onbekend">Onbekend</string>
+
+    <string name="menu_open">Open menu</string>
+    <string name="menu_close">Sluit menu</string>
 </resources>

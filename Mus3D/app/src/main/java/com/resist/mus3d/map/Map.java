@@ -1,11 +1,14 @@
 package com.resist.mus3d.map;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
@@ -28,12 +31,13 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Map extends ActionBarActivity implements GpsActivity {
+public class Map extends Activity implements GpsActivity {
     private MapView mapView;
     private MapController mapController;
     private LocationManager locationManager;
     private List<OverlayItem> overlayItemArray;
     private LocationTracker locationListener;
+    private DrawerLayout menuDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,16 @@ public class Map extends ActionBarActivity implements GpsActivity {
 
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(this);
         mapView.getOverlays().add(myScaleBarOverlay);
-        displayMyCurrentLocationOverlay();
+        goToCurrentLocation();
+
+        menuDrawer = (DrawerLayout)findViewById(R.id.menu_drawer);
+        //TODO checkboxes aanpassen aan opgeslagen gecheckte waarden
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, menuDrawer, null, R.string.menu_open, R.string.menu_close);
+        menuDrawer.setDrawerListener(drawerToggle);
+    }
+
+    public void onCheckBoxClick(View v) {
+        //TODO waardes opslaan en kaart redrawen
     }
 
     public void updateMarkers(IGeoPoint location) {
@@ -68,22 +81,24 @@ public class Map extends ActionBarActivity implements GpsActivity {
 
         mapView.getOverlays().clear();
         mapView.getOverlays().add(itemizedIconOverlay);
+        addCurrentPosition();
     }
 
-    public void displayMyCurrentLocationOverlay() {
-        if (locationListener != null) {
-            if (locationListener.getCurrentLocation() != null) {
-                GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(), locationListener.getCurrentLocation().getLongitude());
-                mapView.getController().setCenter(currentLocation);
-                overlayItemArray.clear();
+    private void addCurrentPosition() {
+        if (locationListener != null && locationListener.getCurrentLocation() != null) {
+            GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(), locationListener.getCurrentLocation().getLongitude());
+            OverlayItem currentLoc = new OverlayItem("location", "Huidige location", currentLocation);
+            ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<>(this, null, null);
+            itemizedIconOverlay.addItem(currentLoc);
+            mapView.getOverlays().add(itemizedIconOverlay);
+        }
+    }
 
-                OverlayItem currentLoc = new OverlayItem("location", "Huidige location", currentLocation);
-
-                overlayItemArray.add(currentLoc);
-                ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(this, overlayItemArray, null);
-
-                mapView.getOverlays().add(itemizedIconOverlay);
-            }
+    public void goToCurrentLocation() {
+        if (locationListener != null && locationListener.getCurrentLocation() != null) {
+            GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(), locationListener.getCurrentLocation().getLongitude());
+            mapView.getController().setCenter(currentLocation);
+            addCurrentPosition();
         }
     }
 
@@ -124,7 +139,5 @@ public class Map extends ActionBarActivity implements GpsActivity {
 
     @Override
     public void update() {
-        //Commented omdat je anders heel de tijd naar huidige locatie gaat en je dus geen objecten kan bekijken.
-        //displayMyCurrentLocationOverlay();
     }
 }

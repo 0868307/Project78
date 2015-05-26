@@ -43,18 +43,19 @@ public class Marker extends OverlayItem {
 	}
 
 	private String getDialogTitle() {
+        int res = R.string.object_onbekend;
 		if (object instanceof Afmeerboei) {
-			return "Afmeerboei " + object.getObjectid();
+			res = R.string.object_afmeerboei;
 		} else if (object instanceof Bolder) {
-			return "Bolder " + object.getObjectid();
+            res = R.string.object_bolder;
 		} else if (object instanceof Koningspaal) {
-			return "Koningspaal " + object.getObjectid();
+            res = R.string.object_koningspaal;
 		} else if (object instanceof Anchorage) {
-			return "Ligplaats " + object.getObjectid();
+            res = R.string.object_ligplaats;
 		} else if (object instanceof Meerpaal) {
-			return "Meerpaal " + object.getObjectid();
+            res = R.string.object_meerpaal;
 		}
-		return "Onbekend";
+        return activity.getResources().getString(res)+" "+object.getObjectid();
 	}
 
 	private String getDialogMessage() {
