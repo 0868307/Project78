@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.opengl.GLES20;
 import android.os.AsyncTask;
 import com.resist.mus3d.database.ObjectTable;
+import com.resist.mus3d.map.Marker;
 import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
 import org.osmdroid.util.Position;
@@ -36,31 +37,20 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 	}
 
 	public void initScene() {
+		mCamera.setLookAt(0, 0, 0);
+		createLight();
+		mPicker = new ObjectColorPicker(this);
+		mPicker.setOnObjectPickedListener(this);
+
+	}
+
+	private void createLight() {
 		mLight = new DirectionalLight(1f, 0.2f, -1.0f); // set the direction
 		mLight.setColor(1.0f, 1.0f, 1.0f);
 		mLight.setPower(2);
-		mCamera.setLookAt(0, 0, 0);
 
-		ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
-
-		try {
-			parser.parse();
-		} catch (AParser.ParsingException e) {
-			e.printStackTrace();
-		}
-		BaseObject3D mObject = parser.getParsedObject();
-		addChild(mObject);
-		mCamera.setZ(4.2f);
-		mCamera.setY(-1.5f);
-		mObject.setRotation(40, 0, 90);
-		mObject.setScale(.3f);
-		mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
-		//setCamera(0,0,0);
-		mPicker = new ObjectColorPicker(this);
-		mPicker.setOnObjectPickedListener(this);
-		mPicker.registerObject(mObject);
-		System.out.println("Dus, ja"+mPicker);
 	}
+
 	public void setCamera(float x, float y, float z){
 		mCamera.setPosition(x, y, z);
 	}
@@ -75,17 +65,20 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 		}
 		System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-");
 	}
-	public void makeObjects(){
+	public void makeObjects() {
 		new LongOperation().execute();
 	}
 
 	@Override
 	public void onObjectPicked(BaseObject3D object) {
 		selectedObject = object;
-		Object mijnObject = object3Ds.get(object);
-
-
-
+		final Object mijnObject = object3Ds.get(object);
+		context.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				new Marker(context, mijnObject).getDialog().show();
+			}
+		});
 	}
 
 	public void getObjectAt(float x, float y) {
