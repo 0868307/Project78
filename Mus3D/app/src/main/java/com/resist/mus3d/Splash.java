@@ -22,7 +22,7 @@ public class Splash extends Activity {
 		String storedRole = prefs.getString("roleSelector", "0");
 		Intent i;
 		if(storedRole.equals("0")) {
-			i = new Intent(Splash.this, ScreenSlidePagerActivity.class);
+			i = new Intent(Splash.this, ScreenSlidePager.class);
 		} else if(storedRole.equals(RoleSelector.ROLE_ROEIER)) {
 			i = new Intent(Splash.this, Map.class);
 		} else {

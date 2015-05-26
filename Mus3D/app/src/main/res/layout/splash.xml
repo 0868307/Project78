@@ -14,7 +14,9 @@
         android:layout_height="wrap_content"
         android:scaleType="center"
         android:cropToPadding="false"
-        android:paddingTop="40dp" />
+        android:paddingTop="40dp"
+        android:adjustViewBounds="true"
+        />
 
     <RelativeLayout
         android:id="@+id/loadingPanel"
