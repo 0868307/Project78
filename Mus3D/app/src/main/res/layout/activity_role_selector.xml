@@ -9,20 +9,30 @@
                 tools:context="com.resist.mus3d.RoleSelector">
 
     <TextView
-            android:text="@string/roleSelector_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/textView2"
-            android:textStyle="bold"
-            android:textSize="30sp" />
+        android:text="@string/roleSelector_tv_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView2"
+        android:textStyle="bold"
+        android:textSize="30sp" />
+    <TextView
+        android:text="@string/roleSelector_tv_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView2"
+        android:textSize="25sp"
+        android:layout_marginTop="30dp"/>
 
     <RadioGroup
             android:id="@+id/rg_Rol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
-            android:layout_centerHorizontal="true">
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true"
+            android:paddingRight="20dp">
 
         <RadioButton
                 android:id="@+id/rb_RolRoeier"
@@ -30,22 +40,29 @@
                 android:layout_height="wrap_content"
                 android:text="@string/roleSelector_rb_Roeier"
                 android:checked="true"
-                android:layout_marginTop="67dp" android:textSize="32sp"/>
+                android:layout_marginTop="67dp"
+                android:textSize="30sp"/>
         <RadioButton
                 android:id="@+id/rb_RolLoods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/roleSelector_rb_Loods"
-                android:textSize="32sp"/>
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"/>
     </RadioGroup>
 
     <Button
             android:id="@+id/btn_Submit"
             android:onClick="submit"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/roleSelector_btn_submit"
-            android:layout_marginBottom="50dp" android:textSize="25sp" android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_marginBottom="50dp"
+            android:textSize="25sp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/primary"
+            android:textColor="@color/text_primary"
+            android:padding="15dp"/>
 
 </RelativeLayout>
