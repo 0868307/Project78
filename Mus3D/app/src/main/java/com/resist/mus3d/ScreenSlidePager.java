@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.TitlePageIndicator;
+
 /**
  * Created by Thomas on 26-5-2015.
  */
@@ -41,6 +44,12 @@ public class ScreenSlidePager extends FragmentActivity{
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new CustomPagerAdapter(this);
         mPager.setAdapter(mPagerAdapter);
+
+        //Bind the title indicator to the adapter
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
+        circlePageIndicator.setViewPager(mPager);
+
+
 
     }
 
