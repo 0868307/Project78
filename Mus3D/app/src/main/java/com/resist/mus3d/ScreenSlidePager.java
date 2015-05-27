@@ -94,8 +94,10 @@ public class ScreenSlidePager extends FragmentActivity{
                 @Override
                 public void onClick(View v) {
 
+                    Splash.startTutorial = false;
                     Intent intent = new Intent(v.getContext(), RoleSelector.class);
                     v.getContext().startActivity(intent);
+
 
                 }
             });
