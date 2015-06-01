@@ -6,6 +6,12 @@ import android.opengl.GLES20;
 import android.os.AsyncTask;
 import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.map.Marker;
+import com.resist.mus3d.objects.Afmeerboei;
+import com.resist.mus3d.objects.Anchorage;
+import com.resist.mus3d.objects.Bolder;
+import com.resist.mus3d.objects.Common;
+import com.resist.mus3d.objects.Koningspaal;
+import com.resist.mus3d.objects.Meerpaal;
 import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
 import org.osmdroid.util.Position;
@@ -14,8 +20,10 @@ import java.util.List;
 import java.util.Map;
 import rajawali.BaseObject3D;
 import rajawali.lights.DirectionalLight;
+import rajawali.materials.SimpleMaterial;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
+import rajawali.primitives.Cube;
 import rajawali.renderer.RajawaliRenderer;
 import rajawali.util.ObjectColorPicker;
 import rajawali.util.OnObjectPickedListener;
@@ -121,21 +129,33 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 				} catch (AParser.ParsingException e) {
 					e.printStackTrace();
 				}
+
 				BaseObject3D mObject = parser.getParsedObject();
+				mObject = new Cube(1);
 				addChild(mObject);
 				mPicker.registerObject(mObject);
 				System.out.println(mPicker);
 				lastPos = o.getLocation().getPosition();
-				mObject.setPosition((float) (lastPos.getLongitude()*MULTIPLIER) ,0, (float) (lastPos.getLatitude()*MULTIPLIER) );
+				mObject.setPosition((float) (lastPos.getLongitude() * MULTIPLIER), 0, (float) (lastPos.getLatitude() * MULTIPLIER));
 				mObject.setRotation(0, 0, 0);
 				mObject.setScale(.1f);
 				mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
-				newobject3Ds.put(mObject,o);
-				System.out.println("++++++++++++++++++++++++++++++++++++");
-				System.out.println(lastPos.getLatitude()*MULTIPLIER);
-				System.out.println(lastPos.getLongitude()*MULTIPLIER);
-				System.out.println("||||||||||||||||||||||||||||||||||||");
+				SimpleMaterial myMaterial = new SimpleMaterial();
+				myMaterial.setUseColor(true);
+				mObject.setMaterial(myMaterial);
+				newobject3Ds.put(mObject, o);
 				context.onObjectLoadingProgress((double)n / (double)size * 100.0);
+				if (o instanceof Afmeerboei) {
+					mObject.setColor(Color.BLUE);
+				} else if (o instanceof Bolder) {
+					mObject.setColor(Color.RED);
+				} else if (o instanceof Koningspaal) {
+					mObject.setColor(Color.YELLOW);
+				} else if (o instanceof Anchorage) {
+					mObject.setColor(Color.GREEN);
+				} else if (o instanceof Meerpaal) {
+					mObject.setColor(Color.BLACK);
+				}
 			}
 			System.out.println("executed");
 			for (Map.Entry<BaseObject3D, Object> o : object3Ds.entrySet()) {

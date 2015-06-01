@@ -61,8 +61,10 @@ public class Marker extends OverlayItem {
 	private String getDialogMessage() {
 		String descriptionLabel = "Description: ";
 		String materialLabel = "Materiaal: ";
-
+		if(LocationTracker.getCurrentLocation() != null){
+		}
 		StringBuilder sb = new StringBuilder();
+		append(sb, "distance: ",String.format("%.2f", object.getDistanceTo(LocationTracker.getCurrentLocation()))+"meter");
 		append(sb, "FeatureId: ", object.getFeatureId());
 		if(object instanceof Common) {
 			Common c = (Common)object;

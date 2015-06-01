@@ -59,6 +59,9 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 
 	}
 
+	public void showObjectInfo(Object object){
+
+	}
 	public void onObjectLoadingProgress(double progress) {
 		ProgressBar bar = (ProgressBar)((ViewGroup) progressBarObjects).getChildAt(0);
 		bar.setProgress((int)(progress*10));

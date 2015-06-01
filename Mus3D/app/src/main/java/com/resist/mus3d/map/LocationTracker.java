@@ -12,7 +12,7 @@ import android.os.Bundle;
  * Created by Armindo on 24-3-2015.
  */
 public class LocationTracker implements LocationListener {
-    private Location currentLocation;
+    private static Location currentLocation;
     private LocationManager mlocManager;
     private GpsActivity activity;
 
@@ -36,7 +36,7 @@ public class LocationTracker implements LocationListener {
 
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
-    public Location getCurrentLocation() {
+    public static Location getCurrentLocation() {
         return currentLocation;
     }
     public void onStop(){
