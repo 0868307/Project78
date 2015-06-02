@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator;
@@ -38,8 +39,11 @@ public class ScreenSlidePager extends FragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
         tutorialImages = new int[]{R.drawable.tutorial1, R.drawable.tutorial2,
-                R.drawable.tutorial3,R.drawable.tutorial4
+                R.drawable.tutorial3,R.drawable.tutorial4, R.drawable.tutorial5,
+                R.drawable.tutorial6, R.drawable.tutorial7,R.drawable.tutorial8,
+                R.drawable.tutorial9
         };
+
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new CustomPagerAdapter(this);
@@ -50,10 +54,28 @@ public class ScreenSlidePager extends FragmentActivity{
         circlePageIndicator.setViewPager(mPager);
 
 
+        circlePageIndicator.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                TextView textView = (TextView) findViewById(R.id.tutorialTextView);
+
+                switch (position) {
+                    case 0:
+                        textView.setText(R.string.tutorial1);
+                        break;
+                    case 1:
+                        textView.setText(R.string.tutorial2);
+                        break;
+                }
+
+            }
+
+
+        });
+
 
     }
-
-
 
     @Override
     public void onBackPressed() {

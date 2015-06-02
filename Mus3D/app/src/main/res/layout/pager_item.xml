@@ -21,6 +21,15 @@
         android:textColor="@color/text_primary"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-
         />
+
+        <TextView
+            android:id="@+id/tutorialTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tutorial1"
+            android:layout_alignTop="@+id/imageView"
+            android:gravity="center"
+            android:background="@color/white"
+            />
 </RelativeLayout>

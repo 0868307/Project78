@@ -30,4 +30,6 @@
     <string name="menu_close">Sluit menu</string>
     <string name="content_fragment">Start de app</string>
     <string name="title_activity_search">search</string>
+    <string name="tutorial1">De app bestaat uit een 2D gedeelte en een 3D gedeelte. We beginnen met de 3D gedeelte.</string>
+    <string name="tutorial2">De app heeft GPS nodig om te kunnen werken.</string>
 </resources>
