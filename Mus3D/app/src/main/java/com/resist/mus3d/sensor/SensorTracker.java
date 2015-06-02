@@ -13,9 +13,14 @@ import android.hardware.SensorManager;
 public class SensorTracker implements SensorEventListener {
     SensorActivity activity;
     private SensorManager sensorManager;
+    private final int COUNTER_MAX = 10;
     private float directionX;
     private float[] mGravity;
     private float[] mMagnetic;
+    private int counter = 0;
+    private float total =0;
+    private boolean first = true;
+    private int notupdated;
 
     public SensorTracker(SensorActivity activity) {
         this.activity = activity;
@@ -50,6 +55,7 @@ public class SensorTracker implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+
         switch(event.sensor.getType()) {
 
             case Sensor.TYPE_ACCELEROMETER:
@@ -61,9 +67,28 @@ public class SensorTracker implements SensorEventListener {
             default:
                 return;
         }
+
         if(mGravity != null && mMagnetic != null) {
+            int difference = 10;
+            if((getDirection() > total/counter-difference && getDirection() < total/counter+difference) || first ) {
+                first = false;
+                total += getDirection();
+                if (counter >= COUNTER_MAX) {
+                    directionX = total / counter;
+                    total = 0;
+                    counter = 0;
+                    first = true;
+                }
+                counter++;
+            }else{
+                notupdated++;
+                if(notupdated > COUNTER_MAX){
+                    notupdated = 0;
+                    directionX = getDirection();
+                }
+            }
             float x = 0;
-            float y = (getDirection()+180)%360;
+            float y = (directionX+180)%360;
             float z = 0;
 
             activity.updateSensor(x, y, z);

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.opengl.GLES20;
 import android.os.AsyncTask;
 import com.resist.mus3d.database.ObjectTable;
+import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.map.Marker;
 import com.resist.mus3d.objects.Afmeerboei;
 import com.resist.mus3d.objects.Anchorage;
@@ -24,6 +25,7 @@ import rajawali.materials.SimpleMaterial;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
 import rajawali.primitives.Cube;
+import rajawali.primitives.Plane;
 import rajawali.renderer.RajawaliRenderer;
 import rajawali.util.ObjectColorPicker;
 import rajawali.util.OnObjectPickedListener;
@@ -114,12 +116,21 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 
 		@Override
 		protected Boolean doInBackground(String... params) {
+
+			SimpleMaterial myMaterial = new SimpleMaterial();
+			myMaterial.setUseColor(true);
 			ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
 			List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), 0.001);
 			Map<BaseObject3D, Object> newobject3Ds = new HashMap<>();
 			Position lastPos = null;
 			System.out.println("lat = "+context.getLocation().getLatitude()*MULTIPLIER+" long = "+context.getLocation().getLongitude()*MULTIPLIER);
-			System.out.println("list size = "+list.size());
+			System.out.println("list size = " + list.size());
+			/*BaseObject3D x = new Plane(100,2,10,10);
+			x.setMaterial(myMaterial);
+			x.setPosition((float) (LocationTracker.getCurrentLocation().getLongitude() * MULTIPLIER), 0, (float) (LocationTracker.getCurrentLocation().getLatitude() * MULTIPLIER));
+			x.setColor(Color.DKGRAY);
+
+			addChild(x);*/
 			for (int n=0, size = list.size(); n < size; n++) {
 				Object o = list.get(n);
 				ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
@@ -140,8 +151,6 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 				mObject.setRotation(0, 0, 0);
 				mObject.setScale(.1f);
 				mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
-				SimpleMaterial myMaterial = new SimpleMaterial();
-				myMaterial.setUseColor(true);
 				mObject.setMaterial(myMaterial);
 				newobject3Ds.put(mObject, o);
 				context.onObjectLoadingProgress((double)n / (double)size * 100.0);

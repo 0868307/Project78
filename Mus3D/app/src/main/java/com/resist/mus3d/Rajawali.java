@@ -1,6 +1,12 @@
 package com.resist.mus3d;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.resist.mus3d.map.GpsActivity;
 import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.map.Map;
@@ -57,6 +65,25 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		rl.addView(progressBarObjects);
 		mLayout.addView(rl);
 
+	}
+
+	private void updateRotation(String string){
+		Bitmap b = Bitmap.createBitmap(200, 200, Bitmap.Config.ALPHA_8);
+		Paint paint = new Paint();
+		Canvas c = new Canvas(b);
+		c.drawRect(0, 0, 200, 200, paint);
+
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
+		paint.setTextSize(40);
+		paint.setTextScaleX(1.f);
+		paint.setAlpha(0);
+		paint.setAntiAlias(true);
+		c.drawText(string, 30, 40, paint);
+		paint.setColor(Color.RED);
+
+		c.drawBitmap(b, 10,10, paint);
+		mLayout.draw(c);
+		mLayout.setVisibility(View.VISIBLE);
 	}
 
 	public void showObjectInfo(Object object){
@@ -142,6 +169,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	public void updateSensor(float x,float y,float z) {
 		if(sensorTracker != null){
 			myRenderer.setCameraRotation(x,-y,z);
+			updateRotation(""+(-y));
 		}
 	}
 
