@@ -104,7 +104,7 @@ public class ScreenSlidePager extends FragmentActivity{
                 public void onClick(View v) {
 
                     Splash.startTutorial = false;
-                    Intent intent = new Intent(v.getContext(), RoleSelector.class);
+                    Intent intent = new Intent(v.getContext(), Search.class);
                     v.getContext().startActivity(intent);
 
 
