@@ -30,6 +30,15 @@
     <string name="menu_close">Sluit menu</string>
     <string name="content_fragment">Start de app</string>
     <string name="title_activity_search">search</string>
-    <string name="tutorial1">De app bestaat uit een 2D gedeelte en een 3D gedeelte. We beginnen met de 3D gedeelte.</string>
+
+    <string name="tutorial1">De app bestaat uit een 2D gedeelte en een 3D gedeelte. We beginnen met het 3D gedeelte.</string>
     <string name="tutorial2">De app heeft GPS nodig om te kunnen werken.</string>
+    <string name="tutorial3">Beweeg de telefoon zijwaards om andere objecten te bekijken.</string>
+    <string name="tutorial4">De objecten kunnen worden aangeraakt.</string>
+    <string name="tutorial5">We gaan nu verder met de uitleg van het 2D gedeelte.</string>
+    <string name="tutorial6">U kunt de kaart bewegen om andere objecten te bekijken.</string>
+    <string name="tutorial7">U kunt de kaart uitzoomen om meer objecten te bekijken.</string>
+    <string name="tutorial8">U kunt een menu openen om te filteren.</string>
+    <string name="tutorial9">De objecten kunnen worden aangeraakt.</string>
+
 </resources>

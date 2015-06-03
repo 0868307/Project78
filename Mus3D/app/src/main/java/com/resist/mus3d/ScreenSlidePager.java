@@ -6,23 +6,23 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.viewpagerindicator.CirclePageIndicator;
-import com.viewpagerindicator.TitlePageIndicator;
+
 
 /**
  * Created by Thomas on 26-5-2015.
  */
-public class ScreenSlidePager extends FragmentActivity{
-       /**
+public class ScreenSlidePager extends FragmentActivity {
+    /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
@@ -32,15 +32,16 @@ public class ScreenSlidePager extends FragmentActivity{
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
-     int[] tutorialImages;
+    private CirclePageIndicator circlePageIndicator;
+    private int[] tutorialImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
         tutorialImages = new int[]{R.drawable.tutorial1, R.drawable.tutorial2,
-                R.drawable.tutorial3,R.drawable.tutorial4, R.drawable.tutorial5,
-                R.drawable.tutorial6, R.drawable.tutorial7,R.drawable.tutorial8,
+                R.drawable.tutorial3, R.drawable.tutorial4, R.drawable.tutorial5,
+                R.drawable.tutorial6, R.drawable.tutorial7, R.drawable.tutorial8,
                 R.drawable.tutorial9
         };
 
@@ -49,30 +50,10 @@ public class ScreenSlidePager extends FragmentActivity{
         mPagerAdapter = new CustomPagerAdapter(this);
         mPager.setAdapter(mPagerAdapter);
 
+
         //Bind the title indicator to the adapter
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
+        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         circlePageIndicator.setViewPager(mPager);
-
-
-        circlePageIndicator.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-                TextView textView = (TextView) findViewById(R.id.tutorialTextView);
-
-                switch (position) {
-                    case 0:
-                        textView.setText(R.string.tutorial1);
-                        break;
-                    case 1:
-                        textView.setText(R.string.tutorial2);
-                        break;
-                }
-
-            }
-
-
-        });
 
 
     }
@@ -88,7 +69,6 @@ public class ScreenSlidePager extends FragmentActivity{
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }
     }
-
 
 
     class CustomPagerAdapter extends PagerAdapter {
@@ -113,6 +93,47 @@ public class ScreenSlidePager extends FragmentActivity{
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
+            final TextView textView = (TextView) itemView.findViewById(R.id.tutorialTextView);
+            textView.setText(R.string.tutorial1);
+            circlePageIndicator.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
+                @Override
+                public void onPageSelected(int position) {
+
+                    Log.e("Current Postion", "" + position);
+                    switch (position) {
+                        case 0:
+                            textView.setText(R.string.tutorial1);
+                            break;
+                        case 1:
+                            textView.setText(R.string.tutorial2);
+                            break;
+                        case 2:
+                            textView.setText(R.string.tutorial3);
+                            break;
+                        case 3:
+                            textView.setText(R.string.tutorial4);
+                            break;
+                        case 4:
+                            textView.setText(R.string.tutorial5);
+                            break;
+                        case 5:
+                            textView.setText(R.string.tutorial6);
+                            break;
+                        case 6:
+                            textView.setText(R.string.tutorial7);
+                            break;
+                        case 7:
+                            textView.setText(R.string.tutorial8);
+                            break;
+                        case 8:
+                            textView.setText(R.string.tutorial9);
+                            break;
+                    }
+
+                }
+            });
+
 
             Button startButton = (Button) itemView.findViewById(R.id.btn_Start);
 
@@ -121,6 +142,7 @@ public class ScreenSlidePager extends FragmentActivity{
 
             container.addView(itemView);
 
+
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -128,6 +150,7 @@ public class ScreenSlidePager extends FragmentActivity{
                     Splash.startTutorial = false;
                     Intent intent = new Intent(v.getContext(), Search.class);
                     v.getContext().startActivity(intent);
+                    finish();
 
 
                 }
