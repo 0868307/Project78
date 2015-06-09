@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="4">
-        <TextView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="resultaten"/>
@@ -44,11 +44,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="4">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="lijst"/>
+        android:layout_weight="4"
+        android:id="@+id/selectedlist">
+
     </ScrollView>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -68,6 +66,7 @@
             android:background="@color/red"
             android:text="Sla over"/>
         <Button
+            android:onClick="go"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/primary"
