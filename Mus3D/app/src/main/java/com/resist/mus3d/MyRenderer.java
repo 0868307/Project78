@@ -96,6 +96,7 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 
 	}
 
+
 	private class LongOperation extends AsyncTask<String, Void, Boolean> {
 
 		@Override
