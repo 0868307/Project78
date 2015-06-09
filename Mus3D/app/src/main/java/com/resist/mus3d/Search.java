@@ -8,13 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.map.Map;
+
+import java.util.List;
 
 public class Search extends Activity {
 	String[] strings = {"Afmeerboei","Bolder",
@@ -31,7 +36,16 @@ public class Search extends Activity {
 
 		Spinner searchSpinner = (Spinner)findViewById(R.id.sp_search_objecttype);
 		searchSpinner.setAdapter(new MyAdapter(this, R.layout.row, strings));
+
+
 	}
+
+	public void searchQuery(View v){
+		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
+		List<com.resist.mus3d.objects.Object> shiz = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), null);
+		woutersFuncties(shiz);
+	}
+
 
 	public void skip(View v) {
 		ToggleButton toggle = (ToggleButton)findViewById(R.id.search_toggle);

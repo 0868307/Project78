@@ -16,9 +16,11 @@
             android:spinnerMode="dialog">
         </Spinner>
         <EditText
+            android:id="@+id/search_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionSearch"
+            android:imeActionLabel="test"
             android:hint="Type de objectnaam"
             android:layout_weight="1"/>
         <ImageButton
@@ -27,6 +29,7 @@
             android:src="@drawable/abc_ic_clear_mtrl_alpha"
             android:layout_weight="3"/>
         <ImageButton
+            android:onClick="searchQuery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/abc_ic_search_api_mtrl_alpha"
