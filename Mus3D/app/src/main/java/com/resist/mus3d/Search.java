@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -25,6 +27,8 @@ import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import java.util.List;
 
 public class Search extends Activity {
@@ -47,6 +51,8 @@ public class Search extends Activity {
 		addList();
 		makeRandomObjects();
 		//selected(list);
+
+
 	}
 	public void makeRandomObjects(){
 		objectList.add(new Object(1,"wouter",null,"wouter",null,"hoi"));
@@ -63,6 +69,14 @@ public class Search extends Activity {
 		listView.setAdapter(adapter);
 		scrollView.addView(listView);
 	}
+
+	public void searchQuery(View v){
+		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
+		List<com.resist.mus3d.objects.Object> shiz = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), null);
+		woutersFuncties(shiz);
+	}
+
+
 	public void skip(View v) {
 		goToNext();
 	}
