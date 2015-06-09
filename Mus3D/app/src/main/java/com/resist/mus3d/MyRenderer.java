@@ -96,21 +96,6 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 
 	}
 
-	public int[] getIntArray(Integer number){
-
-		int[] characterizedArray = new int[number.toString().length()];
-		String tussenweg;
-
-		for (int i = 0; i < number.toString().length() ; i++) {
-			char numberAsChar = number.toString().charAt(i);
-			tussenweg =""+numberAsChar;
-			int parsedInt = Integer.parseInt(tussenweg);
-			characterizedArray[i] = parsedInt;
-		}
-
-
-		return characterizedArray;
-	}
 
 	private class LongOperation extends AsyncTask<String, Void, Boolean> {
 
@@ -143,8 +128,6 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 
 				BaseObject3D mObject = parser.getParsedObject();
 				mObject = new Cube(1);
-				addChild(mObject);
-				mPicker.registerObject(mObject);
 				System.out.println(mPicker);
 				lastPos = o.getLocation().getPosition();
 				mObject.setPosition((float) (lastPos.getLongitude() * MULTIPLIER), 0, (float) (lastPos.getLatitude() * MULTIPLIER));
@@ -152,19 +135,21 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 				mObject.setScale(.1f);
 				mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
 				mObject.setMaterial(myMaterial);
-				newobject3Ds.put(mObject, o);
-				context.onObjectLoadingProgress((double)n / (double)size * 100.0);
 				if (o instanceof Afmeerboei) {
-					mObject.setColor(Color.BLUE);
-				} else if (o instanceof Bolder) {
 					mObject.setColor(Color.RED);
+				} else if (o instanceof Bolder) {	// werkt
+					mObject.setColor(Color.BLUE);
 				} else if (o instanceof Koningspaal) {
-					mObject.setColor(Color.YELLOW);
+					mObject.setColor(Color.MAGENTA);
 				} else if (o instanceof Anchorage) {
 					mObject.setColor(Color.GREEN);
-				} else if (o instanceof Meerpaal) {
+				} else if (o instanceof Meerpaal) { // werkt
 					mObject.setColor(Color.BLACK);
 				}
+				addChild(mObject);
+				mPicker.registerObject(mObject);
+				newobject3Ds.put(mObject, o);
+				context.onObjectLoadingProgress((double)n / (double)size * 100.0);
 			}
 			System.out.println("executed");
 			for (Map.Entry<BaseObject3D, Object> o : object3Ds.entrySet()) {

@@ -1,6 +1,8 @@
 package com.resist.mus3d.objects;
 
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.database.ObjectTable;
@@ -9,7 +11,7 @@ import com.resist.mus3d.objects.coords.Point;
 
 import java.util.Date;
 
-public class Object {
+public class Object implements Parcelable {
     public static final int TYPE = -1;
 	private int objectid;
 	private String createdBy;
@@ -82,5 +84,22 @@ public class Object {
 
 	public double getDistanceTo(Location location) {
 		return getLocation().getDistanceTo(new Point(location));
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel parcel, int i) {
+
+	}
+
+	@Override
+	public String toString() {
+		return "Object{" +
+				"featureId='" + featureId + '\'' +
+				'}';
 	}
 }

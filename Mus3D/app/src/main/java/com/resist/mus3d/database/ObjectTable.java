@@ -6,11 +6,7 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import com.resist.mus3d.Mus3D;
-import com.resist.mus3d.objects.Afmeerboei;
-import com.resist.mus3d.objects.Anchorage;
-import com.resist.mus3d.objects.Bolder;
-import com.resist.mus3d.objects.Koningspaal;
-import com.resist.mus3d.objects.Meerpaal;
+import com.resist.mus3d.objects.*;
 import com.resist.mus3d.objects.coords.Coordinate;
 import com.resist.mus3d.objects.coords.MultiPoint;
 import com.resist.mus3d.objects.coords.Point;
@@ -22,6 +18,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -94,6 +91,23 @@ public class ObjectTable {
 		return new MultiPoint(points);
 	}
 
+    protected String[] appendTypes(StringBuilder sb, int[] types, int start) {
+        String[] args = new String[start];
+        if(types != null) {
+            args = new String[start + types.length];
+            sb.append("objecten.objecttype IN (");
+            for(int n=0; n < types.length; n++) {
+                args[n] = String.valueOf(types[n]);
+                if(n > 0) {
+                    sb.append(", ");
+                }
+                sb.append('?');
+            }
+            sb.append(')');
+        }
+        return args;
+    }
+
     public List<? extends com.resist.mus3d.objects.Object> getObjectsAround(Coordinate location, double distance, int[] types) {
         List<com.resist.mus3d.objects.Object> out = new ArrayList<>();
         Position pos = location.getPosition();
@@ -108,22 +122,9 @@ public class ObjectTable {
                 .append("JOIN coordinaten ")
                 .append("ON(objecten.objecttype = coordinaten.objecttype AND objecten.objectid = coordinaten.id) ")
                 .append("WHERE ");
-        int typeLength = 0;
-        String[] args = new String[6];
-        if(types != null) {
-            typeLength = types.length;
-            args = new String[6 + typeLength];
-            sb.append("objecten.objecttype IN (");
-            for(int n=0; n < types.length; n++) {
-                args[n] = String.valueOf(types[n]);
-                if(n > 0) {
-                    sb.append(", ");
-                }
-                sb.append('?');
-            }
-            sb.append(") AND ");
-        }
-        sb.append("(coordinaten.x-?)*(coordinaten.x-?)+(coordinaten.y-?)*(coordinaten.y-?) <= ?*? ")
+        String[] args = appendTypes(sb, types, 6);
+        int typeLength = args.length - 6;
+        sb.append(" AND (coordinaten.x-?)*(coordinaten.x-?)+(coordinaten.y-?)*(coordinaten.y-?) <= ?*? ")
                 .append("ORDER BY objecten.objecttype, objectid");
         args[typeLength] = x;
         args[typeLength + 1] = x;
@@ -164,6 +165,34 @@ public class ObjectTable {
             return null;
         }
         return DATE.parse(date);
+    }
+
+    public List<com.resist.mus3d.objects.Object> findObjects(String searchQuery, int[] searchTypes) {
+        String[] terms = searchQuery.trim().replace("  ", " ").split(" ");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT objecten.* ")
+                .append("FROM objecten ")
+                .append("WHERE (");
+        for(int n=0; n < terms.length;n++) {
+            if(n != 0) {
+                sb.append("OR ");
+            }
+            sb.append("objecten.featureId LIKE ? ");
+            terms[n] = '%'+terms[n]+'%';
+        }
+        sb.append(") ");
+        String[] types = appendTypes(sb, searchTypes, terms.length);
+        String[] args = Arrays.copyOf(terms, terms.length + types.length);
+        System.arraycopy(types, 0, args, terms.length, types.length);
+        sb.append(" ORDER BY objecten.objecttype, objecten.objectid");
+        Cursor c = db.rawQuery(sb.toString(), args);
+        List<com.resist.mus3d.objects.Object> out = new ArrayList<>();
+        while(c.moveToNext()) {
+            out.add(createObjectFromCursor(c));
+        }
+        c.close();
+        return out;
     }
 
 	private com.resist.mus3d.objects.Object createObjectFromCursor(Cursor c) {

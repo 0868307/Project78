@@ -13,7 +13,7 @@ import android.hardware.SensorManager;
 public class SensorTracker implements SensorEventListener {
     SensorActivity activity;
     private SensorManager sensorManager;
-    private final int COUNTER_MAX = 10;
+    private final int COUNTER_MAX = 20;
     private float directionX;
     private float[] mGravity;
     private float[] mMagnetic;
@@ -69,7 +69,7 @@ public class SensorTracker implements SensorEventListener {
         }
 
         if(mGravity != null && mMagnetic != null) {
-            int difference = 10;
+            int difference = 15;
             if((getDirection() > total/counter-difference && getDirection() < total/counter+difference) || first ) {
                 first = false;
                 total += getDirection();
