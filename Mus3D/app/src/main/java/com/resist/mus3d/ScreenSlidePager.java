@@ -3,12 +3,10 @@ package com.resist.mus3d;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,23 +15,22 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.resist.mus3d.slides.*;
 import com.viewpagerindicator.CirclePageIndicator;
 
 public class ScreenSlidePager extends FragmentActivity {
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private CirclePageIndicator circlePageIndicator;
-    private int[] tutorialImages;
+    private Slide[] slides;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
-        tutorialImages = new int[]{R.drawable.tutorial1, R.drawable.tutorial2,
-                R.drawable.tutorial3, R.drawable.tutorial4, R.drawable.tutorial5,
-                R.drawable.tutorial6, R.drawable.tutorial7, R.drawable.tutorial8,
-                R.drawable.tutorial9
-        };
+        slides = new Slide[] {
+			new Slide1(), new Slide2(), new Slide3(), new Slide4(), new Slide5(), new Slide6(), new Slide7(), new Slide8(), new Slide9()
+		};
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -66,7 +63,7 @@ public class ScreenSlidePager extends FragmentActivity {
 
         @Override
         public int getCount() {
-            return tutorialImages.length;
+            return slides.length;
         }
 
         @Override
@@ -83,49 +80,20 @@ public class ScreenSlidePager extends FragmentActivity {
 
                 @Override
                 public void onPageSelected(int position) {
-
-                switch (position) {
-                    case 0:
-                        textView.setText(R.string.tutorial1);
-                        break;
-                    case 1:
-                        textView.setText(R.string.tutorial2);
-                        break;
-                    case 2:
-                        textView.setText(R.string.tutorial3);
-                        break;
-                    case 3:
-                        textView.setText(R.string.tutorial4);
-                        break;
-                    case 4:
-                        textView.setText(R.string.tutorial5);
-                        break;
-                    case 5:
-                        textView.setText(R.string.tutorial6);
-                        break;
-                    case 6:
-                        textView.setText(R.string.tutorial7);
-                        break;
-                    case 7:
-                        textView.setText(R.string.tutorial8);
-                        break;
-                    case 8:
-                        textView.setText(R.string.tutorial9);
-                        break;
-                }
+					textView.setText(slides[position].getText());
                 }
             });
 
             final Button startButton = (Button) itemView.findViewById(R.id.btn_Start);
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            imageView.setImageResource(tutorialImages[position]);
+            imageView.setImageResource(slides[position].getDrawable());
 
             container.addView(itemView);
 
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PreferenceManager.getDefaultSharedPreferences(mContext).edit().putBoolean("skipTutorial", false);
+                    PreferenceManager.getDefaultSharedPreferences(mContext).edit().putBoolean("skipTutorial", false).apply();
                     Intent intent = new Intent(v.getContext(), Search.class);
                     v.getContext().startActivity(intent);
                     finish();
