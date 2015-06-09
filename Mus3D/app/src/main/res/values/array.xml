@@ -9,4 +9,12 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+
+    <string-array name="objectnamenArray">
+        <item>Afmeerboei</item>
+        <item>Bolder</item>
+        <item>Koningspaal</item>
+        <item>Ligplaats</item>
+        <item>Meerpaal</item>
+    </string-array>
 </resources>

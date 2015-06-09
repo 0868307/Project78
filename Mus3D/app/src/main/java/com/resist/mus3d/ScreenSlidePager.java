@@ -3,9 +3,12 @@ package com.resist.mus3d;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,7 +116,7 @@ public class ScreenSlidePager extends FragmentActivity {
                 }
             });
 
-            Button startButton = (Button) itemView.findViewById(R.id.btn_Start);
+            final Button startButton = (Button) itemView.findViewById(R.id.btn_Start);
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
             imageView.setImageResource(tutorialImages[position]);
 
@@ -122,7 +125,7 @@ public class ScreenSlidePager extends FragmentActivity {
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Splash.startTutorial = false;
+                    PreferenceManager.getDefaultSharedPreferences(mContext).edit().putBoolean("skipTutorial", false);
                     Intent intent = new Intent(v.getContext(), Search.class);
                     v.getContext().startActivity(intent);
                     finish();

@@ -17,17 +17,17 @@ import android.widget.ToggleButton;
 import com.resist.mus3d.map.Map;
 
 public class Search extends Activity {
-	String[] strings = {"Afmeerboei","Bolder",
-			"Koningspaal", "Ligplaats", "Meerpaal"};
-
-	int arr_images[] = { R.drawable.ic_afmeerboei,
+	private static final int[] arr_images = { R.drawable.ic_afmeerboei,
 			R.drawable.ic_bolder, R.drawable.ic_koningspaal,
 			R.drawable.ic_aanlegplaats, R.drawable.ic_meerpaal};
+	private String[] strings;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
+
+		strings = getResources().getStringArray(R.array.objectnamenArray);
 
 		Spinner searchSpinner = (Spinner)findViewById(R.id.sp_search_objecttype);
 		searchSpinner.setAdapter(new MyAdapter(this, R.layout.row, strings));
