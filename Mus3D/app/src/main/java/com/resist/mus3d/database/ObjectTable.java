@@ -124,7 +124,10 @@ public class ObjectTable {
                 .append("WHERE ");
         String[] args = appendTypes(sb, types, 6);
         int typeLength = args.length - 6;
-        sb.append(" AND (coordinaten.x-?)*(coordinaten.x-?)+(coordinaten.y-?)*(coordinaten.y-?) <= ?*? ")
+        if(typeLength != 0) {
+            sb.append(" AND ");
+        }
+        sb.append(" (coordinaten.x-?)*(coordinaten.x-?)+(coordinaten.y-?)*(coordinaten.y-?) <= ?*? ")
                 .append("ORDER BY objecten.objecttype, objectid");
         args[typeLength] = x;
         args[typeLength + 1] = x;
@@ -181,7 +184,7 @@ public class ObjectTable {
             sb.append("objecten.featureId LIKE ? ");
             terms[n] = '%'+terms[n]+'%';
         }
-        sb.append(") ");
+        sb.append(") AND ");
         String[] types = appendTypes(sb, searchTypes, terms.length);
         String[] args = Arrays.copyOf(terms, terms.length + types.length);
         System.arraycopy(types, 0, args, terms.length, types.length);

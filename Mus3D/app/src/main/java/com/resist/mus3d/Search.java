@@ -32,11 +32,11 @@ import java.util.List;
 import java.util.List;
 
 public class Search extends Activity {
-	String[] strings = {"Afmeerboei","Bolder",
-			"Koningspaal", "Ligplaats", "Meerpaal"};
-	int arr_images[] = { R.drawable.ic_afmeerboei,
+	private static final int[] arr_images = { R.drawable.ic_afmeerboei,
 			R.drawable.ic_bolder, R.drawable.ic_koningspaal,
 			R.drawable.ic_aanlegplaats, R.drawable.ic_meerpaal};
+
+	private String[] strings;
 	private ArrayList<Object> objectList = new ArrayList<Object>();
 	private MyArrayAdapter adapter;
 
@@ -45,15 +45,16 @@ public class Search extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
 
+		strings = getResources().getStringArray(R.array.objectnamenArray);
+
 		Spinner searchSpinner = (Spinner)findViewById(R.id.sp_search_objecttype);
 		searchSpinner.setAdapter(new MyAdapter(this, R.layout.row, strings));
 		ArrayList<Object> list = new ArrayList<>();
 		addList();
 		makeRandomObjects();
 		//selected(list);
-
-
 	}
+
 	public void makeRandomObjects(){
 		objectList.add(new Object(1,"wouter",null,"wouter",null,"hoi"));
 		objectList.add(new Object(2,"f",null,"t",null,"a"));
@@ -72,15 +73,15 @@ public class Search extends Activity {
 
 	public void searchQuery(View v){
 		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-		List<com.resist.mus3d.objects.Object> shiz = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), null);
-		woutersFuncties(shiz);
+		List<com.resist.mus3d.objects.Object> objects = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), null);
+		selected(objects);
 	}
 
 
 	public void skip(View v) {
 		goToNext();
 	}
-	public void selected(ArrayList<Object> list){
+	public void selected(List<Object> list){
 		objectList.addAll(list);
 		adapter.notifyDataSetChanged();
 	}
