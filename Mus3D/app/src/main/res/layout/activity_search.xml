@@ -11,23 +11,25 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3">
+            android:layout_weight="3"
+            android:id="@+id/sp_search_objecttype"
+            android:spinnerMode="dialog">
         </Spinner>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionSearch"
-            android:text="hetisjeboysearch"
+            android:hint="Type de objectnaam"
             android:layout_weight="1"/>
-        <Button
+        <ImageButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="X"
+            android:src="@drawable/abc_ic_clear_mtrl_alpha"
             android:layout_weight="3"/>
-        <Button
+        <ImageButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Zoekze"
+            android:src="@drawable/abc_ic_search_api_mtrl_alpha"
             android:layout_weight="3"/>
     </LinearLayout>
     <ScrollView
@@ -53,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal">
-        <Switch
+        <ToggleButton
             android:id="@+id/search_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,10 +65,12 @@
             android:onClick="skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Skip"/>
+            android:background="@color/red"
+            android:text="Sla over"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Go"/>
+            android:background="@color/primary"
+            android:text="Zoek"/>
     </LinearLayout>
 </LinearLayout>
