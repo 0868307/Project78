@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionSearch"
             android:imeActionLabel="test"
-            android:hint="Type de objectnaam"
+            android:hint="@string/search_et_searchhint"
             android:layout_weight="1"/>
         <ImageButton
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="resultaten"/>
+            android:text="@string/search_list_resultaten"/>
     </ScrollView>
     <ScrollView
         android:layout_width="match_parent"
@@ -66,13 +66,12 @@
             android:onClick="skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/red"
-            android:text="Sla over"/>
+            android:text="@string/search_btn_skip"/>
         <Button
             android:onClick="go"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/primary"
-            android:text="Zoek"/>
+            android:text="@string/search_btn_search"/>
     </LinearLayout>
 </LinearLayout>
