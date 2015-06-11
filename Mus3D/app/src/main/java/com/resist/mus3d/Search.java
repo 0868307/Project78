@@ -8,27 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-import android.widget.TextView;
 
 import com.resist.mus3d.database.ObjectTable;
-import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.map.Map;
-import com.resist.mus3d.objects.*;
 import com.resist.mus3d.objects.Object;
-import com.resist.mus3d.objects.coords.Point;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import java.util.List;
 
 public class Search extends Activity {
@@ -56,10 +48,10 @@ public class Search extends Activity {
 	}
 
 	public void makeRandomObjects(){
-		objectList.add(new Object(1,"wouter",null,"wouter",null,"hoi"));
-		objectList.add(new Object(2,"f",null,"t",null,"a"));
+		objectList.add(new Object(1, "wouter", null, "wouter", null, "hoi"));
+		objectList.add(new Object(2, "f", null, "t", null, "a"));
 		objectList.add(new Object(3,"r",null,"g",null,"e"));
-		objectList.add(new Object(4,"g",null,"h",null,"r"));
+		objectList.add(new Object(4, "g", null, "h", null, "r"));
 		System.out.println(objectList.size());
 		adapter.notifyDataSetChanged();
 	}
@@ -84,6 +76,11 @@ public class Search extends Activity {
 	public void selected(List<Object> list){
 		objectList.addAll(list);
 		adapter.notifyDataSetChanged();
+	}
+
+	public void clearSearchBox(View v) {
+		EditText searchText = (EditText)findViewById(R.id.search_text);
+		searchText.setText("");
 	}
 
 	public void go(View v){
