@@ -170,26 +170,47 @@ public class ObjectTable {
         return DATE.parse(date);
     }
 
-    public List<com.resist.mus3d.objects.Object> findObjects(String searchQuery, int[] searchTypes) {
+    public List<com.resist.mus3d.objects.Object> findObjects(String searchQuery, int searchType) {
         String[] terms = searchQuery.trim().replace("  ", " ").split(" ");
-
+        List<String> args = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT objecten.* ")
-                .append("FROM objecten ")
-                .append("WHERE (");
+                .append("FROM objecten ");
+        if(searchType == Anchorage.TYPE) {
+            sb.append("JOIN ligplaatsen ON(ligplaatsen.id = objecten.objectid AND objecten.objecttype = ?) ");
+            args.add(""+searchType);
+        } else if(searchType == Bolder.TYPE) {
+            sb.append("JOIN bolders ON(bolders.id = objecten.objectid AND objecten.objecttype = ?) ");
+            args.add(""+searchType);
+        } else if(searchType == Koningspaal.TYPE) {
+            sb.append("JOIN koningspalen ON(bolders.id = objecten.objectid AND objecten.objecttype = ?) ");
+            args.add(""+searchType);
+        }
+        sb.append("WHERE (");
         for(int n=0; n < terms.length;n++) {
             if(n != 0) {
                 sb.append("OR ");
             }
-            sb.append("objecten.featureId LIKE ? ");
+            if(searchType == Anchorage.TYPE) {
+                sb.append("ligplaatsen.xmeText LIKE ? ");
+            } else if(searchType == Bolder.TYPE || searchType == Koningspaal.TYPE) {
+                sb.append("description LIKE ? ");
+            } else {
+                sb.append("objecten.featureId LIKE ? ");
+            }
             terms[n] = '%'+terms[n]+'%';
         }
-        sb.append(") AND ");
-        String[] types = appendTypes(sb, searchTypes, terms.length);
-        String[] args = Arrays.copyOf(terms, terms.length + types.length);
-        System.arraycopy(types, 0, args, terms.length, types.length);
+        sb.append(") AND objecten.objecttype = ?");
+
+        if(searchType == Anchorage.TYPE) {
+            sb.append(" AND ligplaatsen.kenmerkZe != ?");
+            args.add("Binnenvaart");
+        }
+
+        args.addAll(Arrays.asList(terms));
+        args.add(""+searchType);
         sb.append(" ORDER BY objecten.objecttype, objecten.objectid");
-        Cursor c = db.rawQuery(sb.toString(), args);
+        Cursor c = db.rawQuery(sb.toString(), args.toArray(new String[0]));
         List<com.resist.mus3d.objects.Object> out = new ArrayList<>();
         while(c.moveToNext()) {
             out.add(createObjectFromCursor(c));

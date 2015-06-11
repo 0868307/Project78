@@ -4,31 +4,24 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-import android.widget.TextView;
 
 import com.resist.mus3d.database.ObjectTable;
-import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.map.Map;
-import com.resist.mus3d.objects.*;
 import com.resist.mus3d.objects.Object;
-import com.resist.mus3d.objects.coords.Point;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import java.util.List;
 
 public class Search extends Activity {
@@ -37,6 +30,7 @@ public class Search extends Activity {
 			R.drawable.ic_aanlegplaats, R.drawable.ic_meerpaal};
 
 	private String[] strings;
+    private int[] spinnerIds;
 	private ArrayList<Object> objectList = new ArrayList<Object>();
 	private MyArrayAdapter adapter;
 
@@ -46,16 +40,16 @@ public class Search extends Activity {
 		setContentView(R.layout.activity_search);
 
 		strings = getResources().getStringArray(R.array.objectnamenArray);
+        spinnerIds = getResources().getIntArray(R.array.objectwaardenArray);
 
 		Spinner searchSpinner = (Spinner)findViewById(R.id.sp_search_objecttype);
 		searchSpinner.setAdapter(new MyAdapter(this, R.layout.row, strings));
-		ArrayList<Object> list = new ArrayList<>();
 		addList();
 		makeRandomObjects();
 		//selected(list);
 	}
 
-	public void makeRandomObjects(){
+	public void makeRandomObjects() {
 		objectList.add(new Object(1,"wouter",null,"wouter",null,"hoi"));
 		objectList.add(new Object(2,"f",null,"t",null,"a"));
 		objectList.add(new Object(3,"r",null,"g",null,"e"));
@@ -63,7 +57,8 @@ public class Search extends Activity {
 		System.out.println(objectList.size());
 		adapter.notifyDataSetChanged();
 	}
-	public void addList(){
+
+	public void addList() {
 		ScrollView scrollView = (ScrollView)findViewById(R.id.selectedlist);
 		ListView listView = new ListView(this);
 		adapter = new MyArrayAdapter(this, R.layout.row, objectList);
@@ -71,17 +66,19 @@ public class Search extends Activity {
 		scrollView.addView(listView);
 	}
 
-	public void searchQuery(View v){
+	public void searchQuery(View v) {
 		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-		List<com.resist.mus3d.objects.Object> objects = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), null);
+        int index = ((Spinner)findViewById(R.id.sp_search_objecttype)).getSelectedItemPosition();
+		List<com.resist.mus3d.objects.Object> objects = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), spinnerIds[index]);
+        Log.w(Mus3D.LOG_TAG, "objects found: "+objects.size());
 		selected(objects);
 	}
-
 
 	public void skip(View v) {
 		goToNext();
 	}
-	public void selected(List<Object> list){
+
+	public void selected(List<Object> list) {
 		objectList.addAll(list);
 		adapter.notifyDataSetChanged();
 	}
@@ -89,7 +86,8 @@ public class Search extends Activity {
 	public void go(View v){
 		goToNext();
 	}
-	public void goToNext(){
+
+	public void goToNext() {
 		Intent intent;
 		ToggleButton toggle = (ToggleButton)findViewById(R.id.search_toggle);
 		if(toggle.isChecked()) {
@@ -101,14 +99,14 @@ public class Search extends Activity {
 		startActivity(intent);
 	}
 
-	public class MyAdapter extends ArrayAdapter<String>{
+	public class MyAdapter extends ArrayAdapter<String> {
 
-		public MyAdapter(Context context, int textViewResourceId,   String[] objects) {
+		public MyAdapter(Context context, int textViewResourceId, String[] objects) {
 			super(context, textViewResourceId, objects);
 		}
 
 		@Override
-		public View getDropDownView(int position, View convertView,ViewGroup parent) {
+		public View getDropDownView(int position, View convertView, ViewGroup parent) {
 			return getCustomView(position, convertView, parent);
 		}
 
@@ -117,18 +115,16 @@ public class Search extends Activity {
 			return getCustomView(position, convertView, parent);
 		}
 
-		public View getCustomView(int position, View convertView, ViewGroup parent) {
-
-			LayoutInflater inflater=getLayoutInflater();
-			View row=inflater.inflate(R.layout.row, parent, false);
-			TextView label=(TextView)row.findViewById(R.id.tv_row_objecttitle);
+		private View getCustomView(int position, View convertView, ViewGroup parent) {
+			LayoutInflater inflater = getLayoutInflater();
+			View row = inflater.inflate(R.layout.row, parent, false);
+			TextView label = (TextView)row.findViewById(R.id.tv_row_objecttitle);
 			label.setText(strings[position]);
 
-			ImageView icon=(ImageView)row.findViewById(R.id.iv_row_icon);
+			ImageView icon = (ImageView)row.findViewById(R.id.iv_row_icon);
 			icon.setImageResource(arr_images[position]);
 
 			return row;
 		}
 	}
-
 }
