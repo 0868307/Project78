@@ -1,25 +1,16 @@
 package com.resist.mus3d;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.resist.mus3d.adapters.MyArrayAdapter;
 import com.resist.mus3d.adapters.SearchResultAdapter;
 import com.resist.mus3d.adapters.SearchTypeSelectAdapter;
 import com.resist.mus3d.ar.Rajawali;
@@ -27,7 +18,6 @@ import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.map.Map;
 import com.resist.mus3d.objects.Object;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Search extends Activity {

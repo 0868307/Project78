@@ -9,10 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.resist.mus3d.R;
-import com.resist.mus3d.objects.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.Object> {
     private Activity activity;
