@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Search extends Activity {
-	private static final int[] arr_images = { R.drawable.ic_afmeerboei,
-			R.drawable.ic_bolder, R.drawable.ic_koningspaal,
-			R.drawable.ic_aanlegplaats, R.drawable.ic_meerpaal};
+    private static final int[] images = { R.drawable.ic_afmeerboei,
+            R.drawable.ic_bolder, R.drawable.ic_koningspaal,
+            R.drawable.ic_aanlegplaats, R.drawable.ic_meerpaal};
 
 	private String[] strings;
     private int[] spinnerIds;
@@ -106,7 +106,7 @@ public class Search extends Activity {
 
 	public class MyAdapter extends ArrayAdapter<String> {
 
-		public MyAdapter(Context context, int textViewResourceId, String[] objects) {
+        public MyAdapter(Context context, int textViewResourceId, String[] objects) {
 			super(context, textViewResourceId, objects);
 		}
 
@@ -127,7 +127,7 @@ public class Search extends Activity {
 			label.setText(strings[position]);
 
 			ImageView icon = (ImageView)row.findViewById(R.id.iv_row_icon);
-			icon.setImageResource(arr_images[position]);
+			icon.setImageResource(images[position]);
 
 			return row;
 		}

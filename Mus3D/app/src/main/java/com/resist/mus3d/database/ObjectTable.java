@@ -183,7 +183,7 @@ public class ObjectTable {
             sb.append("JOIN bolders ON(bolders.id = objecten.objectid AND objecten.objecttype = ?) ");
             args.add(""+searchType);
         } else if(searchType == Koningspaal.TYPE) {
-            sb.append("JOIN koningspalen ON(bolders.id = objecten.objectid AND objecten.objecttype = ?) ");
+            sb.append("JOIN koningspalen ON(koningspalen.id = objecten.objectid AND objecten.objecttype = ?) ");
             args.add(""+searchType);
         }
         sb.append("WHERE (");
