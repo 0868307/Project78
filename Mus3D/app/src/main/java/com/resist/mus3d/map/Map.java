@@ -1,7 +1,6 @@
 package com.resist.mus3d.map;
 
 import android.app.Activity;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.resist.mus3d.Mus3D;
@@ -25,7 +24,6 @@ import java.util.List;
 public class Map extends Activity implements GpsActivity {
     private MapView mapView;
     private MapController mapController;
-    private LocationManager locationManager;
     private List<OverlayItem> overlayItemArray;
     private LocationTracker locationListener;
 
@@ -34,7 +32,7 @@ public class Map extends Activity implements GpsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        overlayItemArray = new ArrayList<OverlayItem>();
+        overlayItemArray = new ArrayList<>();
         locationListener = new LocationTracker(this);
 
         mapView = (MapView) this.findViewById(R.id.mapview);

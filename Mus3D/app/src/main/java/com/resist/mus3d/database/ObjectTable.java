@@ -6,7 +6,11 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import com.resist.mus3d.Mus3D;
-import com.resist.mus3d.objects.*;
+import com.resist.mus3d.objects.Afmeerboei;
+import com.resist.mus3d.objects.Anchorage;
+import com.resist.mus3d.objects.Bolder;
+import com.resist.mus3d.objects.Koningspaal;
+import com.resist.mus3d.objects.Meerpaal;
 import com.resist.mus3d.objects.coords.Coordinate;
 import com.resist.mus3d.objects.coords.MultiPoint;
 import com.resist.mus3d.objects.coords.Point;

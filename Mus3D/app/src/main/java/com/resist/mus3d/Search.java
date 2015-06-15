@@ -31,7 +31,7 @@ public class Search extends Activity {
 
 	private String[] strings;
     private int[] spinnerIds;
-	private ArrayList<Object> objectList = new ArrayList<Object>();
+	private ArrayList<Object> objectList = new ArrayList<>();
 	private MyArrayAdapter adapter;
 
 	@Override

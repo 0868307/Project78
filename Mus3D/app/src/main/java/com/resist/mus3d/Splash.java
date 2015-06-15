@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import com.resist.mus3d.map.Map;
-
 public class Splash extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

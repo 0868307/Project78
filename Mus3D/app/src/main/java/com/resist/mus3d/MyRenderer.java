@@ -1,31 +1,31 @@
 package com.resist.mus3d;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.opengl.GLES20;
 import android.os.AsyncTask;
+
 import com.resist.mus3d.database.ObjectTable;
-import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.map.Marker;
 import com.resist.mus3d.objects.Afmeerboei;
 import com.resist.mus3d.objects.Anchorage;
 import com.resist.mus3d.objects.Bolder;
-import com.resist.mus3d.objects.Common;
 import com.resist.mus3d.objects.Koningspaal;
 import com.resist.mus3d.objects.Meerpaal;
 import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
+
 import org.osmdroid.util.Position;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import rajawali.BaseObject3D;
 import rajawali.lights.DirectionalLight;
 import rajawali.materials.SimpleMaterial;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
 import rajawali.primitives.Cube;
-import rajawali.primitives.Plane;
 import rajawali.renderer.RajawaliRenderer;
 import rajawali.util.ObjectColorPicker;
 import rajawali.util.OnObjectPickedListener;

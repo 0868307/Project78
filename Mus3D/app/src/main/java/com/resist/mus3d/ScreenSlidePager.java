@@ -15,7 +15,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.resist.mus3d.slides.*;
+import com.resist.mus3d.slides.Slide;
+import com.resist.mus3d.slides.Slide1;
+import com.resist.mus3d.slides.Slide2;
+import com.resist.mus3d.slides.Slide3;
+import com.resist.mus3d.slides.Slide4;
+import com.resist.mus3d.slides.Slide5;
+import com.resist.mus3d.slides.Slide6;
+import com.resist.mus3d.slides.Slide7;
+import com.resist.mus3d.slides.Slide8;
+import com.resist.mus3d.slides.Slide9;
 import com.viewpagerindicator.CirclePageIndicator;
 
 public class ScreenSlidePager extends FragmentActivity {

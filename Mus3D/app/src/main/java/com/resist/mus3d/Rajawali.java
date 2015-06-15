@@ -1,6 +1,5 @@
 package com.resist.mus3d;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,19 +11,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.resist.mus3d.map.GpsActivity;
 import com.resist.mus3d.map.LocationTracker;
-import com.resist.mus3d.map.Map;
 import com.resist.mus3d.sensor.SensorActivity;
 import com.resist.mus3d.sensor.SensorTracker;
 
