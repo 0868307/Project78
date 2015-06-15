@@ -9,9 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.resist.mus3d.R;
+import com.resist.mus3d.objects.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.Object> {
     private Activity activity;
+
     public SearchResultAdapter(Activity activity) {
         super(activity, R.layout.row);
         this.activity = activity;
@@ -24,8 +29,10 @@ public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.O
 
     private View getCustomView(int position, View convertView, ViewGroup parent) {
         com.resist.mus3d.objects.Object object = getItem(position);
+
         LayoutInflater inflater = activity.getLayoutInflater();
         View row = inflater.inflate(R.layout.row, parent, false);
+
         TextView label = (TextView)row.findViewById(R.id.tv_row_objecttitle);
         label.setText(object.toString());
 
@@ -33,5 +40,13 @@ public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.O
         icon.setImageResource(object.getDrawable());
 
         return row;
+    }
+
+    public ArrayList<com.resist.mus3d.objects.Object> getItems() {
+        ArrayList<com.resist.mus3d.objects.Object> out = new ArrayList<>();
+        for(int i = 0; i < getCount(); i++) {
+            out.add(getItem(i));
+        }
+        return out;
     }
 }

@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,11 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Search extends Activity {
-
     private int[] spinnerIds;
-	private ArrayList<Object> objectList = new ArrayList<>();
-	private MyArrayAdapter adapter;
     private SearchResultAdapter resultAdapter;
+    private SearchResultAdapter selectedAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,33 +43,23 @@ public class Search extends Activity {
         spinnerIds = getResources().getIntArray(R.array.objectwaardenArray);
 
 		Spinner searchSpinner = (Spinner)findViewById(R.id.sp_search_objecttype);
+
         SearchTypeSelectAdapter selectAdapter = new SearchTypeSelectAdapter(this);
         selectAdapter.addAll(getResources().getStringArray(R.array.objectnamenArray));
 		searchSpinner.setAdapter(selectAdapter);
-		addList();
-		makeRandomObjects();
-		//selected(list);
 
         resultAdapter = new SearchResultAdapter(this);
+        selectedAdapter = new SearchResultAdapter(this);
 
         ((ListView)findViewById(R.id.search_results)).setAdapter(resultAdapter);
-	}
+        ((ListView)findViewById(R.id.search_selected)).setAdapter(selectedAdapter);
 
-	public void makeRandomObjects() {/*
-		objectList.add(new Object(1, "wouter", null, "wouter", null, "hoi"));
-		objectList.add(new Object(2, "f", null, "t", null, "a"));
-		objectList.add(new Object(3,"r",null,"g",null,"e"));
-		objectList.add(new Object(4, "g", null, "h", null, "r"));*/
-		System.out.println(objectList.size());
-		adapter.notifyDataSetChanged();
-	}
-
-	public void addList() {
-		ScrollView scrollView = (ScrollView)findViewById(R.id.selectedlist);
-		ListView listView = new ListView(this);
-		adapter = new MyArrayAdapter(this, R.layout.resultrow, objectList);
-		listView.setAdapter(adapter);
-		scrollView.addView(listView);
+        ((ListView)findViewById(R.id.search_results)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                
+            }
+        });
 	}
 
 	public void searchQuery(View v) {
@@ -83,11 +73,6 @@ public class Search extends Activity {
 
 	public void skip(View v) {
 		goToNext();
-	}
-
-	public void selected(List<Object> list) {
-		objectList.addAll(list);
-		adapter.notifyDataSetChanged();
 	}
 
 	public void clearSearchBox(View v) {
@@ -107,7 +92,7 @@ public class Search extends Activity {
 		} else {
 			intent = new Intent(this, Rajawali.class);
 		}
-		intent.putParcelableArrayListExtra("objectList",objectList);
+		intent.putParcelableArrayListExtra("objectList", selectedAdapter.getItems());
 		startActivity(intent);
 	}
 }
