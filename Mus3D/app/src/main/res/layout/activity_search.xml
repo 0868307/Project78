@@ -51,7 +51,6 @@
             android:layout_height="wrap_content"
             android:textOn="@string/action_2D"
             android:textOff="@string/action_3D"
-            android:background="@layout/custom_togglebutton"
             android:checked="false" />
         <Button
             android:onClick="skip"
@@ -62,7 +61,6 @@
             android:onClick="go"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
             android:text="@string/search_btn_search"/>
     </LinearLayout>
     <LinearLayout
