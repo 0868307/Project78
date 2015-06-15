@@ -86,9 +86,6 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		mLayout.setVisibility(View.VISIBLE);
 	}
 
-	public void showObjectInfo(Object object){
-
-	}
 	public void onObjectLoadingProgress(double progress) {
 		ProgressBar bar = (ProgressBar)((ViewGroup) progressBarObjects).getChildAt(0);
 		bar.setProgress((int)(progress*10));
@@ -101,28 +98,6 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_settings3d, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-
-		switch(id) {
-			case R.id.settings_Settings:
-				Intent i = new Intent(this, Settings.class);
-				startActivity(i);
-				break;
-			case R.id.action_2D:
-				Intent j = new Intent(this, Map.class);
-				startActivity(j);
-				break;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 	@Override
 	protected void onStop() {
 		locationListener.onStop();
