@@ -23,6 +23,6 @@ public class Splash extends Activity {
 		} else {
 			i = new Intent(this, Search.class);
 		}
-		new SplashLoader(this, i, 500).execute();
+		new SplashLoader(this, i, 2000).execute();
 	}
 }
