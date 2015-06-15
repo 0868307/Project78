@@ -47,6 +47,8 @@ public class Map extends Activity implements GpsActivity {
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(this);
         mapView.getOverlays().add(myScaleBarOverlay);
         goToCurrentLocation();
+
+        getActionBar().hide();
     }
 
     public void updateMarkers(IGeoPoint location) {
