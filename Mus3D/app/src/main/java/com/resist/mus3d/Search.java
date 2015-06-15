@@ -67,7 +67,7 @@ public class Search extends Activity {
 	public void addList() {
 		ScrollView scrollView = (ScrollView)findViewById(R.id.selectedlist);
 		ListView listView = new ListView(this);
-		adapter = new MyArrayAdapter(this, R.layout.row, objectList);
+		adapter = new MyArrayAdapter(this, R.layout.resultrow, objectList);
 		listView.setAdapter(adapter);
 		scrollView.addView(listView);
 	}
