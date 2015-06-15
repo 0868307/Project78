@@ -39,7 +39,6 @@ public class Map extends Activity implements GpsActivity {
     private LocationManager locationManager;
     private List<OverlayItem> overlayItemArray;
     private LocationTracker locationListener;
-    private DrawerLayout menuDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +59,7 @@ public class Map extends Activity implements GpsActivity {
         mapView.getOverlays().add(myScaleBarOverlay);
         goToCurrentLocation();
 
-        menuDrawer = (DrawerLayout)findViewById(R.id.menu_drawer);
-        //TODO checkboxes aanpassen aan opgeslagen gecheckte waarden
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, menuDrawer, null, R.string.menu_open, R.string.menu_close);
-        menuDrawer.setDrawerListener(drawerToggle);
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.primary)));
-    }
-
-    public void onCheckBoxClick(View v) {
-        //TODO waardes opslaan en kaart redrawen
+        getActionBar().hide();
     }
 
     public void updateMarkers(IGeoPoint location) {
@@ -104,29 +94,6 @@ public class Map extends Activity implements GpsActivity {
             mapView.getController().setCenter(currentLocation);
             addCurrentPosition();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_settings2d, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.settings_Settings:
-                Intent i = new Intent(this, Settings.class);
-                startActivity(i);
-                break;
-            case R.id.action_3D:
-                Intent j = new Intent(this, Rajawali.class);
-                startActivity(j);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
