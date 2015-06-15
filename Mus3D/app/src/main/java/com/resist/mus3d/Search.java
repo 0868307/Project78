@@ -17,6 +17,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.resist.mus3d.adapters.MyArrayAdapter;
+import com.resist.mus3d.adapters.SearchResultAdapter;
+import com.resist.mus3d.adapters.SearchTypeSelectAdapter;
 import com.resist.mus3d.ar.Rajawali;
 import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.map.Map;
@@ -26,11 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Search extends Activity {
-    private static final int[] images = { R.drawable.ic_afmeerboei,
-            R.drawable.ic_bolder, R.drawable.ic_koningspaal,
-            R.drawable.ic_aanlegplaats, R.drawable.ic_meerpaal};
 
-	private String[] strings;
     private int[] spinnerIds;
 	private ArrayList<Object> objectList = new ArrayList<>();
 	private MyArrayAdapter adapter;
@@ -41,11 +40,12 @@ public class Search extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
 
-		strings = getResources().getStringArray(R.array.objectnamenArray);
         spinnerIds = getResources().getIntArray(R.array.objectwaardenArray);
 
 		Spinner searchSpinner = (Spinner)findViewById(R.id.sp_search_objecttype);
-		searchSpinner.setAdapter(new ObjectSelectionAdapter(this, R.layout.row, strings));
+        SearchTypeSelectAdapter selectAdapter = new SearchTypeSelectAdapter(this);
+        selectAdapter.addAll(getResources().getStringArray(R.array.objectnamenArray));
+		searchSpinner.setAdapter(selectAdapter);
 		addList();
 		makeRandomObjects();
 		//selected(list);
@@ -109,34 +109,5 @@ public class Search extends Activity {
 		}
 		intent.putParcelableArrayListExtra("objectList",objectList);
 		startActivity(intent);
-	}
-
-	public class ObjectSelectionAdapter extends ArrayAdapter<String> {
-
-        public ObjectSelectionAdapter(Context context, int textViewResourceId, String[] objects) {
-			super(context, textViewResourceId, objects);
-		}
-
-		@Override
-		public View getDropDownView(int position, View convertView, ViewGroup parent) {
-			return getCustomView(position, convertView, parent);
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			return getCustomView(position, convertView, parent);
-		}
-
-		private View getCustomView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = getLayoutInflater();
-			View row = inflater.inflate(R.layout.row, parent, false);
-			TextView label = (TextView)row.findViewById(R.id.tv_row_objecttitle);
-			label.setText(strings[position]);
-
-			ImageView icon = (ImageView)row.findViewById(R.id.iv_row_icon);
-			icon.setImageResource(images[position]);
-
-			return row;
-		}
 	}
 }

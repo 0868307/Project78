@@ -1,4 +1,4 @@
-package com.resist.mus3d;
+package com.resist.mus3d.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -8,11 +8,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.Object> {
+import com.resist.mus3d.R;
+
+public class SearchTypeSelectAdapter extends ArrayAdapter<String> {
+    private static final int[] images = { R.drawable.ic_afmeerboei,
+            R.drawable.ic_bolder, R.drawable.ic_koningspaal,
+            R.drawable.ic_aanlegplaats, R.drawable.ic_meerpaal};
     private Activity activity;
-    public SearchResultAdapter(Activity activity) {
+
+    public SearchTypeSelectAdapter(Activity activity) {
         super(activity, R.layout.row);
         this.activity = activity;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return getCustomView(position, convertView, parent);
     }
 
     @Override
@@ -21,14 +32,13 @@ public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.O
     }
 
     private View getCustomView(int position, View convertView, ViewGroup parent) {
-        com.resist.mus3d.objects.Object object = getItem(position);
         LayoutInflater inflater = activity.getLayoutInflater();
         View row = inflater.inflate(R.layout.row, parent, false);
         TextView label = (TextView)row.findViewById(R.id.tv_row_objecttitle);
-        label.setText(object.toString());
+        label.setText(getItem(position));
 
         ImageView icon = (ImageView)row.findViewById(R.id.iv_row_icon);
-        icon.setImageResource(object.getDrawable());
+        icon.setImageResource(images[position]);
 
         return row;
     }

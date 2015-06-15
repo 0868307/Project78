@@ -7,11 +7,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-/**
- * Created by Wouter on 5/7/2015.
- */
 public class SensorTracker implements SensorEventListener {
-    SensorActivity activity;
+    private SensorActivity activity;
     private SensorManager sensorManager;
     private final int COUNTER_MAX = 20;
     private float directionX;
@@ -20,7 +17,7 @@ public class SensorTracker implements SensorEventListener {
     private int counter = 0;
     private float total =0;
     private boolean first = true;
-    private int notupdated;
+    private int notUpdated;
 
     public SensorTracker(SensorActivity activity) {
         this.activity = activity;
@@ -81,9 +78,9 @@ public class SensorTracker implements SensorEventListener {
                 }
                 counter++;
             }else{
-                notupdated++;
-                if(notupdated > COUNTER_MAX){
-                    notupdated = 0;
+                notUpdated++;
+                if(notUpdated > COUNTER_MAX){
+                    notUpdated = 0;
                     directionX = getDirection();
                 }
             }

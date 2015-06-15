@@ -1,4 +1,4 @@
-package com.resist.mus3d;
+package com.resist.mus3d.adapters;
 
 import android.app.Activity;
 import android.content.Context;
