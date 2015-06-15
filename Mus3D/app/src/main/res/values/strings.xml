@@ -46,4 +46,5 @@
     <string name="search_btn_skip">Sla over</string>
     <string name="search_btn_search">Zoek</string>
 
+    <string name="failed_to_load_db">De database kon niet worden geladen.</string>
 </resources>

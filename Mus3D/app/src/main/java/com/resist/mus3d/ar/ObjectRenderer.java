@@ -109,15 +109,9 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 			ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
 			List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), 0.001);
 			Map<BaseObject3D, Object> newobject3Ds = new HashMap<>();
-			Position lastPos = null;
+			Position lastPos;
 			System.out.println("lat = "+context.getLocation().getLatitude()*MULTIPLIER+" long = "+context.getLocation().getLongitude()*MULTIPLIER);
 			System.out.println("list size = " + list.size());
-			/*BaseObject3D x = new Plane(100,2,10,10);
-			x.setMaterial(myMaterial);
-			x.setPosition((float) (LocationTracker.getCurrentLocation().getLongitude() * MULTIPLIER), 0, (float) (LocationTracker.getCurrentLocation().getLatitude() * MULTIPLIER));
-			x.setColor(Color.DKGRAY);
-
-			addChild(x);*/
 			for (int n=0, size = list.size(); n < size; n++) {
 				Object o = list.get(n);
 				ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
@@ -128,8 +122,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 					e.printStackTrace();
 				}
 
-				BaseObject3D mObject = parser.getParsedObject();
-				mObject = new Cube(1);
+                BaseObject3D mObject = new Cube(1);
 				System.out.println(mPicker);
 				lastPos = o.getLocation().getPosition();
 				mObject.setPosition((float) (lastPos.getLongitude() * MULTIPLIER), 0, (float) (lastPos.getLatitude() * MULTIPLIER));
@@ -139,13 +132,13 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 				mObject.setMaterial(myMaterial);
 				if (o instanceof Afmeerboei) {
 					mObject.setColor(Color.RED);
-				} else if (o instanceof Bolder) {	// werkt
+				} else if (o instanceof Bolder) {
 					mObject.setColor(Color.BLUE);
 				} else if (o instanceof Koningspaal) {
 					mObject.setColor(Color.MAGENTA);
 				} else if (o instanceof Anchorage) {
 					mObject.setColor(Color.GREEN);
-				} else if (o instanceof Meerpaal) { // werkt
+				} else if (o instanceof Meerpaal) {
 					mObject.setColor(Color.BLACK);
 				}
 				addChild(mObject);

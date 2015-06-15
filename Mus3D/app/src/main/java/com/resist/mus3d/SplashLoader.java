@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -37,7 +38,7 @@ public class SplashLoader extends AsyncTask<Void, Void, Boolean> {
 
     protected void onPostExecute(Boolean result) {
         if(!result) {
-            //error dialog
+            Toast.makeText(ctx, R.string.failed_to_load_db, Toast.LENGTH_LONG).show();
         }
         long time = delay - (System.currentTimeMillis() - startTime);
         new Handler().postDelayed(new Runnable() {

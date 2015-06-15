@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <ImageView
-        android:contentDescription="iets"
-        android:src="@drawable/resist"
-        android:gravity="center"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="center"
-        android:cropToPadding="false"
-        android:paddingTop="40dp"
-        android:paddingBottom="40dp"
-        android:adjustViewBounds="true"
-        />
-
     <RelativeLayout
+        android:layout_alignParentBottom="true"
         android:id="@+id/loadingPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,4 +18,18 @@
             android:indeterminate="true" />
     </RelativeLayout>
 
-</LinearLayout>
+    <ImageView
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/loadingPanel"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/resist"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:cropToPadding="false"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
+        android:adjustViewBounds="true"/>
+
+</RelativeLayout>

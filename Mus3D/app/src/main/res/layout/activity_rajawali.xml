@@ -6,10 +6,10 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.resist.mus3d.ar.Rajawali">
 
-    <TextView android:text="hello_world" android:layout_width="match_parent"
+    <TextView android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rotation"
         android:gravity="center"
-        android:textSize="30dp"/>
+        android:textSize="30sp"/>
 
 </RelativeLayout>

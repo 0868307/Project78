@@ -25,7 +25,6 @@ import java.util.List;
 public class Map extends Activity implements GpsActivity {
     private MapView mapView;
     private MapController mapController;
-    private List<OverlayItem> overlayItemArray;
     private LocationTracker locationListener;
 
     @Override
@@ -33,7 +32,6 @@ public class Map extends Activity implements GpsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        overlayItemArray = new ArrayList<>();
         locationListener = new LocationTracker(this);
 
         mapView = (MapView) this.findViewById(R.id.mapview);
