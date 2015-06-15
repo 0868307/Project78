@@ -19,7 +19,7 @@ public class Splash extends Activity {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Intent i;
 		if(!prefs.contains("skipTutorial")) {
-			i = new Intent(Splash.this, ScreenSlidePager.class);
+			i = new Intent(Splash.this, Tutorial.class);
 		} else {
 			i = new Intent(this, Search.class);
 		}

@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Rajawali"
+            android:name=".ar.Rajawali"
             android:label="@string/title_activity_rajawali"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -59,7 +59,7 @@
             android:label="@string/title_activity_roll_selector" >
         </activity>
         <activity
-            android:name=".ScreenSlidePager"
+            android:name=".Tutorial"
             android:label="@string/content_fragment" >
         </activity>
         <activity

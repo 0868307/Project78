@@ -27,7 +27,7 @@ import com.resist.mus3d.slides.Slide8;
 import com.resist.mus3d.slides.Slide9;
 import com.viewpagerindicator.CirclePageIndicator;
 
-public class ScreenSlidePager extends FragmentActivity {
+public class Tutorial extends FragmentActivity {
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private CirclePageIndicator circlePageIndicator;

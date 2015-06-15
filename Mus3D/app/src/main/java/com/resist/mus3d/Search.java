@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.resist.mus3d.ar.Rajawali;
 import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.map.Map;
 import com.resist.mus3d.objects.Object;
@@ -43,7 +44,7 @@ public class Search extends Activity {
         spinnerIds = getResources().getIntArray(R.array.objectwaardenArray);
 
 		Spinner searchSpinner = (Spinner)findViewById(R.id.sp_search_objecttype);
-		searchSpinner.setAdapter(new MyAdapter(this, R.layout.row, strings));
+		searchSpinner.setAdapter(new ObjectSelectionAdapter(this, R.layout.row, strings));
 		addList();
 		makeRandomObjects();
 		//selected(list);
@@ -104,9 +105,9 @@ public class Search extends Activity {
 		startActivity(intent);
 	}
 
-	public class MyAdapter extends ArrayAdapter<String> {
+	public class ObjectSelectionAdapter extends ArrayAdapter<String> {
 
-        public MyAdapter(Context context, int textViewResourceId, String[] objects) {
+        public ObjectSelectionAdapter(Context context, int textViewResourceId, String[] objects) {
 			super(context, textViewResourceId, objects);
 		}
 

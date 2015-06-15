@@ -1,9 +1,11 @@
-package com.resist.mus3d;
+package com.resist.mus3d.ar;
 
 import android.graphics.Color;
 import android.opengl.GLES20;
 import android.os.AsyncTask;
 
+import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.R;
 import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.map.Marker;
 import com.resist.mus3d.objects.Afmeerboei;
@@ -30,7 +32,7 @@ import rajawali.renderer.RajawaliRenderer;
 import rajawali.util.ObjectColorPicker;
 import rajawali.util.OnObjectPickedListener;
 
-public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListener {
+public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedListener {
 	public static final int MULTIPLIER = 10000;
 	private DirectionalLight mLight;
 
@@ -39,7 +41,7 @@ public class MyRenderer extends RajawaliRenderer implements OnObjectPickedListen
 	private Rajawali context;
 	private ObjectColorPicker mPicker;
 	private OnObjectPickedListener mObjectPickedListener;
-	public MyRenderer(Rajawali context) {
+	public ObjectRenderer(Rajawali context) {
 		super(context);
 		this.context = context;
 		setFrameRate(60);

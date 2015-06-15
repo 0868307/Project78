@@ -1,4 +1,4 @@
-package com.resist.mus3d;
+package com.resist.mus3d.ar;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.R;
 import com.resist.mus3d.map.GpsActivity;
 import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.sensor.SensorActivity;
@@ -26,19 +28,20 @@ import com.resist.mus3d.sensor.SensorTracker;
 import rajawali.RajawaliActivity;
 
 public class Rajawali extends RajawaliActivity implements GpsActivity, SensorActivity, View.OnTouchListener {
-	private MyRenderer myRenderer;
+	private ObjectRenderer objectRenderer;
 	private LocationTracker locationListener;
 	private SensorTracker sensorTracker;
 	private int counter = 1000;
 	private View progressBarGPS;
 	private View progressBarObjects;
 
-	@Override public void onCreate(Bundle savedInstanceState) {
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		myRenderer = new MyRenderer(this);
-		myRenderer.setSurfaceView(mSurfaceView);
+		objectRenderer = new ObjectRenderer(this);
+		objectRenderer.setSurfaceView(mSurfaceView);
 		mSurfaceView.setOnTouchListener(this);
-		super.setRenderer(myRenderer);
+		super.setRenderer(objectRenderer);
 		createUI();
 		locationListener = new LocationTracker(this);
 		sensorTracker = new SensorTracker(this);
@@ -114,13 +117,13 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 				progressBarGPS.setVisibility(View.GONE);
 				progressBarObjects.setVisibility(View.VISIBLE);
 			}
-			myRenderer.setCamera(
-					(float) locationListener.getCurrentLocation().getLongitude()*MyRenderer.MULTIPLIER,
+			objectRenderer.setCamera(
+					(float) locationListener.getCurrentLocation().getLongitude()* ObjectRenderer.MULTIPLIER,
 					0,
-					(float) locationListener.getCurrentLocation().getLatitude()*MyRenderer.MULTIPLIER
+					(float) locationListener.getCurrentLocation().getLatitude()* ObjectRenderer.MULTIPLIER
 			);
 			if(counter > 1000){
-				myRenderer.makeObjects();
+				objectRenderer.makeObjects();
 				counter = 0;
 			}
 		}
@@ -138,7 +141,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	@Override
 	public void updateSensor(float x,float y,float z) {
 		if(sensorTracker != null){
-			myRenderer.setCameraRotation(x,-y,z);
+			objectRenderer.setCameraRotation(x,-y,z);
 			updateRotation(""+(-y));
 		}
 	}
@@ -147,7 +150,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	public boolean onTouch(View v, MotionEvent event) {
 		if(event.getAction() == MotionEvent.ACTION_DOWN)
 		{
-			myRenderer.getObjectAt(event.getX(), event.getY());
+			objectRenderer.getObjectAt(event.getX(), event.getY());
 
 		}
 
