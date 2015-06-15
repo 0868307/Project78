@@ -39,7 +39,6 @@ public class Map extends Activity implements GpsActivity {
     private LocationManager locationManager;
     private List<OverlayItem> overlayItemArray;
     private LocationTracker locationListener;
-    private DrawerLayout menuDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +58,6 @@ public class Map extends Activity implements GpsActivity {
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(this);
         mapView.getOverlays().add(myScaleBarOverlay);
         goToCurrentLocation();
-
-        menuDrawer = (DrawerLayout)findViewById(R.id.menu_drawer);
-        //TODO checkboxes aanpassen aan opgeslagen gecheckte waarden
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, menuDrawer, null, R.string.menu_open, R.string.menu_close);
-        menuDrawer.setDrawerListener(drawerToggle);
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.primary)));
-    }
-
-    public void onCheckBoxClick(View v) {
-        //TODO waardes opslaan en kaart redrawen
     }
 
     public void updateMarkers(IGeoPoint location) {
