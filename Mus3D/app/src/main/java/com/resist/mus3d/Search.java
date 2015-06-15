@@ -50,14 +50,26 @@ public class Search extends Activity {
 
         resultAdapter = new SearchResultAdapter(this);
         selectedAdapter = new SearchResultAdapter(this);
+        ListView results = (ListView)findViewById(R.id.search_results);
+        ListView selected = (ListView)findViewById(R.id.search_selected);
 
-        ((ListView)findViewById(R.id.search_results)).setAdapter(resultAdapter);
-        ((ListView)findViewById(R.id.search_selected)).setAdapter(selectedAdapter);
+        results.setAdapter(resultAdapter);
+        selected.setAdapter(selectedAdapter);
 
-        ((ListView)findViewById(R.id.search_results)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        results.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+                Object object = resultAdapter.getItem(position);
+                selectedAdapter.add(object);
+                resultAdapter.remove(object);
+            }
+        });
+        selected.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object object = selectedAdapter.getItem(position);
+                resultAdapter.add(object);
+                selectedAdapter.remove(object);
             }
         });
 	}
