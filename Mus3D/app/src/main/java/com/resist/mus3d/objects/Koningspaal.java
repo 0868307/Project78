@@ -1,6 +1,7 @@
 package com.resist.mus3d.objects;
 
 import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.R;
 import com.resist.mus3d.database.Koningspalen;
 
 import java.util.Date;
@@ -90,4 +91,9 @@ public class Koningspaal extends Common {
 		super.load();
 		new Koningspalen(Mus3D.getDatabase().getDatabase()).loadObject(this);
 	}
+
+    @Override
+    public int getDrawable() {
+        return R.drawable.ic_koningspaal;
+    }
 }

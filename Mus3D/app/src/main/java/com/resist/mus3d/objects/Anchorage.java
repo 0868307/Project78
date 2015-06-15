@@ -1,6 +1,7 @@
 package com.resist.mus3d.objects;
 
 import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.R;
 import com.resist.mus3d.database.Aanlegplaatsen;
 
 import java.util.Date;
@@ -300,4 +301,9 @@ public class Anchorage extends Object {
 		super.load();
 		new Aanlegplaatsen(Mus3D.getDatabase().getDatabase()).loadObject(this);
 	}
+
+    @Override
+    public int getDrawable() {
+        return R.drawable.ic_aanlegplaats;
+    }
 }

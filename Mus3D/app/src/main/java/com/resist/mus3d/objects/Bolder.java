@@ -1,6 +1,7 @@
 package com.resist.mus3d.objects;
 
 import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.R;
 import com.resist.mus3d.database.Bolders;
 
 import java.util.Date;
@@ -108,4 +109,9 @@ public class Bolder extends Common {
 		super.load();
 		new Bolders(Mus3D.getDatabase().getDatabase()).loadObject(this);
 	}
+
+    @Override
+    public int getDrawable() {
+        return R.drawable.ic_bolder;
+    }
 }

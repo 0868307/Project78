@@ -22,24 +22,9 @@ public class Marker extends OverlayItem {
 
 	public Marker(Activity activity, com.resist.mus3d.objects.Object object) {
 		super(null, null, new GeoPoint(object.getLocation().getPosition().getLatitude(), object.getLocation().getPosition().getLongitude()));
-		setMarker(activity.getResources().getDrawable(getDrawable(object)));
+		setMarker(activity.getResources().getDrawable(object.getDrawable()));
 		this.activity = activity;
 		this.object = object;
-	}
-
-	private int getDrawable(Object object) {
-		if (object instanceof Afmeerboei) {
-			return R.drawable.ic_afmeerboei;
-		} else if (object instanceof Bolder) {
-			return R.drawable.ic_bolder;
-		} else if (object instanceof Koningspaal) {
-			return R.drawable.ic_koningspaal;
-		} else if (object instanceof Anchorage) {
-			return R.drawable.ic_aanlegplaats;
-		} else if (object instanceof Meerpaal) {
-			return R.drawable.ic_meerpaal;
-		}
-		return R.drawable.ic_onbekend;
 	}
 
 	private String getDialogTitle() {

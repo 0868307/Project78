@@ -1,4 +1,4 @@
-package com.resist.mus3d.map;
+package com.resist.mus3d;
 
 public interface GpsActivity {
     void update();

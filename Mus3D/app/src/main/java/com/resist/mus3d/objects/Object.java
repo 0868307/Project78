@@ -11,7 +11,7 @@ import com.resist.mus3d.objects.coords.Point;
 
 import java.util.Date;
 
-public class Object implements Parcelable {
+public abstract class Object implements Parcelable {
     public static final int TYPE = -1;
 	private int objectid;
 	private String createdBy;
@@ -30,6 +30,8 @@ public class Object implements Parcelable {
 		this.editedAt = editedAt;
 		this.featureId = featureId;
 	}
+
+    public abstract int getDrawable();
 
 	public int getType() {
 		return TYPE;

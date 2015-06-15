@@ -22,9 +22,7 @@ public class SplashLoader extends AsyncTask<Void, Void, Boolean> {
 
     protected Boolean doInBackground(Void... input) {
         startTime = System.currentTimeMillis();
-        boolean result = true;
-        result |= loadDatabase();
-        return result;
+        return loadDatabase();
     }
 
     private boolean loadDatabase() {

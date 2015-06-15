@@ -1,6 +1,8 @@
 package com.resist.mus3d.objects;
 
 
+import com.resist.mus3d.R;
+
 import java.util.Date;
 
 public class Afmeerboei extends Common {
@@ -16,5 +18,10 @@ public class Afmeerboei extends Common {
 
     public int getType() {
         return TYPE;
+    }
+
+    @Override
+    public int getDrawable() {
+        return R.drawable.ic_afmeerboei;
     }
 }

@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
-import com.resist.mus3d.map.GpsActivity;
+import com.resist.mus3d.GpsActivity;
 import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.sensor.SensorActivity;
 import com.resist.mus3d.sensor.SensorTracker;

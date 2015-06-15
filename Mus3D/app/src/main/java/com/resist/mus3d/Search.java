@@ -34,6 +34,7 @@ public class Search extends Activity {
     private int[] spinnerIds;
 	private ArrayList<Object> objectList = new ArrayList<>();
 	private MyArrayAdapter adapter;
+    private SearchResultAdapter resultAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +49,17 @@ public class Search extends Activity {
 		addList();
 		makeRandomObjects();
 		//selected(list);
+
+        resultAdapter = new SearchResultAdapter(this);
+
+        ((ListView)findViewById(R.id.search_results)).setAdapter(resultAdapter);
 	}
 
-	public void makeRandomObjects() {
+	public void makeRandomObjects() {/*
 		objectList.add(new Object(1, "wouter", null, "wouter", null, "hoi"));
 		objectList.add(new Object(2, "f", null, "t", null, "a"));
 		objectList.add(new Object(3,"r",null,"g",null,"e"));
-		objectList.add(new Object(4, "g", null, "h", null, "r"));
+		objectList.add(new Object(4, "g", null, "h", null, "r"));*/
 		System.out.println(objectList.size());
 		adapter.notifyDataSetChanged();
 	}
@@ -72,7 +77,8 @@ public class Search extends Activity {
         int index = ((Spinner)findViewById(R.id.sp_search_objecttype)).getSelectedItemPosition();
 		List<com.resist.mus3d.objects.Object> objects = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), spinnerIds[index]);
         Log.w(Mus3D.LOG_TAG, "objects found: "+objects.size());
-		selected(objects);
+		resultAdapter.clear();
+        resultAdapter.addAll(objects);
 	}
 
 	public void skip(View v) {

@@ -3,6 +3,7 @@ package com.resist.mus3d.map;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.resist.mus3d.GpsActivity;
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.database.ObjectTable;
@@ -45,8 +46,6 @@ public class Map extends Activity implements GpsActivity {
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(this);
         mapView.getOverlays().add(myScaleBarOverlay);
         goToCurrentLocation();
-
-        getActionBar().hide();
     }
 
     public void updateMarkers(IGeoPoint location) {

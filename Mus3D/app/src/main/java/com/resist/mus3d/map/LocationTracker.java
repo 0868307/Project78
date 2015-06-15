@@ -7,6 +7,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import com.resist.mus3d.GpsActivity;
+
 
 /**
  * Created by Armindo on 24-3-2015.

@@ -5,7 +5,7 @@ import com.resist.mus3d.database.CommonTable;
 
 import java.util.Date;
 
-public class Common extends Object {
+public abstract class Common extends Object {
 	private String facilityId;
 	private String facilitySecId;
 	private String regionId;
