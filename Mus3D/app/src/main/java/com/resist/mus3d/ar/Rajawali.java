@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import com.resist.mus3d.GpsActivity;
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.map.LocationTracker;
+import com.resist.mus3d.objects.*;
+import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.sensor.SensorActivity;
 import com.resist.mus3d.sensor.SensorTracker;
 
@@ -32,6 +35,7 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import rajawali.RajawaliActivity;
 
@@ -44,6 +48,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	private View progressBarObjects;
 	private final int ZOOMLEVEL = 16;
 	private MapView minimap;
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,6 +59,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		createUI();
 		locationListener = new LocationTracker(this);
 		sensorTracker = new SensorTracker(this);
+
 	}
 
 	private void createUI(){
@@ -70,8 +76,18 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		rl.addView(progressBarGPS);
 		rl.addView(progressBarObjects);
 		mLayout.addView(rl);
+		getIntentFromSearch();
 
 	}
+
+	public void getIntentFromSearch(){
+
+		Bundle searchIntentArray = getIntent().getExtras();
+		List<Object> objectlist = searchIntentArray.getParcelableArrayList("objectList");
+
+	}
+
+
 	private void addMinimap(RelativeLayout layout, LayoutInflater inflater){
 		LinearLayout mapViewParent = (LinearLayout)inflater.inflate(R.layout.minimap,null);
 		minimap = (MapView)mapViewParent.getChildAt(0);
@@ -127,6 +143,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		locationListener.onStop();
 		sensorTracker.onStop();
 		super.onStop();
+
 	}
 
 	@Override
