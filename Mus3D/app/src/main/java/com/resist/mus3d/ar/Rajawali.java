@@ -66,7 +66,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		addMinimap(rl, inflater);
 		progressBarGPS = inflater.inflate(R.layout.progress_gps, null);
 		progressBarObjects = inflater.inflate(R.layout.progress_objects, null);
-		progressBarObjects.setVisibility(View.GONE);
+		progressBarObjects.setVisibility(View.INVISIBLE);
 		rl.addView(progressBarGPS);
 		rl.addView(progressBarObjects);
 		mLayout.addView(rl);
@@ -117,9 +117,8 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	}
 
 	public void onObjectsLoaded(boolean success) {
-		Log.d(Mus3D.LOG_TAG, "success: "+success);
 		if(success) {
-			progressBarObjects.setVisibility(View.GONE);
+			progressBarObjects.setVisibility(View.INVISIBLE);
 		}
 	}
 
