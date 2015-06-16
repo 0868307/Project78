@@ -83,15 +83,15 @@ public class Search extends Activity {
 		if(selectedAdapter.isEmpty()) {
 			Toast.makeText(this, R.string.select_items_first, Toast.LENGTH_SHORT).show();
 		} else {
-			goToNext();
+			goToNext(true);
 		}
 	}
 
 	public void skip(View v){
-		goToNext();
+		goToNext(false);
 	}
 
-	public void goToNext() {
+	public void goToNext(boolean search) {
 		Intent intent;
 		ToggleButton toggle = (ToggleButton)findViewById(R.id.search_toggle);
 		if(toggle.isChecked()) {
@@ -99,7 +99,8 @@ public class Search extends Activity {
 		} else {
 			intent = new Intent(this, Rajawali.class);
 		}
-		intent.putParcelableArrayListExtra("objectList", selectedAdapter.getItems());
+		if(search)
+			intent.putParcelableArrayListExtra("objectList", selectedAdapter.getItems());
 		startActivity(intent);
 	}
 }

@@ -6,17 +6,4 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.resist.mus3d.ar.Rajawali">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="mus3d.resist.com.mus3d.map"
-        android:orientation="horizontal">
-
-        <org.osmdroid.views.MapView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:id="@+id/mapview"
-            >
-        </org.osmdroid.views.MapView>
-    </LinearLayout>
 </RelativeLayout>

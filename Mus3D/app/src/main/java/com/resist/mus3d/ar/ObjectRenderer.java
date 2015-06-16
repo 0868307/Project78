@@ -103,56 +103,59 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 
 		@Override
 		protected Boolean doInBackground(String... params) {
+			try {
+				SimpleMaterial myMaterial = new SimpleMaterial();
+				myMaterial.setUseColor(true);
+				ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
+				List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), 0.001);
+				Map<BaseObject3D, Object> newobject3Ds = new HashMap<>();
+				Position lastPos;
+				System.out.println("lat = " + context.getLocation().getLatitude() * MULTIPLIER + " long = " + context.getLocation().getLongitude() * MULTIPLIER);
+				System.out.println("list size = " + list.size());
+				for (int n = 0, size = list.size(); n < size; n++) {
+					Object o = list.get(n);
+					ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
 
-			SimpleMaterial myMaterial = new SimpleMaterial();
-			myMaterial.setUseColor(true);
-			ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-			List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), 0.001);
-			Map<BaseObject3D, Object> newobject3Ds = new HashMap<>();
-			Position lastPos;
-			System.out.println("lat = "+context.getLocation().getLatitude()*MULTIPLIER+" long = "+context.getLocation().getLongitude()*MULTIPLIER);
-			System.out.println("list size = " + list.size());
-			for (int n=0, size = list.size(); n < size; n++) {
-				Object o = list.get(n);
-				ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
+					try {
+						parser.parse();
+					} catch (AParser.ParsingException e) {
+						e.printStackTrace();
+					}
 
-				try {
-					parser.parse();
-				} catch (AParser.ParsingException e) {
-					e.printStackTrace();
+					BaseObject3D mObject = new Cube(1);
+					System.out.println(mPicker);
+					lastPos = o.getLocation().getPosition();
+					mObject.setPosition((float) (lastPos.getLongitude() * MULTIPLIER), 0, (float) (lastPos.getLatitude() * MULTIPLIER));
+					mObject.setRotation(0, 0, 0);
+					mObject.setScale(.1f);
+					mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
+					mObject.setMaterial(myMaterial);
+					if (o instanceof Afmeerboei) {
+						mObject.setColor(Color.RED);
+					} else if (o instanceof Bolder) {
+						mObject.setColor(Color.BLUE);
+					} else if (o instanceof Koningspaal) {
+						mObject.setColor(Color.MAGENTA);
+					} else if (o instanceof Anchorage) {
+						mObject.setColor(Color.GREEN);
+					} else if (o instanceof Meerpaal) {
+						mObject.setColor(Color.BLACK);
+					}
+					addChild(mObject);
+					mPicker.registerObject(mObject);
+					newobject3Ds.put(mObject, o);
+					context.onObjectLoadingProgress((double) n / (double) size * 100.0);
 				}
-
-                BaseObject3D mObject = new Cube(1);
-				System.out.println(mPicker);
-				lastPos = o.getLocation().getPosition();
-				mObject.setPosition((float) (lastPos.getLongitude() * MULTIPLIER), 0, (float) (lastPos.getLatitude() * MULTIPLIER));
-				mObject.setRotation(0, 0, 0);
-				mObject.setScale(.1f);
-				mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
-				mObject.setMaterial(myMaterial);
-				if (o instanceof Afmeerboei) {
-					mObject.setColor(Color.RED);
-				} else if (o instanceof Bolder) {
-					mObject.setColor(Color.BLUE);
-				} else if (o instanceof Koningspaal) {
-					mObject.setColor(Color.MAGENTA);
-				} else if (o instanceof Anchorage) {
-					mObject.setColor(Color.GREEN);
-				} else if (o instanceof Meerpaal) {
-					mObject.setColor(Color.BLACK);
+				System.out.println("executed");
+				for (Map.Entry<BaseObject3D, Object> o : object3Ds.entrySet()) {
+					removeChild(o.getKey());
 				}
-				addChild(mObject);
-				mPicker.registerObject(mObject);
-				newobject3Ds.put(mObject, o);
-				context.onObjectLoadingProgress((double)n / (double)size * 100.0);
-			}
-			System.out.println("executed");
-			for (Map.Entry<BaseObject3D, Object> o : object3Ds.entrySet()) {
-				removeChild(o.getKey());
-			}
-			object3Ds = newobject3Ds;
-			System.out.println("old objects removed");
+				object3Ds = newobject3Ds;
+				System.out.println("old objects removed");
 
+			}catch (Exception e){
+				e.printStackTrace();
+			}
 			return true;
 		}
 
