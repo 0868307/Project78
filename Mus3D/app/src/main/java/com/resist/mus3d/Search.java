@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.resist.mus3d.adapters.SearchResultAdapter;
@@ -79,6 +80,14 @@ public class Search extends Activity {
 	}
 
 	public void search(View v){
+		if(selectedAdapter.isEmpty()) {
+			Toast.makeText(this, R.string.select_items_first, Toast.LENGTH_SHORT).show();
+		} else {
+			goToNext();
+		}
+	}
+
+	public void skip(View v){
 		goToNext();
 	}
 
