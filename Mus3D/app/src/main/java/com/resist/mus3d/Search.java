@@ -73,16 +73,12 @@ public class Search extends Activity {
         resultAdapter.addAll(objects);
 	}
 
-	public void skip(View v) {
-		goToNext();
-	}
-
 	public void clearSearchBox(View v) {
 		EditText searchText = (EditText)findViewById(R.id.search_text);
 		searchText.setText("");
 	}
 
-	public void go(View v){
+	public void search(View v){
 		goToNext();
 	}
 
