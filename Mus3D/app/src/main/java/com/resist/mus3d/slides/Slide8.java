@@ -10,6 +10,6 @@ public class Slide8 implements Slide {
 
 	@Override
 	public int getText() {
-		return R.string.tutorial8;
+		return R.string.tutorial9;
 	}
 }

@@ -24,7 +24,6 @@ import com.resist.mus3d.slides.Slide5;
 import com.resist.mus3d.slides.Slide6;
 import com.resist.mus3d.slides.Slide7;
 import com.resist.mus3d.slides.Slide8;
-import com.resist.mus3d.slides.Slide9;
 import com.viewpagerindicator.CirclePageIndicator;
 
 
@@ -39,8 +38,8 @@ public class Tutorial extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
         slides = new Slide[] {
-			new Slide1(), new Slide2(), new Slide3(), new Slide4(), new Slide5(), new Slide6(), new Slide7(), new Slide8(), new Slide9()
-		};
+                new Slide1(), new Slide2(), new Slide3(), new Slide4(), new Slide5(), new Slide6(), new Slide7(), new Slide8()
+        };
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
