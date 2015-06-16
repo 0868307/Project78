@@ -9,12 +9,21 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+
 public class SplashLoader extends AsyncTask<Void, Void, Boolean> {
     private Activity ctx;
     private Intent intent;
     private long startTime;
     private long delay;
 
+
+    /**
+     * Instantiates a new Splash loader.
+     *
+     * @param ctx the ctx
+     * @param intent the intent
+     * @param delay the delay
+     */
     public SplashLoader(Activity ctx, Intent intent, long delay) {
         this.ctx = ctx;
         this.intent = intent;

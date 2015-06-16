@@ -27,6 +27,7 @@ import com.resist.mus3d.slides.Slide8;
 import com.resist.mus3d.slides.Slide9;
 import com.viewpagerindicator.CirclePageIndicator;
 
+
 public class Tutorial extends FragmentActivity {
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
@@ -61,10 +62,22 @@ public class Tutorial extends FragmentActivity {
     }
 
 
+
     class CustomPagerAdapter extends PagerAdapter {
+        /**
+         * The M context.
+         */
         Context mContext;
+        /**
+         * The M layout inflater.
+         */
         LayoutInflater mLayoutInflater;
 
+        /**
+         * Instantiates a new Custom pager adapter.
+         *
+         * @param context the context
+         */
         public CustomPagerAdapter(Context context) {
             mContext = context;
             mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

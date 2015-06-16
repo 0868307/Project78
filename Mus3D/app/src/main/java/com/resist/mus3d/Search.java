@@ -64,6 +64,11 @@ public class Search extends Activity {
         });
 	}
 
+	/**
+	 * Handles the search query.
+	 *
+	 * @param v the view
+     */
 	public void searchQuery(View v) {
 		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
         int index = ((Spinner)findViewById(R.id.sp_search_objecttype)).getSelectedItemPosition();
@@ -73,20 +78,40 @@ public class Search extends Activity {
         resultAdapter.addAll(objects);
 	}
 
+
+	/**
+	 * Skip void.
+	 *
+	 * @param v the view
+     */
 	public void skip(View v) {
 		goToNext();
 	}
 
+
+	/**
+	 * Clear search box.
+	 *
+	 * @param v the view
+     */
 	public void clearSearchBox(View v) {
 		EditText searchText = (EditText)findViewById(R.id.search_text);
 		searchText.setText("");
 	}
 
+
+	/**
+	 * Go void.
+	 *
+	 * @param v the view
+     */
 	public void go(View v){
 		goToNext();
 	}
 
-	public void goToNext() {
+
+
+	private void goToNext() {
 		Intent intent;
 		ToggleButton toggle = (ToggleButton)findViewById(R.id.search_toggle);
 		if(toggle.isChecked()) {
