@@ -65,7 +65,13 @@ public class Search extends Activity {
         });
 	}
 
-	public void searchQuery(View v) {
+
+	/**
+	 * Search query handler.
+	 *
+	 * @param v the view
+	 */
+	public void searchQueryHandler(View v) {
 		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
         int index = ((Spinner)findViewById(R.id.sp_search_objecttype)).getSelectedItemPosition();
 		List<com.resist.mus3d.objects.Object> objects = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), spinnerIds[index]);
@@ -74,11 +80,21 @@ public class Search extends Activity {
         resultAdapter.addAll(objects);
 	}
 
+	/**
+	 * Clear search box.
+	 *
+	 * @param v the view
+	 */
 	public void clearSearchBox(View v) {
 		EditText searchText = (EditText)findViewById(R.id.search_text);
 		searchText.setText("");
 	}
 
+	/**
+	 * Search void.
+	 *
+	 * @param v the view
+	 */
 	public void search(View v){
 		if(selectedAdapter.isEmpty()) {
 			Toast.makeText(this, R.string.select_items_first, Toast.LENGTH_SHORT).show();
@@ -87,11 +103,17 @@ public class Search extends Activity {
 		}
 	}
 
+	/**
+	 * Skip void.
+	 *
+	 * @param v the view
+	 */
 	public void skip(View v){
 		goToNext(false);
 	}
 
-	public void goToNext(boolean search) {
+
+	private void goToNext(boolean search) {
 		Intent intent;
 		ToggleButton toggle = (ToggleButton)findViewById(R.id.search_toggle);
 		if(toggle.isChecked()) {
