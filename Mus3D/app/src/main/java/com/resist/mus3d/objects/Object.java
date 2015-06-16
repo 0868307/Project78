@@ -13,6 +13,34 @@ import java.util.Date;
 
 public abstract class Object implements Parcelable {
     public static final int TYPE = -1;
+    public static final Parcelable.Creator<Object> CREATOR = new Parcelable.Creator<Object>() {
+        @Override
+        public Object createFromParcel(Parcel in) {
+            int[] ids = new int[2];
+            in.readIntArray(ids);
+            int objectid = ids[0];
+            int type = ids[1];
+            switch (type) {
+                case Anchorage.TYPE:
+                    return new Anchorage(objectid, null, null, null, null, null);
+                case Afmeerboei.TYPE:
+                    return new Afmeerboei(objectid, null, null, null, null, null);
+                case Bolder.TYPE:
+                    return new Bolder(objectid, null, null, null, null, null);
+                case Koningspaal.TYPE:
+                    return new Koningspaal(objectid, null, null, null, null, null);
+                case Meerpaal.TYPE:
+                    return new Meerpaal(objectid, null, null, null, null, null);
+            }
+            return null;
+        }
+
+        @Override
+        public Object[] newArray(int size) {
+            return new Object[size];
+        }
+    };
+
 	private int objectid;
 	private String createdBy;
 	private Date createdAt;
@@ -95,7 +123,7 @@ public abstract class Object implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel parcel, int i) {
-
+        parcel.writeIntArray(new int[] {objectid, getType()});
 	}
 
 	@Override

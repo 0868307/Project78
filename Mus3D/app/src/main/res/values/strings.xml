@@ -47,4 +47,6 @@
     <string name="search_btn_search">Zoek</string>
 
     <string name="failed_to_load_db">De database kon niet worden geladen.</string>
+
+    <string name="select_items_first">Selecteer eerst een object om te zoeken.</string>
 </resources>

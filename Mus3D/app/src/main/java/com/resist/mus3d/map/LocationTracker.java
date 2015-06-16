@@ -9,10 +9,6 @@ import android.os.Bundle;
 
 import com.resist.mus3d.GpsActivity;
 
-
-/**
- * Created by Armindo on 24-3-2015.
- */
 public class LocationTracker implements LocationListener {
     private static Location currentLocation;
     private LocationManager mlocManager;
@@ -30,12 +26,15 @@ public class LocationTracker implements LocationListener {
         activity.update();
     }
 
+	@Override
     public void onProviderDisabled(String provider) {
     }
 
+	@Override
     public void onProviderEnabled(String provider) {
     }
 
+	@Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
     public static Location getCurrentLocation() {

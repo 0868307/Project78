@@ -10,7 +10,8 @@ import android.hardware.SensorManager;
 public class SensorTracker implements SensorEventListener {
     private SensorActivity activity;
     private SensorManager sensorManager;
-    private final int COUNTER_MAX = 20;
+    private final int COUNTER_MAX = 50;
+    private final int NOT_UPDATED_MAX = 30;
     private float directionX;
     private float[] mGravity;
     private float[] mMagnetic;
@@ -64,7 +65,6 @@ public class SensorTracker implements SensorEventListener {
             default:
                 return;
         }
-
         if(mGravity != null && mMagnetic != null) {
             int difference = 15;
             if((getDirection() > total/counter-difference && getDirection() < total/counter+difference) || first ) {
@@ -76,6 +76,7 @@ public class SensorTracker implements SensorEventListener {
                     counter = 0;
                     first = true;
                 }
+                notUpdated =0;
                 counter++;
             }else{
                 notUpdated++;
