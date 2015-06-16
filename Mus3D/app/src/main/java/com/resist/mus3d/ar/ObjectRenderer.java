@@ -24,6 +24,7 @@ import java.util.Map;
 
 import rajawali.BaseObject3D;
 import rajawali.lights.DirectionalLight;
+import rajawali.materials.AMaterial;
 import rajawali.materials.SimpleMaterial;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
@@ -128,18 +129,19 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 					mObject.setPosition((float) (lastPos.getLongitude() * MULTIPLIER), 0, (float) (lastPos.getLatitude() * MULTIPLIER));
 					mObject.setRotation(0, 0, 0);
 					mObject.setScale(.1f);
-					mObject.setDrawingMode(GLES20.GL_LINE_STRIP);
+					//mObject.setDrawingMode(GLES20.GL_CONSTANT_COLOR);
+					mObject.setTransparent(true);
 					mObject.setMaterial(myMaterial);
 					if (o instanceof Afmeerboei) {
-						mObject.setColor(Color.RED);
+						mObject.setColor(0x70FF0000); // rood
 					} else if (o instanceof Bolder) {
-						mObject.setColor(Color.BLUE);
+						mObject.setColor(0x700000FF); // blauw
 					} else if (o instanceof Koningspaal) {
-						mObject.setColor(Color.MAGENTA);
+						mObject.setColor(0x70FA7202);	// oranje
 					} else if (o instanceof Anchorage) {
-						mObject.setColor(Color.GREEN);
+						mObject.setColor(0x7000FF00);	// groen
 					} else if (o instanceof Meerpaal) {
-						mObject.setColor(Color.BLACK);
+						mObject.setColor(0x70F202FA);	// Pimpelpaars met een goud randje zonder het gouden randje
 					}
 					addChild(mObject);
 					mPicker.registerObject(mObject);
