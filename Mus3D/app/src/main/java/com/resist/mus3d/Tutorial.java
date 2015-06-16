@@ -65,11 +65,11 @@ public class Tutorial extends FragmentActivity {
 
     class CustomPagerAdapter extends PagerAdapter {
         /**
-         * The M context.
+         * The context.
          */
         Context mContext;
         /**
-         * The M layout inflater.
+         * The layout inflater.
          */
         LayoutInflater mLayoutInflater;
 

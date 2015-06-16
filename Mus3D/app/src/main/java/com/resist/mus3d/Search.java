@@ -91,7 +91,7 @@ public class Search extends Activity {
 	}
 
 	/**
-	 * Search void.
+	 * Search button
 	 *
 	 * @param v the view
 	 */
@@ -104,7 +104,7 @@ public class Search extends Activity {
 	}
 
 	/**
-	 * Skip void.
+	 * Skip button.
 	 *
 	 * @param v the view
 	 */

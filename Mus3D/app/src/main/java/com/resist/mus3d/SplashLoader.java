@@ -20,7 +20,7 @@ public class SplashLoader extends AsyncTask<Void, Void, Boolean> {
     /**
      * Instantiates a new Splash loader.
      *
-     * @param ctx the ctx
+     * @param ctx the context
      * @param intent the intent
      * @param delay the delay
      */
