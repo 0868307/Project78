@@ -1,5 +1,6 @@
 package com.resist.mus3d.database;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -48,12 +49,17 @@ public class ObjectDatabase {
 
 	private void loaded() {
 		if(progressBarD != null) {
-			progressBarD.setVisibility(View.GONE);
-			progressBarI.setVisibility(View.VISIBLE);
+			((Activity)ctx).runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					progressBarD.setVisibility(View.GONE);
+					progressBarI.setVisibility(View.VISIBLE);
+				}
+			});
 		}
 	}
 
-    private boolean loadDatabase() {
+	private void showProgressBar() {
 		if(ctx instanceof Splash) {
 			Splash splash = (Splash)ctx;
 			progressBarD = (ProgressBar)splash.findViewById(R.id.splash_progress_determinate);
@@ -61,6 +67,10 @@ public class ObjectDatabase {
 			progressBarD.setVisibility(View.VISIBLE);
 			progressBarI.setVisibility(View.GONE);
 		}
+	}
+
+    private boolean loadDatabase() {
+		showProgressBar();
         try {
             OutputStream out = ctx.openFileOutput(FILE, Context.MODE_APPEND);
             InputStream in = ctx.getResources().openRawResource(R.raw.objects);
