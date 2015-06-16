@@ -1,7 +1,6 @@
 package com.resist.mus3d.ar;
 
 import android.graphics.Color;
-import android.opengl.GLES20;
 import android.os.AsyncTask;
 
 import com.resist.mus3d.Mus3D;
@@ -24,7 +23,6 @@ import java.util.Map;
 
 import rajawali.BaseObject3D;
 import rajawali.lights.DirectionalLight;
-import rajawali.materials.AMaterial;
 import rajawali.materials.SimpleMaterial;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
@@ -42,6 +40,12 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 	private Rajawali context;
 	private ObjectColorPicker mPicker;
 	private OnObjectPickedListener mObjectPickedListener;
+
+	/**
+	 * Instantiates a new Object renderer.
+	 *
+	 * @param context the context
+	 */
 	public ObjectRenderer(Rajawali context) {
 		super(context);
 		this.context = context;
@@ -64,12 +68,33 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 
 	}
 
+	/**
+	 * Set camera.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param z the z
+	 */
 	public void setCamera(float x, float y, float z){
 		mCamera.setPosition(x, y, z);
 	}
-	public void setCameraRotation(float x, float y, float z){
-		mCamera.setRotation(x, y, z);}
 
+	/**
+	 * Set camera rotation.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param z the z
+	 */
+	public void setCameraRotation(float x, float y, float z){
+		mCamera.setRotation(x, y, z);
+	}
+
+	/**
+	 * Draw values.
+	 *
+	 * @param values the values
+	 */
 	public void drawValues(final String... values){
 		System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-");
 		for (int i = 0; i < values.length; i++) {
@@ -78,6 +103,10 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 		}
 		System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-");
 	}
+
+	/**
+	 * Make objects.
+	 */
 	public void makeObjects() {
 		new LongOperation().execute();
 	}
@@ -94,6 +123,12 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 		});
 	}
 
+	/**
+	 * Gets object at.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void getObjectAt(float x, float y) {
 		mPicker.getObjectAt(x, y);
 

@@ -9,10 +9,20 @@ import com.resist.mus3d.objects.coords.Coordinate;
 import java.util.List;
 
 public class Bolders extends CommonTable {
+	/**
+	 * Instantiates a new Bolders.
+	 *
+	 * @param db the database
+	 */
 	public Bolders(SQLiteDatabase db) {
 		super(db);
 	}
 
+	/**
+	 * Load object.
+	 *
+	 * @param object the object
+	 */
 	public void loadObject(Bolder object) {
 		Cursor c = db.rawQuery("SELECT * FROM bolders WHERE id = ?", new String[] {String.valueOf(object.getObjectid())});
 		if(c.moveToFirst()) {

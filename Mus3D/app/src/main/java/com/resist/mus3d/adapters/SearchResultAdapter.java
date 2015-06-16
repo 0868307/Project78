@@ -15,6 +15,11 @@ import java.util.ArrayList;
 public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.Object> {
     private Activity activity;
 
+    /**
+     * Instantiates a new Search result adapter.
+     *
+     * @param activity the activity
+     */
     public SearchResultAdapter(Activity activity) {
         super(activity, R.layout.row);
         this.activity = activity;
@@ -40,6 +45,11 @@ public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.O
         return row;
     }
 
+    /**
+     * Gets items.
+     *
+     * @return the items
+     */
     public ArrayList<com.resist.mus3d.objects.Object> getItems() {
         ArrayList<com.resist.mus3d.objects.Object> out = new ArrayList<>();
         for(int i = 0; i < getCount(); i++) {

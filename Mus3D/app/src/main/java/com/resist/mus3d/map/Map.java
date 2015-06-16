@@ -46,6 +46,11 @@ public class Map extends Activity implements GpsActivity {
         goToCurrentLocation();
     }
 
+    /**
+     * Update markers.
+     *
+     * @param location the location
+     */
     public void updateMarkers(IGeoPoint location) {
         List<Marker> overlayItemArray = new ArrayList<>();
         ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
@@ -63,8 +68,8 @@ public class Map extends Activity implements GpsActivity {
     }
 
     private void addCurrentPosition() {
-        if (locationListener != null && locationListener.getCurrentLocation() != null) {
-            GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(), locationListener.getCurrentLocation().getLongitude());
+        if (locationListener != null && LocationTracker.getCurrentLocation() != null) {
+            GeoPoint currentLocation = new GeoPoint(LocationTracker.getCurrentLocation().getLatitude(), LocationTracker.getCurrentLocation().getLongitude());
             OverlayItem currentLoc = new OverlayItem("location", "Huidige location", currentLocation);
             ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<>(this, new ArrayList<OverlayItem>(), null);
             itemizedIconOverlay.addItem(currentLoc);
@@ -72,9 +77,12 @@ public class Map extends Activity implements GpsActivity {
         }
     }
 
+    /**
+     * Go to current location.
+     */
     public void goToCurrentLocation() {
-        if (locationListener != null && locationListener.getCurrentLocation() != null) {
-            GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(), locationListener.getCurrentLocation().getLongitude());
+        if (locationListener != null && LocationTracker.getCurrentLocation() != null) {
+            GeoPoint currentLocation = new GeoPoint(LocationTracker.getCurrentLocation().getLatitude(), LocationTracker.getCurrentLocation().getLongitude());
             mapView.getController().setCenter(currentLocation);
             addCurrentPosition();
         }

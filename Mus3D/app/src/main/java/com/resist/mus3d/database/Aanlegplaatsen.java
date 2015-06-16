@@ -13,10 +13,20 @@ import java.text.ParseException;
 import java.util.List;
 
 public class Aanlegplaatsen extends ObjectTable {
+	/**
+	 * Instantiates a new Aanlegplaatsen.
+	 *
+	 * @param db the database
+	 */
 	public Aanlegplaatsen(SQLiteDatabase db) {
 		super(db);
 	}
 
+	/**
+	 * Load object.
+	 *
+	 * @param object the object
+	 */
 	public void loadObject(Anchorage object) {
 		Cursor c = db.rawQuery("SELECT ligplaatsen.*, havens.havenNaam FROM ligplaatsen LEFT JOIN havens ON(ligplaatsen.havenAfkorting = havens.havenAfkorting) WHERE ligplaatsen.id = ?", new String[] {String.valueOf(object.getObjectid())});
 		if(c.moveToFirst()) {

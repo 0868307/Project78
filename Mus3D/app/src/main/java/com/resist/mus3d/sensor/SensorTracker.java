@@ -20,6 +20,11 @@ public class SensorTracker implements SensorEventListener {
     private boolean first = true;
     private int notUpdated;
 
+    /**
+     * Instantiates a new Sensor tracker.
+     *
+     * @param activity the activity
+     */
     public SensorTracker(SensorActivity activity) {
         this.activity = activity;
         sensorManager = (SensorManager)((Activity)activity).getSystemService(Context.SENSOR_SERVICE);
@@ -97,13 +102,27 @@ public class SensorTracker implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
+    /**
+     * On stop.
+     */
     public void onStop(){
         sensorManager.unregisterListener(this);
     }
+
+    /**
+     * On resume.
+     */
     public void onResume(){
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), sensorManager.SENSOR_DELAY_UI);
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), sensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_UI);
     }
+
+    /**
+     * Get direction x.
+     *
+     * @return direction x
+     */
     public float getDirectionX(){
         return directionX;
     }

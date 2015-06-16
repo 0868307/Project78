@@ -10,6 +10,11 @@ public class MapScrollListener implements MapListener {
 	private double lastLatitude;
 	private double lastLongitude;
 
+	/**
+	 * Instantiates a new Map scroll listener.
+	 *
+	 * @param map the map
+	 */
 	public MapScrollListener(Map map) {
 		this.map = map;
 	}

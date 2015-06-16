@@ -8,7 +8,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,7 +22,6 @@ import com.resist.mus3d.GpsActivity;
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.map.LocationTracker;
-import com.resist.mus3d.objects.*;
 import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.sensor.SensorActivity;
 import com.resist.mus3d.sensor.SensorTracker;
@@ -80,6 +78,9 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 
 	}
 
+	/**
+	 * Get intent from search.
+	 */
 	public void getIntentFromSearch(){
 
 		Bundle searchIntentArray = getIntent().getExtras();
@@ -99,8 +100,8 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		layout.addView(mapViewParent);
 	}
 	private void addCurrentPosition() {
-		if (locationListener != null && locationListener.getCurrentLocation() != null) {
-			GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(), locationListener.getCurrentLocation().getLongitude());
+		if (locationListener != null && LocationTracker.getCurrentLocation() != null) {
+			GeoPoint currentLocation = new GeoPoint(LocationTracker.getCurrentLocation().getLatitude(), LocationTracker.getCurrentLocation().getLongitude());
 			OverlayItem currentLoc = new OverlayItem("location", "Huidige location", currentLocation);
 			ItemizedIconOverlay<OverlayItem> itemizedIconOverlay = new ItemizedIconOverlay<>(this, new ArrayList<OverlayItem>(), null);
 			itemizedIconOverlay.addItem(currentLoc);
@@ -127,11 +128,21 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		mLayout.setVisibility(View.VISIBLE);
 	}
 
+	/**
+	 * On object loading progress.
+	 *
+	 * @param progress the progress
+	 */
 	public void onObjectLoadingProgress(double progress) {
 		ProgressBar bar = (ProgressBar)((ViewGroup) progressBarObjects).getChildAt(0);
 		bar.setProgress((int)(progress*10));
 	}
 
+	/**
+	 * On objects loaded.
+	 *
+	 * @param success the success
+	 */
 	public void onObjectsLoaded(boolean success) {
 		if(success) {
 			progressBarObjects.setVisibility(View.INVISIBLE);
@@ -161,11 +172,11 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 				progressBarObjects.setVisibility(View.VISIBLE);
 			}
 			objectRenderer.setCamera(
-					(float) locationListener.getCurrentLocation().getLongitude()* ObjectRenderer.MULTIPLIER,
+					(float) LocationTracker.getCurrentLocation().getLongitude() * ObjectRenderer.MULTIPLIER,
 					0,
-					(float) locationListener.getCurrentLocation().getLatitude()* ObjectRenderer.MULTIPLIER
+					(float) LocationTracker.getCurrentLocation().getLatitude() * ObjectRenderer.MULTIPLIER
 			);
-			GeoPoint currentLocation = new GeoPoint(locationListener.getCurrentLocation().getLatitude(), locationListener.getCurrentLocation().getLongitude());
+			GeoPoint currentLocation = new GeoPoint(LocationTracker.getCurrentLocation().getLatitude(), LocationTracker.getCurrentLocation().getLongitude());
 			minimap.getController().setCenter(currentLocation);
 			if(counter > 1000){
 				objectRenderer.makeObjects();
@@ -174,9 +185,15 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		}
 		counter++;
 	}
-	public Location getLocation(){
-		if(locationListener != null && locationListener.getCurrentLocation() != null)
-			return locationListener.getCurrentLocation();
+
+	/**
+	 * Get location.
+	 *
+	 * @return the location
+	 */
+	public Location getLocation() {
+		if (locationListener != null && LocationTracker.getCurrentLocation() != null)
+			return LocationTracker.getCurrentLocation();
 		Location location = new Location((String)null);
 		location.setLatitude(0);
 		location.setLongitude(0);

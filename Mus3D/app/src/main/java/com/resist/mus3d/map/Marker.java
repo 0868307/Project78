@@ -20,6 +20,12 @@ public class Marker extends OverlayItem {
 	private Activity activity;
 	private Object object;
 
+	/**
+	 * Instantiates a new Marker.
+	 *
+	 * @param activity the activity
+	 * @param object   the object
+	 */
 	public Marker(Activity activity, com.resist.mus3d.objects.Object object) {
 		super(null, null, new GeoPoint(object.getLocation().getPosition().getLatitude(), object.getLocation().getPosition().getLongitude()));
 		setMarker(activity.getResources().getDrawable(object.getDrawable()));
@@ -87,6 +93,11 @@ public class Marker extends OverlayItem {
 		}
 	}
 
+	/**
+	 * Gets dialog.
+	 *
+	 * @return the dialog
+	 */
 	public AlertDialog getDialog() {
 		return new AlertDialog.Builder(activity, R.style.AppCompatAlertDialogStyle)
 			.setMessage(getDialogMessage())

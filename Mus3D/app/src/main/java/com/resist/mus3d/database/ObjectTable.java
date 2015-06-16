@@ -29,15 +29,26 @@ import java.util.List;
 import java.util.Map;
 
 public class ObjectTable {
-	protected static final DateFormat DATE = new SimpleDateFormat("yyyy/MM/dd");
-	protected SQLiteDatabase db;
 
-	public ObjectTable(SQLiteDatabase db) {
-		this.db = db;
+    protected static final DateFormat DATE = new SimpleDateFormat("yyyy/MM/dd");
+    protected SQLiteDatabase db;
+
+    /**
+     * Instantiates a new Object table.
+     *
+     * @param db the database
+     */
+    public ObjectTable(SQLiteDatabase db) {
+        this.db = db;
 	}
 
-	public List<? extends com.resist.mus3d.objects.Object> getAll() {
-		return new ArrayList<>();
+    /**
+     * Gets all.
+     *
+     * @return the all
+     */
+    public List<? extends com.resist.mus3d.objects.Object> getAll() {
+        return new ArrayList<>();
 	}
 
 	private void putCoordinates(Cursor c, SparseArray<SparseArray<Point>> coords) {
@@ -75,8 +86,14 @@ public class ObjectTable {
 		return null;
 	}
 
-	public Coordinate getCoordinates(com.resist.mus3d.objects.Object object) {
-		SparseArray<SparseArray<Point>> coords = new SparseArray<>();
+    /**
+     * Gets coordinates.
+     *
+     * @param object the object
+     * @return the coordinates
+     */
+    public Coordinate getCoordinates(com.resist.mus3d.objects.Object object) {
+        SparseArray<SparseArray<Point>> coords = new SparseArray<>();
 		Cursor c = db.rawQuery("SELECT * FROM coordinaten WHERE objecttype = ? AND id = ?", new String[] {String.valueOf(object.getType()), String.valueOf(object.getObjectid())});
 		c.moveToFirst();
 		while(!c.isAfterLast()) {
@@ -95,6 +112,14 @@ public class ObjectTable {
 		return new MultiPoint(points);
 	}
 
+    /**
+     * Append types.
+     *
+     * @param sb    the stringbuilder
+     * @param types the types
+     * @param start the start
+     * @return the string [ ]
+     */
     protected String[] appendTypes(StringBuilder sb, int[] types, int start) {
         String[] args = new String[start];
         if(types != null) {
@@ -112,6 +137,14 @@ public class ObjectTable {
         return args;
     }
 
+    /**
+     * Gets objects around.
+     *
+     * @param location the location
+     * @param distance the distance
+     * @param types the types
+     * @return the objects around
+     */
     public List<? extends com.resist.mus3d.objects.Object> getObjectsAround(Coordinate location, double distance, int[] types) {
         List<com.resist.mus3d.objects.Object> out = new ArrayList<>();
         Position pos = location.getPosition();
@@ -163,10 +196,24 @@ public class ObjectTable {
         return out;
     }
 
-	public List<? extends com.resist.mus3d.objects.Object> getObjectsAround(Coordinate location, double distance) {
-		return getObjectsAround(location, distance, null);
-	}
+    /**
+     * Gets objects around.
+     *
+     * @param location the location
+     * @param distance the distance
+     * @return the objects around
+     */
+    public List<? extends com.resist.mus3d.objects.Object> getObjectsAround(Coordinate location, double distance) {
+        return getObjectsAround(location, distance, null);
+    }
 
+    /**
+     * Parse date.
+     *
+     * @param date the date
+     * @return the date
+     * @throws ParseException the parse exception
+     */
     protected Date parseDate(String date) throws ParseException {
         if(date == null) {
             return null;
@@ -174,6 +221,13 @@ public class ObjectTable {
         return DATE.parse(date);
     }
 
+    /**
+     * Find objects.
+     *
+     * @param searchQuery the search query
+     * @param searchType the search type
+     * @return a list with objects
+     */
     public List<com.resist.mus3d.objects.Object> findObjects(String searchQuery, int searchType) {
         String[] terms = searchQuery.trim().replace("  ", " ").split(" ");
         List<String> args = new ArrayList<>();

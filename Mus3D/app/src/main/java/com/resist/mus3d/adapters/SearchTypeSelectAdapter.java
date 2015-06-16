@@ -16,6 +16,11 @@ public class SearchTypeSelectAdapter extends ArrayAdapter<String> {
             R.drawable.ic_aanlegplaats, R.drawable.ic_meerpaal};
     private Activity activity;
 
+    /**
+     * Instantiates a new Search type select adapter.
+     *
+     * @param activity the activity
+     */
     public SearchTypeSelectAdapter(Activity activity) {
         super(activity, R.layout.row);
         this.activity = activity;

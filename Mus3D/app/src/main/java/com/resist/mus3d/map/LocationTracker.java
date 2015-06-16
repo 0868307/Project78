@@ -14,6 +14,11 @@ public class LocationTracker implements LocationListener {
     private LocationManager mlocManager;
     private GpsActivity activity;
 
+    /**
+     * Instantiates a new Location tracker.
+     *
+     * @param activity the activity
+     */
     public LocationTracker(GpsActivity activity) {
         this.activity = activity;
         mlocManager = (LocationManager) ((Activity)activity).getSystemService(Context.LOCATION_SERVICE);
@@ -37,12 +42,26 @@ public class LocationTracker implements LocationListener {
 	@Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
+
+    /**
+     * Gets current location.
+     *
+     * @return the current location
+     */
     public static Location getCurrentLocation() {
         return currentLocation;
     }
+
+    /**
+     * On stop.
+     */
     public void onStop(){
         mlocManager.removeUpdates(this);
     }
+
+    /**
+     * On resume.
+     */
     public void onResume(){
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }

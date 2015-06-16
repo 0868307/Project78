@@ -3,12 +3,10 @@ package com.resist.mus3d.database;
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.Splash;
 
@@ -24,19 +22,34 @@ public class ObjectDatabase {
 	private ProgressBar progressBarI;
 	private ProgressBar progressBarD;
 
-    public ObjectDatabase(Context ctx) {
-        this.ctx = ctx;
-    }
+	/**
+	 * Instantiates a new Object database.
+	 *
+	 * @param ctx the context
+	 */
+	public ObjectDatabase(Context ctx) {
+		this.ctx = ctx;
+	}
 
-    public void open() throws IOException {
-        File file = ctx.getFileStreamPath(FILE);
+	/**
+	 * Open void.
+	 *
+	 * @throws IOException the iO exception
+	 */
+	public void open() throws IOException {
+		File file = ctx.getFileStreamPath(FILE);
         if(file.exists() || (!file.exists() && loadDatabase())) {
 			db = SQLiteDatabase.openDatabase(file.toString(), null, SQLiteDatabase.OPEN_READWRITE);
         } else {
             throw new IOException("Failed to open database");
-        }
-    }
+		}
+	}
 
+	/**
+	 * Gets database.
+	 *
+	 * @return the database
+	 */
 	public SQLiteDatabase getDatabase() {
 		return db;
 	}
