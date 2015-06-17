@@ -29,8 +29,8 @@
         android:layout_alignTop="@+id/imageView"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="22sp"
-        android:paddingTop="20dp"
+        android:textSize="20sp"
+        android:paddingTop="10dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>

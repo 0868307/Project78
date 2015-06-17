@@ -24,13 +24,14 @@ import com.resist.mus3d.slides.Slide5;
 import com.resist.mus3d.slides.Slide6;
 import com.resist.mus3d.slides.Slide7;
 import com.resist.mus3d.slides.Slide8;
-import com.viewpagerindicator.CirclePageIndicator;
-
+import com.resist.mus3d.slides.Slide9;
+import com.viewpagerindicator.LinePageIndicator;
+import com.viewpagerindicator.PageIndicator;
 
 public class Tutorial extends FragmentActivity {
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
-    private CirclePageIndicator circlePageIndicator;
+    private PageIndicator pageIndicator;
     private Slide[] slides;
 
     @Override
@@ -38,7 +39,7 @@ public class Tutorial extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
         slides = new Slide[] {
-                new Slide1(), new Slide2(), new Slide3(), new Slide4(), new Slide5(), new Slide6(), new Slide7(), new Slide8()
+                new Slide1(), new Slide2(), new Slide9(), new Slide3(), new Slide4(), new Slide5(), new Slide6(), new Slide7(), new Slide8()
         };
 
         // Instantiate a ViewPager and a PagerAdapter.
@@ -47,8 +48,8 @@ public class Tutorial extends FragmentActivity {
         mPager.setAdapter(mPagerAdapter);
 
         //Bind the title indicator to the adapter
-        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
-        circlePageIndicator.setViewPager(mPager);
+        pageIndicator = (LinePageIndicator) findViewById(R.id.indicator);
+        pageIndicator.setViewPager(mPager);
     }
 
     @Override
@@ -97,11 +98,12 @@ public class Tutorial extends FragmentActivity {
             View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
             final TextView textView = (TextView) itemView.findViewById(R.id.tutorialTextView);
             textView.setText(R.string.tutorial1);
-            circlePageIndicator.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            textView.setTextSize(20);
+            pageIndicator.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 
                 @Override
                 public void onPageSelected(int position) {
-					textView.setText(slides[position].getText());
+                    textView.setText(slides[position].getText());
                 }
             });
 
