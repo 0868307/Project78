@@ -2,6 +2,7 @@ package com.resist.mus3d.ar;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
@@ -18,6 +19,7 @@ import com.resist.mus3d.objects.coords.Point;
 import org.osmdroid.util.Position;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -140,6 +142,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 		@Override
 		protected Boolean doInBackground(String... params) {
 			try {
+				HashSet<? extends com.resist.mus3d.objects.Object> searchObjects = context.getIntentFromSearch();
 				SimpleMaterial myMaterial = new SimpleMaterial();
 				myMaterial.setUseColor(true);
 				ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
@@ -165,7 +168,15 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 					mObject.setRotation(0, 0, 0);
 					mObject.setScale(.1f);
 					//mObject.setDrawingMode(GLES20.GL_CONSTANT_COLOR);
-					mObject.setTransparent(true);
+					Log.e("searchobjects", searchObjects + "");
+					Log.e("objectsaround", o + "");
+					if (searchObjects.contains(o)) {
+						mObject.setTransparent(false);
+						Log.e("Objecten gevonden", "Gevonden");
+					} else {
+						mObject.setTransparent(true);
+						Log.e("Objecten niet gevonden", "niet Gevonden");
+					}
 					mObject.setMaterial(myMaterial);
 					if (o instanceof Afmeerboei) {
 						mObject.setColor(0x70FF0000); // rood

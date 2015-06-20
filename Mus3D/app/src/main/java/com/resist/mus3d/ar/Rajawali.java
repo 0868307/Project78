@@ -1,11 +1,5 @@
 package com.resist.mus3d.ar;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +27,7 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import rajawali.RajawaliActivity;
@@ -74,17 +69,18 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		rl.addView(progressBarGPS);
 		rl.addView(progressBarObjects);
 		mLayout.addView(rl);
-		getIntentFromSearch();
+
 
 	}
 
 	/**
 	 * Get intent from search.
 	 */
-	public void getIntentFromSearch(){
+	public HashSet<Object> getIntentFromSearch() {
 
 		Bundle searchIntentArray = getIntent().getExtras();
-		//List<Object> objectlist = searchIntentArray.getParcelableArrayList("objectList");
+		List<Object> objectlist = searchIntentArray.getParcelableArrayList("objectList");
+		return new HashSet<>(objectlist);
 
 	}
 
