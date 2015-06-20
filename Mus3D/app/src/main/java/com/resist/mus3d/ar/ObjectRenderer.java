@@ -2,7 +2,6 @@ package com.resist.mus3d.ar;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
@@ -36,13 +35,9 @@ import rajawali.util.OnObjectPickedListener;
 
 public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedListener {
 	public static final int MULTIPLIER = 10000;
-	private DirectionalLight mLight;
-
 	private Map<BaseObject3D, Object> object3Ds = new HashMap<>();
-	private BaseObject3D selectedObject;
 	private Rajawali context;
 	private ObjectColorPicker mPicker;
-	private OnObjectPickedListener mObjectPickedListener;
 
 	/**
 	 * Instantiates a new Object renderer.
@@ -65,7 +60,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 	}
 
 	private void createLight() {
-		mLight = new DirectionalLight(1f, 0.2f, -1.0f); // set the direction
+		DirectionalLight mLight = new DirectionalLight(1f, 0.2f, -1.0f);
 		mLight.setColor(1.0f, 1.0f, 1.0f);
 		mLight.setPower(2);
 
@@ -94,20 +89,6 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 	}
 
 	/**
-	 * Draw values.
-	 *
-	 * @param values the values
-	 */
-	public void drawValues(final String... values){
-		System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-");
-		for (int i = 0; i < values.length; i++) {
-			System.out.println("value "+i+" : "+values[i]);
-			System.out.println("...........................");
-		}
-		System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-");
-	}
-
-	/**
 	 * Make objects.
 	 */
 	public void makeObjects() {
@@ -116,7 +97,6 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 
 	@Override
 	public void onObjectPicked(BaseObject3D object) {
-		selectedObject = object;
 		final Object mijnObject = object3Ds.get(object);
 		context.runOnUiThread(new Runnable() {
 			@Override
@@ -144,20 +124,14 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 		protected Boolean doInBackground(String... params) {
 			try {
 
-				SimpleMaterial myMaterial = new SimpleMaterial();
-				myMaterial.setUseColor(true);
 				ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
 				List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), 0.001);
+
 				Map<BaseObject3D, Object> newobject3Ds = new HashMap<>();
 				Position lastPos;
-				System.out.println("lat = " + context.getLocation().getLatitude() * MULTIPLIER + " long = " + context.getLocation().getLongitude() * MULTIPLIER);
-				System.out.println("list size = " + list.size());
 				Set<Object> searchObjects;
 				searchObjects = new HashSet<>();
-				if (context.getIntentFromSearch() != null) {
-					searchObjects = context.getIntentFromSearch();
-				}
-
+				searchObjects = getObjects(searchObjects);
 
 				for (int n = 0, size = list.size(); n < size; n++) {
 					Object o = list.get(n);
@@ -170,31 +144,25 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 					}
 
 					BaseObject3D mObject = new Cube(1);
-					System.out.println(mPicker);
 					lastPos = o.getLocation().getPosition();
-					mObject.setPosition((float) (lastPos.getLongitude() * MULTIPLIER), 0, (float) (lastPos.getLatitude() * MULTIPLIER));
-					mObject.setRotation(0, 0, 0);
-					mObject.setScale(.1f);
-					//mObject.setDrawingMode(GLES20.GL_CONSTANT_COLOR);
-					Log.e("searchobjects", searchObjects + "");
-					Log.e("objectsaround", o + "");
-					if (!searchObjects.isEmpty() && searchObjects.contains(o)) {
+
+					setValuesToObject(lastPos, mObject);
+
+					if (checkHashsetForObjects(searchObjects, o)) {
 						mObject.setTransparent(false);
-						Log.e("Objecten gevonden", "Gevonden");
 					} else {
 						mObject.setTransparent(true);
-						Log.e("Objecten niet gevonden", "niet Gevonden");
 					}
-					mObject.setMaterial(myMaterial);
-					if (o instanceof Afmeerboei) {
+
+					if (checkForAfmeerboei(o)) {
 						mObject.setColor(0x70FF0000); // rood
-					} else if (o instanceof Bolder) {
+					} else if (checkForBolder(o)) {
 						mObject.setColor(0x700000FF); // blauw
-					} else if (o instanceof Koningspaal) {
+					} else if (checkForKoningspaal(o)) {
 						mObject.setColor(0x70FA7202);	// oranje
-					} else if (o instanceof Anchorage) {
+					} else if (checkForAnchorage(o)) {
 						mObject.setColor(0x7000FF00);	// groen
-					} else if (o instanceof Meerpaal) {
+					} else if (checkForMeerpaal(o)) {
 						mObject.setColor(0x70F202FA);	// Pimpelpaars met een goud randje zonder het gouden randje
 					}
 					addChild(mObject);
@@ -215,6 +183,45 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 			return true;
 		}
 
+		private boolean checkForMeerpaal(Object o) {
+			return o instanceof Meerpaal;
+		}
+
+		private boolean checkForAnchorage(Object o) {
+			return o instanceof Anchorage;
+		}
+
+		private boolean checkForKoningspaal(Object o) {
+			return o instanceof Koningspaal;
+		}
+
+		private boolean checkForBolder(Object o) {
+			return o instanceof Bolder;
+		}
+
+		private boolean checkForAfmeerboei(Object o) {
+			return o instanceof Afmeerboei;
+		}
+
+		private boolean checkHashsetForObjects(Set<Object> searchObjects, Object o) {
+			return !searchObjects.isEmpty() && searchObjects.contains(o);
+		}
+
+		private void setValuesToObject(Position lastPos, BaseObject3D mObject) {
+			SimpleMaterial myMaterial = new SimpleMaterial();
+			myMaterial.setUseColor(true);
+			mObject.setPosition((float) (lastPos.getLongitude() * MULTIPLIER), 0, (float) (lastPos.getLatitude() * MULTIPLIER));
+			mObject.setRotation(0, 0, 0);
+			mObject.setScale(.1f);
+			mObject.setMaterial(myMaterial);
+		}
+
+		private Set<Object> getObjects(Set<Object> searchObjects) {
+			if (context.getIntentFromSearch() != null) {
+				searchObjects = context.getIntentFromSearch();
+			}
+			return searchObjects;
+		}
 
 
 		@Override
