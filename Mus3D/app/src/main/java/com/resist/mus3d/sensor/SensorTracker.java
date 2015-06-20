@@ -8,17 +8,20 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 public class SensorTracker implements SensorEventListener {
-    private SensorActivity activity;
-    private SensorManager sensorManager;
-    private final int COUNTER_MAX = 50;
-    private final int NOT_UPDATED_MAX = 30;
-    private float directionX;
+    private static final float SKIP_DISTANCE = 1000;
+    private static final int NOT_UPDATED_MAX = 30;
+    private static final int INTERVAL = 200;
+    private static final int COUNTER_MAX = 1000;
+    private static final float DEGREE_DIFFERENCE = 10;
+    private float directionY;
     private float[] mGravity;
     private float[] mMagnetic;
+    private float total = 0;
     private int counter = 0;
-    private float total =0;
     private boolean first = true;
     private int notUpdated;
+    private SensorManager sensorManager;
+    private SensorActivity activity;
 
     /**
      * Instantiates a new Sensor tracker.
@@ -26,8 +29,8 @@ public class SensorTracker implements SensorEventListener {
      * @param activity the activity
      */
     public SensorTracker(SensorActivity activity) {
-        this.activity = activity;
         sensorManager = (SensorManager)((Activity)activity).getSystemService(Context.SENSOR_SERVICE);
+        this.activity = activity;
     }
 
     private float getDirection()
@@ -53,7 +56,8 @@ public class SensorTracker implements SensorEventListener {
             Double degrees = (values[i] * 180) / Math.PI;
             values[i] = degrees.floatValue();
         }
-        return values[0]%5 >=3 ? values[0] + 5-(values[0]%5) : values[0]-(values[0]%5);
+        //return values[0]%DEGREE_DIFFERENCE >=DEGREE_DIFFERENCE/2 ? values[0] + DEGREE_DIFFERENCE-(values[0]%DEGREE_DIFFERENCE) : values[0]-(values[0]%DEGREE_DIFFERENCE);
+        return values[0];
     }
 
     @Override
@@ -70,31 +74,24 @@ public class SensorTracker implements SensorEventListener {
             default:
                 return;
         }
-        if(mGravity != null && mMagnetic != null) {
-            int difference = 15;
-            if((getDirection() > total/counter-difference && getDirection() < total/counter+difference) || first ) {
+        if(mGravity != null && mMagnetic != null && System.currentTimeMillis() % INTERVAL <= 2) {
+
+            float x = 0;
+            float y = directionY;
+            float z = 0;
+            if(((getDirection() > directionY -SKIP_DISTANCE && getDirection() < directionY +SKIP_DISTANCE) && (getDirection() > directionY + DEGREE_DIFFERENCE || getDirection() < directionY - DEGREE_DIFFERENCE)) || first ) {
                 first = false;
-                total += getDirection();
-                if (counter >= COUNTER_MAX) {
-                    directionX = total / counter;
-                    total = 0;
-                    counter = 0;
-                    first = true;
-                }
-                notUpdated =0;
-                counter++;
-            }else{
+                directionY = getDirection();
+                notUpdated = 0;
+            }else if(getDirection() < directionY -SKIP_DISTANCE || getDirection() > directionY +SKIP_DISTANCE){
                 notUpdated++;
-                if(notUpdated > COUNTER_MAX){
+                if(notUpdated > NOT_UPDATED_MAX){
                     notUpdated = 0;
-                    directionX = getDirection();
+                    directionY = getDirection();
                 }
             }
-            float x = 0;
-            float y = (directionX+180)%360;
-            float z = 0;
-
             activity.updateSensor(x, y, z);
+
         }
     }
 
@@ -114,16 +111,10 @@ public class SensorTracker implements SensorEventListener {
      * On resume.
      */
     public void onResume(){
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_FASTEST);
     }
 
-    /**
-     * Get direction x.
-     *
-     * @return direction x
-     */
-    public float getDirectionX(){
-        return directionX;
-    }
 }
+
+

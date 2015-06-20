@@ -84,7 +84,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	public void getIntentFromSearch(){
 
 		Bundle searchIntentArray = getIntent().getExtras();
-		List<Object> objectlist = searchIntentArray.getParcelableArrayList("objectList");
+		//List<Object> objectlist = searchIntentArray.getParcelableArrayList("objectList");
 
 	}
 
@@ -107,25 +107,6 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 			itemizedIconOverlay.addItem(currentLoc);
 			minimap.getOverlays().add(itemizedIconOverlay);
 		}
-	}
-
-	private void updateRotation(String string){
-		Bitmap b = Bitmap.createBitmap(200, 200, Bitmap.Config.ALPHA_8);
-		Paint paint = new Paint();
-		Canvas c = new Canvas(b);
-		c.drawRect(0, 0, 200, 200, paint);
-
-		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
-		paint.setTextSize(40);
-		paint.setTextScaleX(1.f);
-		paint.setAlpha(0);
-		paint.setAntiAlias(true);
-		c.drawText(string, 30, 40, paint);
-		paint.setColor(Color.RED);
-
-		c.drawBitmap(b, 10,10, paint);
-		mLayout.draw(c);
-		mLayout.setVisibility(View.VISIBLE);
 	}
 
 	/**
@@ -203,9 +184,9 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	@Override
 	public void updateSensor(float x,float y,float z) {
 		if(sensorTracker != null){
-			objectRenderer.setCameraRotation(x,y,z);
-			updateRotation("" + (y));
-			minimap.setRotation(((-y+180)%360));
+			y = -y;
+			objectRenderer.setCameraRotation(x,(y+180)%360,z);
+			minimap.setRotation(y);
 		}
 	}
 
