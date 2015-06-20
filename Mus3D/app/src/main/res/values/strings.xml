@@ -49,4 +49,6 @@
     <string name="failed_to_load_db">De database kon niet worden geladen.</string>
 
     <string name="select_items_first">Selecteer eerst een object om te zoeken.</string>
+    <string name="search_results_empty">Er zijn geen resultaten gevonden.</string>
+    <string name="search_selecteer_empty">U heeft geen objecten geselecteerd.</string>
 </resources>

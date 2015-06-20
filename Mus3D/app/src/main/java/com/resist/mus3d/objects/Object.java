@@ -132,4 +132,18 @@ public abstract class Object implements Parcelable {
 				"featureId='" + featureId + '\'' +
 				'}';
 	}
+
+	@Override
+	public boolean equals(java.lang.Object other) {
+		if(other instanceof com.resist.mus3d.objects.Object) {
+			com.resist.mus3d.objects.Object that = (com.resist.mus3d.objects.Object)other;
+			return that.getType() == this.getType() && that.getObjectid() == this.getObjectid();
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return ("com.resist.mus3d.objects.Object["+getType()+","+getObjectid()+"]").hashCode();
+	}
 }
