@@ -88,8 +88,8 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 
 
 	private void addMinimap(RelativeLayout layout, LayoutInflater inflater){
-		LinearLayout mapViewParent = (LinearLayout)inflater.inflate(R.layout.minimap,null);
-		minimap = (MapView)mapViewParent.getChildAt(0);
+		RelativeLayout mapViewParent = (RelativeLayout)inflater.inflate(R.layout.minimap,null);
+		minimap = (MapView)((RelativeLayout)mapViewParent.getChildAt(0)).getChildAt(0);
 		minimap.setMultiTouchControls(false);
 		minimap.setBuiltInZoomControls(false);
 		MapController mapController = (MapController) minimap.getController();
