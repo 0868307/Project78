@@ -77,11 +77,13 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	 * Get intent from search.
 	 */
 	public HashSet<Object> getIntentFromSearch() {
-
 		Bundle searchIntentArray = getIntent().getExtras();
-		List<Object> objectlist = searchIntentArray.getParcelableArrayList("objectList");
-		return new HashSet<>(objectlist);
-
+		if (searchIntentArray != null) {
+			List<Object> objectlist = searchIntentArray.getParcelableArrayList("objectList");
+			return new HashSet<>(objectlist);
+		} else {
+			return null;
+		}
 	}
 
 

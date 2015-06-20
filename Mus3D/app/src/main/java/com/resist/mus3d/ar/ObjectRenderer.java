@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import rajawali.BaseObject3D;
 import rajawali.lights.DirectionalLight;
@@ -142,7 +143,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 		@Override
 		protected Boolean doInBackground(String... params) {
 			try {
-				HashSet<? extends com.resist.mus3d.objects.Object> searchObjects = context.getIntentFromSearch();
+
 				SimpleMaterial myMaterial = new SimpleMaterial();
 				myMaterial.setUseColor(true);
 				ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
@@ -151,6 +152,13 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 				Position lastPos;
 				System.out.println("lat = " + context.getLocation().getLatitude() * MULTIPLIER + " long = " + context.getLocation().getLongitude() * MULTIPLIER);
 				System.out.println("list size = " + list.size());
+				Set<Object> searchObjects;
+				searchObjects = new HashSet<>();
+				if (context.getIntentFromSearch() != null) {
+					searchObjects = context.getIntentFromSearch();
+				}
+
+
 				for (int n = 0, size = list.size(); n < size; n++) {
 					Object o = list.get(n);
 					ObjParser parser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.bolder_obj);
@@ -170,7 +178,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 					//mObject.setDrawingMode(GLES20.GL_CONSTANT_COLOR);
 					Log.e("searchobjects", searchObjects + "");
 					Log.e("objectsaround", o + "");
-					if (searchObjects.contains(o)) {
+					if (searchObjects.contains(o) && !searchObjects.isEmpty()) {
 						mObject.setTransparent(false);
 						Log.e("Objecten gevonden", "Gevonden");
 					} else {
