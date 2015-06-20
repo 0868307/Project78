@@ -123,8 +123,9 @@ public class Search extends Activity {
 		} else {
 			intent = new Intent(this, Rajawali.class);
 		}
-		if(search)
+		if(search) {
 			intent.putParcelableArrayListExtra("objectList", selectedAdapter.getItems());
+		}
 		startActivity(intent);
 	}
 }

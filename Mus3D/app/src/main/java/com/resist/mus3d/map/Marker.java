@@ -3,6 +3,7 @@ package com.resist.mus3d.map;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 
 import com.resist.mus3d.R;
 import com.resist.mus3d.objects.Afmeerboei;
@@ -27,8 +28,16 @@ public class Marker extends OverlayItem {
 	 * @param object   the object
 	 */
 	public Marker(Activity activity, com.resist.mus3d.objects.Object object) {
+		this(activity, object, true);
+	}
+
+	public Marker(Activity activity, com.resist.mus3d.objects.Object object, boolean highlighted) {
 		super(null, null, new GeoPoint(object.getLocation().getPosition().getLatitude(), object.getLocation().getPosition().getLongitude()));
-		setMarker(activity.getResources().getDrawable(object.getDrawable()));
+		Drawable marker = activity.getResources().getDrawable(object.getDrawable());
+		if(!highlighted) {
+			marker.setAlpha(127);
+		}
+		setMarker(marker);
 		this.activity = activity;
 		this.object = object;
 	}
