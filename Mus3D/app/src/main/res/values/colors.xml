@@ -8,5 +8,10 @@
     <color name="text_secondary">#D9000000</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#FF0000</color>
+    <color name="legend_item_1">#FF0000</color>
+    <color name="legend_item_2">#0000FF</color>
+    <color name="legend_item_3">#FA7202</color>
+    <color name="legend_item_4">#00FF00</color>
+    <color name="legend_item_5">#F202FA</color>
 
 </resources>

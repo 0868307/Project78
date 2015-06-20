@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -41,6 +43,8 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	private View progressBarObjects;
 	private final int ZOOMLEVEL = 16;
 	private MapView minimap;
+	private RelativeLayout minimapLayout;
+	private LinearLayout legendLayout;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,15 +66,15 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		ll.setGravity(Gravity.CENTER);
 		rl.addView(ll);
 		LayoutInflater inflater = LayoutInflater.from(this);
-		addMinimap(rl, inflater);
+
 		progressBarGPS = inflater.inflate(R.layout.progress_gps, null);
 		progressBarObjects = inflater.inflate(R.layout.progress_objects, null);
 		progressBarObjects.setVisibility(View.INVISIBLE);
 		rl.addView(progressBarGPS);
 		rl.addView(progressBarObjects);
 		mLayout.addView(rl);
-
-
+		addLegend();
+		addMinimap();
 	}
 
 	/**
@@ -85,9 +89,22 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 			return null;
 		}
 	}
+	private void addHud(boolean minimap,boolean legend){
+		if(minimap)
+			minimapLayout.setVisibility(View.VISIBLE);
+		if(legend)
+			legendLayout.setVisibility(View.VISIBLE);
+	}
+	private void removeHud(boolean minimap,boolean legend){
+		if(minimap)
+			minimapLayout.setVisibility(View.GONE);
+		if(legend)
+			legendLayout.setVisibility(View.GONE);
+	}
 
-
-	private void addMinimap(RelativeLayout layout, LayoutInflater inflater){
+	private void addMinimap(){
+		minimapLayout = new RelativeLayout(this);
+		LayoutInflater inflater = LayoutInflater.from(this);
 		RelativeLayout mapViewParent = (RelativeLayout)inflater.inflate(R.layout.minimap,null);
 		minimap = (MapView)((RelativeLayout)mapViewParent.getChildAt(0)).getChildAt(0);
 		minimap.setMultiTouchControls(false);
@@ -95,7 +112,45 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		MapController mapController = (MapController) minimap.getController();
 		mapController.setZoom(ZOOMLEVEL);
 		addCurrentPosition();
-		layout.addView(mapViewParent);
+		minimapLayout.addView(mapViewParent);
+		mLayout.addView(minimapLayout);
+
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.LEFT);
+		final Button minimapButton = new Button(this);
+		minimapButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (minimapButton.getVisibility() == View.VISIBLE)
+					removeHud(true, false);
+				else
+					addHud(true, false);
+			}
+		});
+		minimapButton.setWidth(10);
+		minimapButton.setHeight(10);
+		minimapButton.setGravity(Gravity.LEFT );
+
+		minimapButton.setText("M");
+		mLayout.addView(minimapButton,params);
+	}
+	private void addLegend(){
+		LayoutInflater inflater = LayoutInflater.from(this);
+		legendLayout = (LinearLayout)inflater.inflate(R.layout.legenda,null);
+		mLayout.addView(legendLayout);
+
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.RIGHT);
+		final Button legendButton = new Button(this);
+		legendButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (legendLayout.getVisibility() == View.VISIBLE)
+					removeHud(false, true);
+				else
+					addHud(false, true);
+			}
+		});
+		legendButton.setText("L");
+		mLayout.addView(legendButton,params);
 	}
 	private void addCurrentPosition() {
 		if (locationListener != null && LocationTracker.getCurrentLocation() != null) {

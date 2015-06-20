@@ -51,4 +51,10 @@
     <string name="select_items_first">Selecteer eerst een object om te zoeken.</string>
     <string name="search_results_empty">Er zijn geen resultaten gevonden.</string>
     <string name="search_selected_empty">U heeft geen objecten geselecteerd.</string>
+
+    <string name="legend_item_1">Afmeerboeien</string>
+    <string name="legend_item_2">Bolders</string>
+    <string name="legend_item_3">Koningspalen</string>
+    <string name="legend_item_4">Ligplaatsen</string>
+    <string name="legend_item_5">Meerpalen</string>
 </resources>

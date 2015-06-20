@@ -178,7 +178,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 					//mObject.setDrawingMode(GLES20.GL_CONSTANT_COLOR);
 					Log.e("searchobjects", searchObjects + "");
 					Log.e("objectsaround", o + "");
-					if (searchObjects.contains(o) && !searchObjects.isEmpty()) {
+					if (!searchObjects.isEmpty() && searchObjects.contains(o)) {
 						mObject.setTransparent(false);
 						Log.e("Objecten gevonden", "Gevonden");
 					} else {

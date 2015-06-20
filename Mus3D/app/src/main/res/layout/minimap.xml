@@ -26,6 +26,17 @@
         android:background="@drawable/circle">
 
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="205dp"
+        android:layout_height="205dp"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:background="@color/red"
+            ></TextView>
+    </LinearLayout>
 
 
 
