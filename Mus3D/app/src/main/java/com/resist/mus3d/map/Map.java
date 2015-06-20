@@ -35,7 +35,10 @@ public class Map extends Activity implements GpsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-		List<com.resist.mus3d.objects.Object> objects = savedInstanceState.getParcelableArrayList("objectList");
+		List<com.resist.mus3d.objects.Object> objects = null;
+		if(savedInstanceState != null) {
+			objects = savedInstanceState.getParcelableArrayList("objectList");
+		}
 		highlighted = new HashSet<>();
 		if(objects != null && objects.size() > 0) {
 			highlighted.addAll(objects);
