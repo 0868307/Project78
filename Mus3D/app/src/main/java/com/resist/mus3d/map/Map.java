@@ -71,10 +71,12 @@ public class Map extends Activity implements GpsActivity {
     public void updateMarkers(IGeoPoint location) {
         List<Marker> overlayItemArray = new ArrayList<>();
         ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-        List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), 0.003);
+        List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), Math.min(0.05 / mapView.getZoomLevel(), 0.02));
 
         for (com.resist.mus3d.objects.Object o : list) {
-            overlayItemArray.add(new Marker(this, o, highlighted.isEmpty() || highlighted.contains(o)));
+			if(highlighted.isEmpty() || highlighted.contains(o)) {
+				overlayItemArray.add(new Marker(this, o));
+			}
         }
 
         ItemizedIconOverlay<Marker> itemizedIconOverlay = new ItemizedIconOverlay<>(this, overlayItemArray, new MarkerListener());
