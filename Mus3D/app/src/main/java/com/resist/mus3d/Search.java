@@ -124,6 +124,7 @@ public class Search extends Activity {
 			intent = new Intent(this, Rajawali.class);
 		}
 		if(search) {
+			Log.d(Mus3D.LOG_TAG, "num items: "+selectedAdapter.getItems().size());
 			intent.putParcelableArrayListExtra("objectList", selectedAdapter.getItems());
 		}
 		startActivity(intent);

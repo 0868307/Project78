@@ -2,6 +2,7 @@ package com.resist.mus3d.map;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.resist.mus3d.GpsActivity;
 import com.resist.mus3d.Mus3D;
@@ -36,8 +37,8 @@ public class Map extends Activity implements GpsActivity {
         setContentView(R.layout.activity_map);
 
 		List<com.resist.mus3d.objects.Object> objects = null;
-		if(savedInstanceState != null) {
-			objects = savedInstanceState.getParcelableArrayList("objectList");
+		if(getIntent() != null) {
+			objects = getIntent().getParcelableArrayListExtra("objectList");
 		}
 		highlighted = new HashSet<>();
 		if(objects != null && objects.size() > 0) {
