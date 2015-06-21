@@ -92,7 +92,7 @@ public class Search extends Activity {
         resultAdapter.addAll(objects);
 	}
 
-	public void searchEnterPressHandler() {
+	private void searchEnterPressHandler() {
 
 		searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
@@ -102,7 +102,6 @@ public class Search extends Activity {
 				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 					in.hideSoftInputFromWindow(searchText.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 					searchQueryHandler(null);
-					System.out.println("IME action logged");
 					return true;
 				}
 				return false;
