@@ -44,7 +44,7 @@
     <string name="search_et_searchhint">Type de objectnaam</string>
     <string name="search_list_resultaten">Resultaten</string>
     <string name="search_btn_skip">Sla over</string>
-    <string name="search_btn_search">Zoek</string>
+    <string name="search_btn_search">Start</string>
 
     <string name="failed_to_load_db">De database kon niet worden geladen.</string>
 

@@ -170,12 +170,10 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 					newobject3Ds.put(mObject, o);
 					context.onObjectLoadingProgress((double) n / (double) size * 100.0);
 				}
-				System.out.println("executed");
 				for (Map.Entry<BaseObject3D, Object> o : object3Ds.entrySet()) {
 					removeChild(o.getKey());
 				}
 				object3Ds = newobject3Ds;
-				System.out.println("old objects removed");
 
 			}catch (Exception e){
 				e.printStackTrace();
