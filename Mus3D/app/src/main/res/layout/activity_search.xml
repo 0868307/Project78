@@ -74,6 +74,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:id="@+id/search_results"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_results_empty"
+            android:id="@+id/search_results_empty"
+            android:visibility="gone"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -83,5 +89,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:id="@+id/search_selected"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_selected_empty"
+            android:id="@+id/search_selected_empty"
+            android:visibility="gone"/>
     </LinearLayout>
 </RelativeLayout>

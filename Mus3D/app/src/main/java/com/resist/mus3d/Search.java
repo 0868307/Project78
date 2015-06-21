@@ -44,9 +44,9 @@ public class Search extends Activity {
         ListView results = (ListView)findViewById(R.id.search_results);
         ListView selected = (ListView)findViewById(R.id.search_selected);
 
-		results.setEmptyView(getLayoutInflater().inflate(R.layout.search_results_empty, null));
+		results.setEmptyView(findViewById(R.id.search_results_empty));
         results.setAdapter(resultAdapter);
-		selected.setEmptyView(getLayoutInflater().inflate(R.layout.search_selected_empty, null));
+		selected.setEmptyView(findViewById(R.id.search_selected_empty));
         selected.setAdapter(selectedAdapter);
 
         results.setOnItemClickListener(new AdapterView.OnItemClickListener() {
