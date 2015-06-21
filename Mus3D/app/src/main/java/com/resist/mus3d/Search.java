@@ -1,14 +1,19 @@
 package com.resist.mus3d;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -25,6 +30,7 @@ public class Search extends Activity {
     private int[] spinnerIds;
     private SearchResultAdapter resultAdapter;
     private SearchResultAdapter selectedAdapter;
+	private EditText searchText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,7 @@ public class Search extends Activity {
         spinnerIds = getResources().getIntArray(R.array.objectwaardenArray);
 
 		Spinner searchSpinner = (Spinner)findViewById(R.id.sp_search_objecttype);
+		searchText = (EditText)findViewById(R.id.search_text);
 
         SearchTypeSelectAdapter selectAdapter = new SearchTypeSelectAdapter(this);
         selectAdapter.addAll(getResources().getStringArray(R.array.objectnamenArray));
@@ -57,14 +64,17 @@ public class Search extends Activity {
                 resultAdapter.remove(object);
             }
         });
+
         selected.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object object = selectedAdapter.getItem(position);
-                resultAdapter.add(object);
-                selectedAdapter.remove(object);
-            }
-        });
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Object object = selectedAdapter.getItem(position);
+				resultAdapter.add(object);
+				selectedAdapter.remove(object);
+			}
+		});
+
+		searchEnterPressHandler();
 	}
 
 
@@ -82,13 +92,31 @@ public class Search extends Activity {
         resultAdapter.addAll(objects);
 	}
 
+	public void searchEnterPressHandler() {
+
+		searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					in.hideSoftInputFromWindow(searchText.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+					searchQueryHandler(null);
+					System.out.println("IME action logged");
+					return true;
+				}
+				return false;
+			}
+		});
+
+	}
+
 	/**
 	 * Clear search box.
 	 *
 	 * @param v the view
 	 */
 	public void clearSearchBox(View v) {
-		EditText searchText = (EditText)findViewById(R.id.search_text);
 		searchText.setText("");
 	}
 
