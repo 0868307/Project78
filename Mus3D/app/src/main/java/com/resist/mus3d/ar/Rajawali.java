@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -89,18 +90,6 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 			return null;
 		}
 	}
-	private void addHud(boolean minimap,boolean legend){
-		if(minimap)
-			minimapLayout.setVisibility(View.VISIBLE);
-		if(legend)
-			legendLayout.setVisibility(View.VISIBLE);
-	}
-	private void removeHud(boolean minimap,boolean legend){
-		if(minimap)
-			minimapLayout.setVisibility(View.GONE);
-		if(legend)
-			legendLayout.setVisibility(View.GONE);
-	}
 
 	private void addMinimap(){
 		minimapLayout = new RelativeLayout(this);
@@ -116,21 +105,21 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		mLayout.addView(minimapLayout);
 
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.LEFT);
-		final Button minimapButton = new Button(this);
+
+		final ImageButton minimapButton = new ImageButton(this);
+		minimapButton.setImageResource(R.drawable.ic_map);
+		minimapButton.setBackground(null);
+
 		minimapButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (minimapButton.getVisibility() == View.VISIBLE)
-					removeHud(true, false);
+				if (minimapLayout.getVisibility() == View.VISIBLE)
+					minimapLayout.setVisibility(View.INVISIBLE);
 				else
-					addHud(true, false);
+					minimapLayout.setVisibility(View.VISIBLE);
 			}
 		});
-		minimapButton.setWidth(10);
-		minimapButton.setHeight(10);
-		minimapButton.setGravity(Gravity.LEFT );
 
-		minimapButton.setText("M");
 		mLayout.addView(minimapButton,params);
 	}
 	private void addLegend(){
@@ -139,17 +128,21 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		mLayout.addView(legendLayout);
 
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.RIGHT);
-		final Button legendButton = new Button(this);
+
+		final ImageButton legendButton = new ImageButton(this);
+		legendButton.setBackground(null);
+		legendButton.setImageResource(R.drawable.ic_question_mark);
+
 		legendButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if (legendLayout.getVisibility() == View.VISIBLE)
-					removeHud(false, true);
+					legendLayout.setVisibility(View.INVISIBLE);
 				else
-					addHud(false, true);
+					legendLayout.setVisibility(View.VISIBLE);
 			}
 		});
-		legendButton.setText("L");
+
 		mLayout.addView(legendButton,params);
 	}
 	private void addCurrentPosition() {
