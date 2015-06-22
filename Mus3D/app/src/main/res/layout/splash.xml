@@ -20,7 +20,8 @@
             android:paddingBottom="20dp"
             style="?android:attr/progressBarStyleHorizontal"
             android:visibility="gone"
-            android:max="1000"/>
+            android:max="1000"
+            android:progressDrawable="@drawable/progressbar"/>
         <ProgressBar
             android:id="@+id/splash_progress_indeterminate"
             android:layout_width="wrap_content"
