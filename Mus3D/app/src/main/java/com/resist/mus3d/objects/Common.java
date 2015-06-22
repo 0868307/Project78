@@ -7,6 +7,7 @@ import com.resist.mus3d.map.Marker;
 import java.util.Date;
 
 public abstract class Common extends Object {
+	private static final int COLOR = 0x70FF0000;
 	private String facilityId;
 	private String facilitySecId;
 	private String regionId;
@@ -87,4 +88,8 @@ public abstract class Common extends Object {
         dialog.append(null, getFacilitySecId());
         dialog.append("Haven: ", getHarbourId());
     }
+	@Override
+	public int getColor() {
+		return COLOR;
+	}
 }

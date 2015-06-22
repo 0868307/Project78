@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Afmeerboei extends Common {
     public static final int TYPE = 0;
+    private static final int COLOR = 0x70FF0000;
 
 	public Afmeerboei(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId) {
 		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
@@ -28,5 +29,9 @@ public class Afmeerboei extends Common {
     @Override
     public int getTypeName() {
         return R.string.object_afmeerboei;
+    }
+    @Override
+    public int getColor() {
+        return COLOR;
     }
 }

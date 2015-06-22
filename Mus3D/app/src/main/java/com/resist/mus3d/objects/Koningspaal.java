@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class Koningspaal extends Common {
     public static final int TYPE = 2;
+	private static final int COLOR = 0x70FA7202;
 	private String confirmation;
 	private String description;
 	private String material;
@@ -115,4 +116,8 @@ public class Koningspaal extends Common {
         dialog.append("Materiaal: ", getMaterial());
         dialog.append("Slijtmateriaal: ", getWearMaterial());
     }
+	@Override
+	public int getColor() {
+		return COLOR;
+	}
 }

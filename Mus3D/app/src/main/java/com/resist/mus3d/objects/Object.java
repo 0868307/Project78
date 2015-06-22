@@ -16,6 +16,7 @@ import java.util.Date;
 
 public abstract class Object implements Parcelable {
     public static final int TYPE = -1;
+	private static final int COLOR = 0x70FFFFFF;
     public static final Parcelable.Creator<Object> CREATOR = new Parcelable.Creator<Object>() {
         @Override
         public Object createFromParcel(Parcel in) {
@@ -69,6 +70,8 @@ public abstract class Object implements Parcelable {
 	public int getType() {
 		return TYPE;
 	}
+
+	public int getColor() { return COLOR;}
 
 	public int getObjectid() {
 		return objectid;

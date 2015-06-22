@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class Bolder extends Common {
     public static final int TYPE = 1;
+	private static final int COLOR = 0x700000FF;
 	private String description;
 	private String material;
 	private String anchor;
@@ -133,4 +134,8 @@ public class Bolder extends Common {
         dialog.append("Materiaal: ", getMaterial());
         dialog.append("Bedrijf: ", getCompany());
     }
+	@Override
+	public int getColor() {
+		return COLOR;
+	}
 }

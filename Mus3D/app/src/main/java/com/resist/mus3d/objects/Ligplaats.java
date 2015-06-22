@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class Ligplaats extends Object {
     public static final int TYPE = 3;
+	private static final int COLOR = 0x7000FF00;
 	private String complexId;
 	private String globalId;
 	private String kenmerkZe;
@@ -326,4 +327,8 @@ public class Ligplaats extends Object {
         //dialog.append("Vac Reden: ", getVacReason());
         dialog.append("Afmeer Vz: ", getAfmeerVz());
     }
+	@Override
+	public int getColor() {
+		return COLOR;
+	}
 }

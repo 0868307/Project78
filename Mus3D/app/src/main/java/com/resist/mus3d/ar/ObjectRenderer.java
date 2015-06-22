@@ -154,18 +154,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 					} else {
 						mObject.setTransparent(true);
 					}
-
-					if (checkForAfmeerboei(o)) {
-						mObject.setColor(0x70FF0000); // rood
-					} else if (checkForBolder(o)) {
-						mObject.setColor(0x700000FF); // blauw
-					} else if (checkForKoningspaal(o)) {
-						mObject.setColor(0x70FA7202);	// oranje
-					} else if (checkForAnchorage(o)) {
-						mObject.setColor(0x7000FF00);	// groen
-					} else if (checkForMeerpaal(o)) {
-						mObject.setColor(0x70F202FA);	// Pimpelpaars met een goud randje zonder het gouden randje
-					}
+					mObject.setColor(o.getColor());
 					addChild(mObject);
 					mPicker.registerObject(mObject);
 					newobject3Ds.put(mObject, o);
@@ -180,26 +169,6 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 				e.printStackTrace();
 			}
 			return true;
-		}
-
-		private boolean checkForMeerpaal(Object o) {
-			return o instanceof Meerpaal;
-		}
-
-		private boolean checkForAnchorage(Object o) {
-			return o instanceof Ligplaats;
-		}
-
-		private boolean checkForKoningspaal(Object o) {
-			return o instanceof Koningspaal;
-		}
-
-		private boolean checkForBolder(Object o) {
-			return o instanceof Bolder;
-		}
-
-		private boolean checkForAfmeerboei(Object o) {
-			return o instanceof Afmeerboei;
 		}
 
 		private boolean checkHashsetForObjects(Set<Object> searchObjects, Object o) {
