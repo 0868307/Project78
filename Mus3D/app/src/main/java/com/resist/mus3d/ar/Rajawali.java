@@ -1,5 +1,6 @@
 package com.resist.mus3d.ar;
 
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -109,7 +110,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 
 		final ImageButton minimapButton = new ImageButton(this);
 		minimapButton.setImageResource(R.drawable.ic_map);
-		minimapButton.setBackground(null);
+		minimapButton.setBackgroundColor(Color.TRANSPARENT);
 
 		minimapButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -132,7 +133,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.RIGHT);
 
 		final ImageButton legendButton = new ImageButton(this);
-		legendButton.setBackground(null);
+		legendButton.setBackgroundColor(Color.TRANSPARENT);
 		legendButton.setImageResource(R.drawable.ic_question_mark);
 
 		legendButton.setOnClickListener(new View.OnClickListener() {
