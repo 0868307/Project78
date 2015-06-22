@@ -7,11 +7,6 @@ import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.map.Marker;
-import com.resist.mus3d.objects.Afmeerboei;
-import com.resist.mus3d.objects.Ligplaats;
-import com.resist.mus3d.objects.Bolder;
-import com.resist.mus3d.objects.Koningspaal;
-import com.resist.mus3d.objects.Meerpaal;
 import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
 
@@ -149,7 +144,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 
 					setValuesToObject(lastPos, mObject);
 
-					if (checkHashsetForObjects(searchObjects, o)) {
+					if (searchObjects.contains(o)) {
 						mObject.setTransparent(false);
 					} else {
 						mObject.setTransparent(true);
@@ -169,10 +164,6 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 				e.printStackTrace();
 			}
 			return true;
-		}
-
-		private boolean checkHashsetForObjects(Set<Object> searchObjects, Object o) {
-			return !searchObjects.isEmpty() && searchObjects.contains(o);
 		}
 
 		private void setValuesToObject(Position lastPos, BaseObject3D mObject) {
