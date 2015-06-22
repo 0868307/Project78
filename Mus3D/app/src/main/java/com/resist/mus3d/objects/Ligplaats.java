@@ -6,7 +6,7 @@ import com.resist.mus3d.database.Aanlegplaatsen;
 
 import java.util.Date;
 
-public class Anchorage extends Object {
+public class Ligplaats extends Object {
     public static final int TYPE = 3;
 	private String complexId;
 	private String globalId;
@@ -20,18 +20,18 @@ public class Anchorage extends Object {
 	private String afmeerVz;
 	private String owner;
 	private String use;
-	private Harbour harbour;
+	private Haven haven;
 	private String anchorage;
 	private String nauticalState;
 	private String shoreNo;
 	private String primaryFunction;
 	private String type;
 
-	public Anchorage(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId) {
+	public Ligplaats(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId) {
 		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
 	}
 
-	public Anchorage(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String complexId, String globalId, String kenmerkZe, String lxmeText, Date occupiedFrom, String occRecNo, Date occupiedTill, String vacReason, String xmeText, String afmeerVz, String owner, String use, Harbour harbour, String anchorage, String nauticalState, String shoreNo, String primaryFunction, String type) {
+	public Ligplaats(int objectid, String createdBy, Date createdAt, String editedBy, Date editedAt, String featureId, String complexId, String globalId, String kenmerkZe, String lxmeText, Date occupiedFrom, String occRecNo, Date occupiedTill, String vacReason, String xmeText, String afmeerVz, String owner, String use, Haven haven, String anchorage, String nauticalState, String shoreNo, String primaryFunction, String type) {
 		super(objectid, createdBy, createdAt, editedBy, editedAt, featureId);
 		this.complexId = complexId;
 		this.globalId = globalId;
@@ -45,7 +45,7 @@ public class Anchorage extends Object {
 		this.afmeerVz = afmeerVz;
 		this.owner = owner;
 		this.use = use;
-		this.harbour = harbour;
+		this.haven = haven;
 		this.anchorage = anchorage;
 		this.nauticalState = nauticalState;
 		this.shoreNo = shoreNo;
@@ -222,18 +222,18 @@ public class Anchorage extends Object {
 		this.use = use;
 	}
 
-	public Harbour getHarbour() {
+	public Haven getHaven() {
 		if(!isComplete()) {
 			load();
 		}
-		return harbour;
+		return haven;
 	}
 
-	public void setHarbour(Harbour harbour) {
+	public void setHaven(Haven haven) {
 		if(!isComplete()) {
 			load();
 		}
-		this.harbour = harbour;
+		this.haven = haven;
 	}
 
 	public String getAnchorage() {
@@ -305,5 +305,10 @@ public class Anchorage extends Object {
     @Override
     public int getDrawable() {
         return R.drawable.ic_aanlegplaats;
+    }
+
+    @Override
+    public String getUsefulDescription() {
+        return getXmeText();
     }
 }

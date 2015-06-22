@@ -7,7 +7,7 @@ import android.util.SparseArray;
 
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.objects.Afmeerboei;
-import com.resist.mus3d.objects.Anchorage;
+import com.resist.mus3d.objects.Ligplaats;
 import com.resist.mus3d.objects.Bolder;
 import com.resist.mus3d.objects.Koningspaal;
 import com.resist.mus3d.objects.Meerpaal;
@@ -40,15 +40,6 @@ public class ObjectTable {
      */
     public ObjectTable(SQLiteDatabase db) {
         this.db = db;
-	}
-
-    /**
-     * Gets all.
-     *
-     * @return the all
-     */
-    public List<? extends com.resist.mus3d.objects.Object> getAll() {
-        return new ArrayList<>();
 	}
 
 	private void putCoordinates(Cursor c, SparseArray<SparseArray<Point>> coords) {
@@ -232,9 +223,8 @@ public class ObjectTable {
         String[] terms = searchQuery.trim().replace("  ", " ").split(" ");
         List<String> args = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT objecten.* ")
-                .append("FROM objecten ");
-        if(searchType == Anchorage.TYPE) {
+        sb.append("SELECT objecten.* FROM objecten ");
+        if(searchType == Ligplaats.TYPE) {
             sb.append("JOIN ligplaatsen ON(ligplaatsen.id = objecten.objectid AND objecten.objecttype = ?) ");
             args.add(""+searchType);
         } else if(searchType == Bolder.TYPE) {
@@ -249,8 +239,8 @@ public class ObjectTable {
             if(n != 0) {
                 sb.append("OR ");
             }
-            if(searchType == Anchorage.TYPE) {
-                sb.append("ligplaatsen.xmeText LIKE ? ");
+            if(searchType == Ligplaats.TYPE) {
+                sb.append("xmeText LIKE ? ");
             } else if(searchType == Bolder.TYPE || searchType == Koningspaal.TYPE) {
                 sb.append("description LIKE ? ");
             } else {
@@ -259,15 +249,21 @@ public class ObjectTable {
             terms[n] = '%'+terms[n]+'%';
         }
         sb.append(") AND objecten.objecttype = ?");
-
-        if(searchType == Anchorage.TYPE) {
-            sb.append(" AND ligplaatsen.kenmerkZe != ?");
-            args.add("Binnenvaart");
-        }
-
         args.addAll(Arrays.asList(terms));
         args.add(""+searchType);
-        sb.append(" ORDER BY objecten.objecttype, objecten.objectid");
+        if(searchType == Ligplaats.TYPE) {
+            sb.append(" AND kenmerkZe != ?");
+            args.add("Binnenvaart");
+        }
+        if(searchType == Ligplaats.TYPE) {
+            sb.append(" ORDER BY xmeText");
+        } else if(searchType == Bolder.TYPE || searchType == Koningspaal.TYPE) {
+            sb.append(" ORDER BY description");
+        } else {
+            sb.append(" ORDER BY objecten.objecttype, objecten.featureId");
+        }
+        Log.v(Mus3D.LOG_TAG, sb.toString());
+        Log.v(Mus3D.LOG_TAG, args.toString());
         Cursor c = db.rawQuery(sb.toString(), args.toArray(new String[0]));
         List<com.resist.mus3d.objects.Object> out = new ArrayList<>();
         while(c.moveToNext()) {
@@ -289,8 +285,8 @@ public class ObjectTable {
                         parseDate(c.getString(c.getColumnIndex("editedAt"))),
 						c.getString(c.getColumnIndex("featureId"))
 				);
-			} else if(type == Anchorage.TYPE) {
-				return new Anchorage(
+			} else if(type == Ligplaats.TYPE) {
+				return new Ligplaats(
                         c.getInt(c.getColumnIndex("objectid")),
                         c.getString(c.getColumnIndex("createdBy")),
                         parseDate(c.getString(c.getColumnIndex("createdAt"))),

@@ -5,8 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.resist.mus3d.Mus3D;
-import com.resist.mus3d.objects.Anchorage;
-import com.resist.mus3d.objects.Harbour;
+import com.resist.mus3d.objects.Ligplaats;
+import com.resist.mus3d.objects.Haven;
 import com.resist.mus3d.objects.coords.Coordinate;
 
 import java.text.ParseException;
@@ -27,7 +27,7 @@ public class Aanlegplaatsen extends ObjectTable {
 	 *
 	 * @param object the object
 	 */
-	public void loadObject(Anchorage object) {
+	public void loadObject(Ligplaats object) {
 		Cursor c = db.rawQuery("SELECT ligplaatsen.*, havens.havenNaam FROM ligplaatsen LEFT JOIN havens ON(ligplaatsen.havenAfkorting = havens.havenAfkorting) WHERE ligplaatsen.id = ?", new String[] {String.valueOf(object.getObjectid())});
 		if(c.moveToFirst()) {
 			object.setAfmeerVz(c.getString(c.getColumnIndex("afmeerVz")));
@@ -49,13 +49,13 @@ public class Aanlegplaatsen extends ObjectTable {
 			object.setShoreNo(c.getString(c.getColumnIndex("oevernummer")));
 			object.setVacReason(c.getString(c.getColumnIndex("vacReason")));
 			object.setXmeText(c.getString(c.getColumnIndex("xmeText")));
-			object.setHarbour(Harbour.cacheHarbour(c.getString(c.getColumnIndex("havenAfkorting")), c.getString(c.getColumnIndex("havenNaam"))));
+			object.setHaven(Haven.cacheHarbour(c.getString(c.getColumnIndex("havenAfkorting")), c.getString(c.getColumnIndex("havenNaam"))));
 		}
 		c.close();
 	}
 
     @Override
-    public List<Anchorage> getObjectsAround(Coordinate location, double distance) {
-        return (List<Anchorage>)getObjectsAround(location, distance, new int[] {Anchorage.TYPE});
+    public List<Ligplaats> getObjectsAround(Coordinate location, double distance) {
+        return (List<Ligplaats>)getObjectsAround(location, distance, new int[] {Ligplaats.TYPE});
     }
 }

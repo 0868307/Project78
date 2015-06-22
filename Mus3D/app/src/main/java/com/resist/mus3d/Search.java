@@ -87,7 +87,7 @@ public class Search extends Activity {
 		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
         int index = ((Spinner)findViewById(R.id.sp_search_objecttype)).getSelectedItemPosition();
 		List<com.resist.mus3d.objects.Object> objects = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), spinnerIds[index]);
-        Log.w(Mus3D.LOG_TAG, "objects found: "+objects.size());
+        Log.d(Mus3D.LOG_TAG, "objects found: "+objects.size());
 		resultAdapter.clear();
         resultAdapter.addAll(objects);
 	}

@@ -114,4 +114,9 @@ public class Bolder extends Common {
     public int getDrawable() {
         return R.drawable.ic_bolder;
     }
+
+    @Override
+    public String getUsefulDescription() {
+        return getDescription();
+    }
 }

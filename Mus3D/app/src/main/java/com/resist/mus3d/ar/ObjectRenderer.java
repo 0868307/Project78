@@ -8,7 +8,7 @@ import com.resist.mus3d.R;
 import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.map.Marker;
 import com.resist.mus3d.objects.Afmeerboei;
-import com.resist.mus3d.objects.Anchorage;
+import com.resist.mus3d.objects.Ligplaats;
 import com.resist.mus3d.objects.Bolder;
 import com.resist.mus3d.objects.Koningspaal;
 import com.resist.mus3d.objects.Meerpaal;
@@ -186,7 +186,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 		}
 
 		private boolean checkForAnchorage(Object o) {
-			return o instanceof Anchorage;
+			return o instanceof Ligplaats;
 		}
 
 		private boolean checkForKoningspaal(Object o) {

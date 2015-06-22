@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 
 import com.resist.mus3d.R;
 import com.resist.mus3d.objects.Afmeerboei;
-import com.resist.mus3d.objects.Anchorage;
+import com.resist.mus3d.objects.Ligplaats;
 import com.resist.mus3d.objects.Bolder;
 import com.resist.mus3d.objects.Common;
 import com.resist.mus3d.objects.Koningspaal;
@@ -50,7 +50,7 @@ public class Marker extends OverlayItem {
             res = R.string.object_bolder;
 		} else if (object instanceof Koningspaal) {
             res = R.string.object_koningspaal;
-		} else if (object instanceof Anchorage) {
+		} else if (object instanceof Ligplaats) {
             res = R.string.object_ligplaats;
 		} else if (object instanceof Meerpaal) {
             res = R.string.object_meerpaal;
@@ -71,8 +71,8 @@ public class Marker extends OverlayItem {
 			append(sb, null, c.getFacilitySecId());
 			append(sb, "Haven: ", c.getHarbourId());
 		}
-		if(object instanceof Anchorage) {
-			Anchorage a = (Anchorage)object;
+		if(object instanceof Ligplaats) {
+			Ligplaats a = (Ligplaats)object;
 			append(sb, "XME Text: ", a.getXmeText());
 			append(sb, "KenmerkZe: ", a.getKenmerkZe());
 			append(sb, "Vac Reden: ", a.getVacReason());

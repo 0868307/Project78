@@ -37,7 +37,7 @@ public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.O
         View row = inflater.inflate(R.layout.row, parent, false);
 
         TextView label = (TextView)row.findViewById(R.id.tv_row_objecttitle);
-        label.setText(object.toString());
+        label.setText(object.getUsefulDescription());
 
         ImageView icon = (ImageView)row.findViewById(R.id.iv_row_icon);
         icon.setImageResource(object.getDrawable());

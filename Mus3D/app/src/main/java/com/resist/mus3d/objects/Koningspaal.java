@@ -96,4 +96,9 @@ public class Koningspaal extends Common {
     public int getDrawable() {
         return R.drawable.ic_koningspaal;
     }
+
+    @Override
+    public String getUsefulDescription() {
+        return getDescription();
+    }
 }

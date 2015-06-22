@@ -21,8 +21,8 @@ public abstract class Object implements Parcelable {
             int objectid = ids[0];
             int type = ids[1];
             switch (type) {
-                case Anchorage.TYPE:
-                    return new Anchorage(objectid, null, null, null, null, null);
+                case Ligplaats.TYPE:
+                    return new Ligplaats(objectid, null, null, null, null, null);
                 case Afmeerboei.TYPE:
                     return new Afmeerboei(objectid, null, null, null, null, null);
                 case Bolder.TYPE:
@@ -126,12 +126,9 @@ public abstract class Object implements Parcelable {
         parcel.writeIntArray(new int[] {objectid, getType()});
 	}
 
-	@Override
-	public String toString() {
-		return "Object{" +
-				"featureId='" + featureId + '\'' +
-				'}';
-	}
+    public String getUsefulDescription() {
+        return getFeatureId();
+    }
 
 	@Override
 	public boolean equals(java.lang.Object other) {
