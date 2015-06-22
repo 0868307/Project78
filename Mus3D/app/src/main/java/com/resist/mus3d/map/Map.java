@@ -31,20 +31,16 @@ public class Map extends Activity implements GpsActivity {
     private MapView mapView;
     private MapController mapController;
     private LocationTracker locationListener;
-	private Set<com.resist.mus3d.objects.Object> highlighted;
+	private List<com.resist.mus3d.objects.Object> highlighted = new ArrayList<>();
+    private boolean addedHighlighted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-		List<com.resist.mus3d.objects.Object> objects = null;
 		if(getIntent() != null) {
-			objects = getIntent().getParcelableArrayListExtra("objectList");
-		}
-		highlighted = new HashSet<>();
-		if(objects != null && objects.size() > 0) {
-			highlighted.addAll(objects);
+            highlighted = getIntent().getParcelableArrayListExtra("objectList");
 		}
 
         locationListener = new LocationTracker(this);
@@ -58,8 +54,8 @@ public class Map extends Activity implements GpsActivity {
 
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(this);
         mapView.getOverlays().add(myScaleBarOverlay);
-		if(objects != null && objects.size() > 0) {
-			goToObject(objects.get(0));
+		if(!highlighted.isEmpty()) {
+			goToObject(highlighted.get(0));
 		} else {
 			goToCurrentLocation();
 		}
@@ -71,18 +67,24 @@ public class Map extends Activity implements GpsActivity {
      * @param location the location
      */
     public void updateMarkers(IGeoPoint location) {
-        List<Marker> overlayItemArray = new ArrayList<>();
-        ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-        List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), Math.min(0.05 / mapView.getZoomLevel(), 0.02));
-
-        for (com.resist.mus3d.objects.Object o : list) {
-			if(highlighted.isEmpty() || highlighted.contains(o)) {
-				overlayItemArray.add(new Marker(this, o));
-			}
+        if(!highlighted.isEmpty()) {
+            if(!addedHighlighted) {
+                addedHighlighted = true;
+                addAllItems(highlighted);
+            }
+        } else {
+            ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
+            List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(location), Math.min(0.05 / mapView.getZoomLevel(), 0.02));
+            addAllItems(list);
         }
+    }
 
+    private void addAllItems(List<? extends com.resist.mus3d.objects.Object> list) {
+        List<Marker> overlayItemArray = new ArrayList<>();
+        for (com.resist.mus3d.objects.Object o : list) {
+            overlayItemArray.add(new Marker(this, o));
+        }
         ItemizedIconOverlay<Marker> itemizedIconOverlay = new ItemizedIconOverlay<>(this, overlayItemArray, new MarkerListener());
-
         mapView.getOverlays().clear();
         mapView.getOverlays().add(itemizedIconOverlay);
         addCurrentPosition();
