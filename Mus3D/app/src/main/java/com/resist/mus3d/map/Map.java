@@ -10,6 +10,7 @@ import com.resist.mus3d.GpsActivity;
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.database.ObjectTable;
+import com.resist.mus3d.objects.*;
 import com.resist.mus3d.objects.coords.Point;
 
 import org.osmdroid.api.IGeoPoint;
@@ -40,7 +41,10 @@ public class Map extends Activity implements GpsActivity {
         setContentView(R.layout.activity_map);
 
 		if(getIntent() != null) {
-            highlighted = getIntent().getParcelableArrayListExtra("objectList");
+            List<com.resist.mus3d.objects.Object> objects = getIntent().getParcelableArrayListExtra("objectList");
+            if(objects != null) {
+                highlighted = objects;
+            }
 		}
 
         locationListener = new LocationTracker(this);

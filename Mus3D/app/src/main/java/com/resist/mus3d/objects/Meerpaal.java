@@ -24,4 +24,9 @@ public class Meerpaal extends Common {
     public int getDrawable() {
         return R.drawable.ic_meerpaal;
     }
+
+    @Override
+    public String getUsefulDescription() {
+        return String.format("%s (%d)", getFeatureId(), getObjectid());
+    }
 }
