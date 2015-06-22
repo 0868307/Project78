@@ -237,7 +237,7 @@ public class ObjectTable {
         sb.append("WHERE (");
         for(int n=0; n < terms.length;n++) {
             if(n != 0) {
-                sb.append("OR ");
+                sb.append("AND ");
             }
             if(searchType == Ligplaats.TYPE) {
                 sb.append("xmeText LIKE ? ");
