@@ -20,8 +20,8 @@
         android:layout_width="fill_parent"
         app:strokeWidth="4dp"
         app:lineWidth="30dp"
-        app:unselectedColor="#FF888888"
-        app:selectedColor="#FF880000"
+        app:unselectedColor="@color/primary_light"
+        app:selectedColor="@color/primary_dark"
         />
 
 </LinearLayout>

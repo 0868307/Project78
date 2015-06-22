@@ -95,6 +95,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		minimapLayout = new RelativeLayout(this);
 		LayoutInflater inflater = LayoutInflater.from(this);
 		RelativeLayout mapViewParent = (RelativeLayout)inflater.inflate(R.layout.minimap,null);
+		mapViewParent.setPadding(20,20,0,0);
 		minimap = (MapView)((RelativeLayout)mapViewParent.getChildAt(0)).getChildAt(0);
 		minimap.setMultiTouchControls(false);
 		minimap.setBuiltInZoomControls(false);
@@ -125,6 +126,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	private void addLegend(){
 		LayoutInflater inflater = LayoutInflater.from(this);
 		legendLayout = (LinearLayout)inflater.inflate(R.layout.legenda,null);
+		legendLayout.setPadding(0,125,25,0);
 		mLayout.addView(legendLayout);
 
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.RIGHT);
