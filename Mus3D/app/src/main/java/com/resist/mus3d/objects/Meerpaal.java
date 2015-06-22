@@ -2,6 +2,7 @@ package com.resist.mus3d.objects;
 
 
 import com.resist.mus3d.R;
+import com.resist.mus3d.map.Marker;
 
 import java.util.Date;
 
@@ -28,5 +29,10 @@ public class Meerpaal extends Common {
     @Override
     public String getUsefulDescription() {
         return String.format("%s (%d)", getFeatureId(), getObjectid());
+    }
+
+    @Override
+    public int getTypeName() {
+        return R.string.object_meerpaal;
     }
 }

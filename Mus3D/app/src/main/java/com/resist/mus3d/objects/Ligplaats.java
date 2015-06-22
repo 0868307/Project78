@@ -3,6 +3,7 @@ package com.resist.mus3d.objects;
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.database.Aanlegplaatsen;
+import com.resist.mus3d.map.Marker;
 
 import java.util.Date;
 
@@ -310,5 +311,19 @@ public class Ligplaats extends Object {
     @Override
     public String getUsefulDescription() {
         return getXmeText();
+    }
+
+    @Override
+    public int getTypeName() {
+        return R.string.object_ligplaats;
+    }
+
+    @Override
+    public void setDialogText(Marker.DialogContents dialog) {
+        super.setDialogText(dialog);
+        dialog.append("XME Text: ", getXmeText());
+        dialog.append("KenmerkZe: ", getKenmerkZe());
+        //dialog.append("Vac Reden: ", getVacReason());
+        dialog.append("Afmeer Vz: ", getAfmeerVz());
     }
 }

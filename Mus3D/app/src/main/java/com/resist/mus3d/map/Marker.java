@@ -43,63 +43,14 @@ public class Marker extends OverlayItem {
 	}
 
 	private String getDialogTitle() {
-        int res = R.string.object_onbekend;
-		if (object instanceof Afmeerboei) {
-			res = R.string.object_afmeerboei;
-		} else if (object instanceof Bolder) {
-            res = R.string.object_bolder;
-		} else if (object instanceof Koningspaal) {
-            res = R.string.object_koningspaal;
-		} else if (object instanceof Ligplaats) {
-            res = R.string.object_ligplaats;
-		} else if (object instanceof Meerpaal) {
-            res = R.string.object_meerpaal;
-		}
+        int res = object.getTypeName();
         return activity.getResources().getString(res)+" "+object.getObjectid();
 	}
 
 	private String getDialogMessage() {
-		String descriptionLabel = "Description: ";
-		String materialLabel = "Materiaal: ";
-		StringBuilder sb = new StringBuilder();
-        if(LocationTracker.getCurrentLocation() != null) {
-            append(sb, "Afstand: ", String.format("%.2f meter", object.getDistanceTo(LocationTracker.getCurrentLocation())));
-        }
-		append(sb, "FeatureId: ", object.getFeatureId());
-		if(object instanceof Common) {
-			Common c = (Common)object;
-			append(sb, null, c.getFacilitySecId());
-			append(sb, "Haven: ", c.getHarbourId());
-		}
-		if(object instanceof Ligplaats) {
-			Ligplaats a = (Ligplaats)object;
-			append(sb, "XME Text: ", a.getXmeText());
-			append(sb, "KenmerkZe: ", a.getKenmerkZe());
-			append(sb, "Vac Reden: ", a.getVacReason());
-			append(sb, "Afmeer Vz: ", a.getAfmeerVz());
-		} else if(object instanceof Bolder) {
-			Bolder b = (Bolder)object;
-			append(sb, descriptionLabel, b.getDescription());
-			append(sb, materialLabel, b.getMaterial());
-			append(sb, "Bedrijf: ", b.getCompany());
-		} else if(object instanceof Koningspaal) {
-			Koningspaal k = (Koningspaal)object;
-			append(sb, descriptionLabel, k.getDescription());
-			append(sb, materialLabel, k.getMaterial());
-			append(sb, "Slijtmateriaal: ", k.getWearMaterial());
-		}
-
-		return sb.toString();
-
-	}
-
-	private void append(StringBuilder sb, String key, String value) {
-		if(value != null) {
-			if(key != null) {
-				sb.append(key);
-			}
-			sb.append(value).append('\n');
-		}
+        DialogContents dialogContents = new DialogContents();
+        object.setDialogText(dialogContents);
+		return dialogContents.toString();
 	}
 
 	/**
@@ -118,4 +69,26 @@ public class Marker extends OverlayItem {
 			})
 			.create();
 	}
+
+    public class DialogContents {
+        private StringBuilder sb;
+
+        public DialogContents() {
+            sb = new StringBuilder();
+        }
+
+        public void append(String key, String value) {
+            if(value != null) {
+                if(key != null) {
+                    sb.append(key);
+                }
+                sb.append(value).append('\n');
+            }
+        }
+
+        @Override
+        public String toString() {
+            return sb.toString();
+        }
+    }
 }

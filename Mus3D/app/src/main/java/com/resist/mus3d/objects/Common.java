@@ -2,6 +2,7 @@ package com.resist.mus3d.objects;
 
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.database.CommonTable;
+import com.resist.mus3d.map.Marker;
 
 import java.util.Date;
 
@@ -79,4 +80,11 @@ public abstract class Common extends Object {
 		super.load();
 		new CommonTable(Mus3D.getDatabase().getDatabase()).loadObject(this);
 	}
+
+    @Override
+    public void setDialogText(Marker.DialogContents dialog) {
+        super.setDialogText(dialog);
+        dialog.append(null, getFacilitySecId());
+        dialog.append("Haven: ", getHarbourId());
+    }
 }

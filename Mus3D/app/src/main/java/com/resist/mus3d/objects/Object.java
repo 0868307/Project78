@@ -5,7 +5,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.resist.mus3d.Mus3D;
+import com.resist.mus3d.R;
 import com.resist.mus3d.database.ObjectTable;
+import com.resist.mus3d.map.LocationTracker;
+import com.resist.mus3d.map.Marker;
 import com.resist.mus3d.objects.coords.Coordinate;
 import com.resist.mus3d.objects.coords.Point;
 
@@ -17,20 +20,22 @@ public abstract class Object implements Parcelable {
         @Override
         public Object createFromParcel(Parcel in) {
             int[] ids = new int[2];
+            String[] vals = new String[3];
             in.readIntArray(ids);
+            in.readStringArray(vals);
             int objectid = ids[0];
             int type = ids[1];
             switch (type) {
                 case Ligplaats.TYPE:
-                    return new Ligplaats(objectid, null, null, null, null, null);
+                    return new Ligplaats(objectid, vals[0], null, vals[1], null, vals[2]);
                 case Afmeerboei.TYPE:
-                    return new Afmeerboei(objectid, null, null, null, null, null);
+                    return new Afmeerboei(objectid, vals[0], null, vals[1], null, vals[2]);
                 case Bolder.TYPE:
-                    return new Bolder(objectid, null, null, null, null, null);
+                    return new Bolder(objectid, vals[0], null, vals[1], null, vals[2]);
                 case Koningspaal.TYPE:
-                    return new Koningspaal(objectid, null, null, null, null, null);
+                    return new Koningspaal(objectid, vals[0], null, vals[1], null, vals[2]);
                 case Meerpaal.TYPE:
-                    return new Meerpaal(objectid, null, null, null, null, null);
+                    return new Meerpaal(objectid, vals[0], null, vals[1], null, vals[2]);
             }
             return null;
         }
@@ -124,6 +129,7 @@ public abstract class Object implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel parcel, int i) {
         parcel.writeIntArray(new int[] {objectid, getType()});
+        parcel.writeStringArray(new String[] {createdBy, editedBy, featureId});
 	}
 
     public String getUsefulDescription() {
@@ -143,4 +149,16 @@ public abstract class Object implements Parcelable {
 	public int hashCode() {
 		return ("com.resist.mus3d.objects.Object["+getType()+","+getObjectid()+"]").hashCode();
 	}
+
+    public int getTypeName() {
+        return R.string.object_onbekend;
+    }
+
+    public void setDialogText(Marker.DialogContents dialog) {
+        if(LocationTracker.getCurrentLocation() != null) {
+            dialog.append("Afstand: ", String.format("%.2f meter", getDistanceTo(LocationTracker.getCurrentLocation())));
+        }
+        dialog.append("FeatureId: ", getFeatureId());
+        dialog.append("Gemaakt door: ", getCreatedBy());
+    }
 }

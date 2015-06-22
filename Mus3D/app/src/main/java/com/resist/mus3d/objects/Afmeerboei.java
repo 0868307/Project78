@@ -24,4 +24,9 @@ public class Afmeerboei extends Common {
     public int getDrawable() {
         return R.drawable.ic_afmeerboei;
     }
+
+    @Override
+    public int getTypeName() {
+        return R.string.object_afmeerboei;
+    }
 }

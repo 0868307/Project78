@@ -3,6 +3,7 @@ package com.resist.mus3d.objects;
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.database.Koningspalen;
+import com.resist.mus3d.map.Marker;
 
 import java.util.Date;
 
@@ -100,5 +101,18 @@ public class Koningspaal extends Common {
     @Override
     public String getUsefulDescription() {
         return getDescription();
+    }
+
+    @Override
+    public int getTypeName() {
+        return R.string.object_koningspaal;
+    }
+
+    @Override
+    public void setDialogText(Marker.DialogContents dialog) {
+        super.setDialogText(dialog);
+        dialog.append("Beschrijving: ", getDescription());
+        dialog.append("Materiaal: ", getMaterial());
+        dialog.append("Slijtmateriaal: ", getWearMaterial());
     }
 }
