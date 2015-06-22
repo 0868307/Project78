@@ -35,6 +35,7 @@ import rajawali.util.OnObjectPickedListener;
 
 public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedListener {
 	public static final int MULTIPLIER = 10000;
+	private static final double VIEW_DISTANCE = 0.002;
 	private Map<BaseObject3D, Object> object3Ds = new HashMap<>();
 	private Rajawali context;
 	private ObjectColorPicker mPicker;
@@ -125,7 +126,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 			try {
 
 				ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-				List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), 0.001);
+				List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), VIEW_DISTANCE);
 
 				Map<BaseObject3D, Object> newobject3Ds = new HashMap<>();
 				Position lastPos;

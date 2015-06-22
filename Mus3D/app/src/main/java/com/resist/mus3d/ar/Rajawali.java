@@ -44,6 +44,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 	private View progressBarGPS;
 	private View progressBarObjects;
 	private final int ZOOMLEVEL = 16;
+	private final float STANDARD_HEIGHT = 0.5f;
 	private MapView minimap;
 	private RelativeLayout minimapLayout;
 	private LinearLayout legendLayout;
@@ -203,7 +204,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 			}
 			objectRenderer.setCamera(
 					(float) LocationTracker.getCurrentLocation().getLongitude() * ObjectRenderer.MULTIPLIER,
-					0,
+					STANDARD_HEIGHT,
 					(float) LocationTracker.getCurrentLocation().getLatitude() * ObjectRenderer.MULTIPLIER
 			);
 			GeoPoint currentLocation = new GeoPoint(LocationTracker.getCurrentLocation().getLatitude(), LocationTracker.getCurrentLocation().getLongitude());
