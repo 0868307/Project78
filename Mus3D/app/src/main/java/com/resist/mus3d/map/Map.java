@@ -1,7 +1,9 @@
 package com.resist.mus3d.map;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.resist.mus3d.GpsActivity;
@@ -107,10 +109,15 @@ public class Map extends Activity implements GpsActivity {
 		}
 	}
 
-	private void goToObject(com.resist.mus3d.objects.Object object) {
-		Position pos = object.getLocation().getPosition();
-		GeoPoint location = new GeoPoint(pos.getLatitude(), pos.getLongitude());
-		mapView.getController().setCenter(location);
+	private void goToObject(final com.resist.mus3d.objects.Object object) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Position pos = object.getLocation().getPosition();
+                GeoPoint location = new GeoPoint(pos.getLatitude(), pos.getLongitude());
+                mapView.getController().setCenter(location);
+            }
+        }, 1000);
 	}
 
     @Override

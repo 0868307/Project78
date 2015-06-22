@@ -56,7 +56,8 @@
         </activity>
         <activity
             android:name=".Search"
-            android:label="@string/title_activity_search" >
+            android:label="@string/title_activity_search"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
