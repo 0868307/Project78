@@ -1,11 +1,16 @@
 package com.resist.mus3d.ar;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.database.ObjectTable;
+import com.resist.mus3d.map.LocationTracker;
 import com.resist.mus3d.map.Marker;
 import com.resist.mus3d.objects.Object;
 import com.resist.mus3d.objects.coords.Point;
@@ -24,6 +29,7 @@ import rajawali.materials.SimpleMaterial;
 import rajawali.parser.AParser;
 import rajawali.parser.ObjParser;
 import rajawali.primitives.Cube;
+import rajawali.primitives.Plane;
 import rajawali.renderer.RajawaliRenderer;
 import rajawali.util.ObjectColorPicker;
 import rajawali.util.OnObjectPickedListener;
@@ -31,9 +37,11 @@ import rajawali.util.OnObjectPickedListener;
 public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedListener {
 	public static final int MULTIPLIER = 10000;
 	private static final double VIEW_DISTANCE = 0.002;
+	private static final float SCALE = .3f;
 	private Map<BaseObject3D, Object> object3Ds = new HashMap<>();
 	private Rajawali context;
 	private ObjectColorPicker mPicker;
+	private int background = 0xFFFFFFFF;
 
 	/**
 	 * Instantiates a new Object renderer.
@@ -113,6 +121,15 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 
 	}
 
+	public void toggleBackground() {
+		if(background == 0xFF000000)
+			background = 0xFFFFFFFF;
+		else
+			background = 0xFF000000;
+
+		setBackgroundColor(background);
+	}
+
 
 	private class LongOperation extends AsyncTask<String, Void, Boolean> {
 
@@ -122,7 +139,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 
 				ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
 				List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), VIEW_DISTANCE);
-
+				Bitmap mutableBitmap = Bitmap.createBitmap(254, 254, Bitmap.Config.RGB_565);
 				Map<BaseObject3D, Object> newobject3Ds = new HashMap<>();
 				Position lastPos;
 				Set<Object> searchObjects;
@@ -171,7 +188,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 			myMaterial.setUseColor(true);
 			mObject.setPosition((float) (lastPos.getLongitude() * MULTIPLIER), 0, (float) (lastPos.getLatitude() * MULTIPLIER));
 			mObject.setRotation(0, 0, 0);
-			mObject.setScale(.1f);
+			mObject.setScale(SCALE);
 			mObject.setMaterial(myMaterial);
 		}
 

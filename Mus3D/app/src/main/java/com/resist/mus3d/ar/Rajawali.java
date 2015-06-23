@@ -78,6 +78,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		mLayout.addView(rl);
 		addLegend();
 		addMinimap();
+		addNightModeButton();
 	}
 
 	/**
@@ -124,6 +125,24 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		});
 
 		mLayout.addView(minimapButton,params);
+	}
+	public void addNightModeButton(){
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM);
+
+		final ImageButton nvButton = new ImageButton(this);
+		nvButton.setImageResource(R.mipmap.ic_nv);
+		nvButton.setBackgroundColor(Color.TRANSPARENT);
+
+		nvButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				objectRenderer.toggleBackground();
+				legendLayout.setBackgroundColor(0x00FFFFFF);
+				
+			}
+		});
+
+		mLayout.addView(nvButton,params);
 	}
 	private void addLegend(){
 		LayoutInflater inflater = LayoutInflater.from(this);
