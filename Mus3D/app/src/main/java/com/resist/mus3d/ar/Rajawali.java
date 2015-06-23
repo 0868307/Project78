@@ -130,7 +130,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM);
 
 		final ImageButton nvButton = new ImageButton(this);
-		nvButton.setImageResource(R.mipmap.ic_nv);
+		nvButton.setImageResource(R.drawable.ic_nv);
 		nvButton.setBackgroundColor(Color.TRANSPARENT);
 
 		nvButton.setOnClickListener(new View.OnClickListener() {
