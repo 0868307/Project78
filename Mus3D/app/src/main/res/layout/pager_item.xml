@@ -30,7 +30,6 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:paddingTop="25dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>
