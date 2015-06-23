@@ -139,7 +139,6 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
 
 				ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
 				List<? extends com.resist.mus3d.objects.Object> list = objectTable.getObjectsAround(new Point(context.getLocation()), VIEW_DISTANCE);
-				Bitmap mutableBitmap = Bitmap.createBitmap(254, 254, Bitmap.Config.RGB_565);
 				Map<BaseObject3D, Object> newobject3Ds = new HashMap<>();
 				Position lastPos;
 				Set<Object> searchObjects;
