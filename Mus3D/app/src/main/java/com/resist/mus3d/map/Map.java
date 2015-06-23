@@ -1,6 +1,7 @@
 package com.resist.mus3d.map;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +12,9 @@ import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.database.ObjectTable;
 import com.resist.mus3d.objects.*;
+import com.resist.mus3d.objects.coords.MultiPoint;
 import com.resist.mus3d.objects.coords.Point;
+import com.resist.mus3d.objects.coords.Polygon;
 
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.events.DelayedMapListener;
@@ -21,6 +24,7 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.PathOverlay;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
 import java.util.ArrayList;
@@ -83,14 +87,32 @@ public class Map extends Activity implements GpsActivity {
         }
     }
 
+	private void addPath(List<PathOverlay> paths, MultiPoint mp) {
+		PathOverlay path = new PathOverlay(Color.BLACK, this);
+		for(Point p : mp.getPoints()) {
+			path.addPoint(new GeoPoint(p.getPosition().getLatitude(), p.getPosition().getLongitude()));
+		}
+		paths.add(path);
+	}
+
     private void addAllItems(List<? extends com.resist.mus3d.objects.Object> list) {
         List<Marker> overlayItemArray = new ArrayList<>();
+		List<PathOverlay> paths = new ArrayList<>();
         for (com.resist.mus3d.objects.Object o : list) {
             overlayItemArray.add(new Marker(this, o));
+			if(o.getLocation() instanceof MultiPoint) {
+				addPath(paths, (MultiPoint)o.getLocation());
+			} else if(o.getLocation() instanceof Polygon) {
+				Polygon polygon = (Polygon)o.getLocation();
+				for(MultiPoint mp : polygon.getMultiPoints()) {
+					addPath(paths, mp);
+				}
+			}
         }
         ItemizedIconOverlay<Marker> itemizedIconOverlay = new ItemizedIconOverlay<>(this, overlayItemArray, new MarkerListener());
         mapView.getOverlays().clear();
-        mapView.getOverlays().add(itemizedIconOverlay);
+		mapView.getOverlays().addAll(paths);
+		mapView.getOverlays().add(itemizedIconOverlay);
         addCurrentPosition();
     }
 
