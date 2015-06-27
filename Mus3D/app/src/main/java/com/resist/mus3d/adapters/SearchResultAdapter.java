@@ -36,10 +36,10 @@ public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.O
         LayoutInflater inflater = activity.getLayoutInflater();
         View row = inflater.inflate(R.layout.row, parent, false);
 
-        TextView label = (TextView)row.findViewById(R.id.tv_row_objecttitle);
+        TextView label = (TextView) row.findViewById(R.id.tv_row_objecttitle);
         label.setText(object.getUsefulDescription());
 
-        ImageView icon = (ImageView)row.findViewById(R.id.iv_row_icon);
+        ImageView icon = (ImageView) row.findViewById(R.id.iv_row_icon);
         icon.setImageResource(object.getDrawable());
 
         return row;
@@ -52,7 +52,7 @@ public class SearchResultAdapter extends ArrayAdapter<com.resist.mus3d.objects.O
      */
     public ArrayList<com.resist.mus3d.objects.Object> getItems() {
         ArrayList<com.resist.mus3d.objects.Object> out = new ArrayList<>();
-        for(int i = 0; i < getCount(); i++) {
+        for (int i = 0; i < getCount(); i++) {
             out.add(getItem(i));
         }
         return out;

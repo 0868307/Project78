@@ -1,101 +1,115 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <LinearLayout
-        android:layout_alignParentTop="true"
+        android:id="@+id/search_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/search_top">
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
         <Spinner
+            android:id="@+id/sp_search_objecttype"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:id="@+id/sp_search_objecttype"
-            android:spinnerMode="dialog">
-        </Spinner>
+            android:spinnerMode="dialog"></Spinner>
+
         <EditText
             android:id="@+id/search_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:inputType="textCapCharacters"
-            android:imeOptions="actionSearch"
-            android:imeActionLabel="@string/search_btn_search"
+            android:layout_weight="1"
             android:hint="@string/search_et_searchhint"
-            android:layout_weight="1"/>
+            android:imeActionLabel="@string/search_btn_search"
+            android:imeOptions="actionSearch"
+            android:inputType="textCapCharacters"
+            android:maxLines="1" />
+
         <ImageButton
             android:id="@+id/ib_search_clearinput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/abc_ic_clear_mtrl_alpha"
             android:layout_weight="3"
-            android:onClick="clearSearchBox"/>
+            android:onClick="clearSearchBox"
+            android:src="@drawable/abc_ic_clear_mtrl_alpha" />
+
         <ImageButton
-            android:onClick="searchQueryHandler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/abc_ic_search_api_mtrl_alpha"
-            android:layout_weight="3"/>
+            android:layout_weight="3"
+            android:onClick="searchQueryHandler"
+            android:src="@drawable/abc_ic_search_api_mtrl_alpha" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/search_bottom"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <ToggleButton
             android:id="@+id/search_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOn="@string/action_2D"
+            android:checked="false"
             android:textOff="@string/action_3D"
-            android:checked="false" />
+            android:textOn="@string/action_2D" />
+
         <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:onClick="skip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_btn_skip"/>
+            android:text="@string/search_btn_skip" />
+
         <Button
-            android:onClick="search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search_btn_search"/>
+            android:onClick="search"
+            android:text="@string/search_btn_search" />
     </LinearLayout>
+
     <LinearLayout
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:layout_above="@id/search_bottom"
-        android:layout_below="@id/search_top">
+        android:layout_below="@id/search_top"
+        android:orientation="vertical">
+
         <ListView
+            android:id="@+id/search_results"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:id="@+id/search_results"/>
+            android:layout_weight="2" />
+
         <TextView
+            android:id="@+id/search_results_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search_results_empty"
-            android:id="@+id/search_results_empty"
             android:layout_gravity="center_horizontal"
-            android:visibility="gone"/>
+            android:text="@string/search_results_empty"
+            android:visibility="gone" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/background_floating_material_dark" />
+
         <ListView
+            android:id="@+id/search_selected"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:id="@+id/search_selected"/>
+            android:layout_weight="2" />
+
         <TextView
+            android:id="@+id/search_selected_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search_selected_empty"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/search_selected_empty"
-            android:visibility="gone"/>
+            android:text="@string/search_selected_empty"
+            android:visibility="gone" />
     </LinearLayout>
 </RelativeLayout>

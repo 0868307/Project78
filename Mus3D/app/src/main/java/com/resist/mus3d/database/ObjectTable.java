@@ -7,9 +7,9 @@ import android.util.SparseArray;
 
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.objects.Afmeerboei;
-import com.resist.mus3d.objects.Ligplaats;
 import com.resist.mus3d.objects.Bolder;
 import com.resist.mus3d.objects.Koningspaal;
+import com.resist.mus3d.objects.Ligplaats;
 import com.resist.mus3d.objects.Meerpaal;
 import com.resist.mus3d.objects.coords.Coordinate;
 import com.resist.mus3d.objects.coords.MultiPoint;
@@ -40,42 +40,42 @@ public class ObjectTable {
      */
     public ObjectTable(SQLiteDatabase db) {
         this.db = db;
-	}
+    }
 
-	private void putCoordinates(Cursor c, SparseArray<SparseArray<Point>> coords) {
-		int polygon = c.getInt(c.getColumnIndex("polygon"));
-		int multipoint = c.getInt(c.getColumnIndex("multipoint"));
-		Point p = new Point(
-				c.getDouble(c.getColumnIndex("x")),
-				c.getDouble(c.getColumnIndex("y"))
-		);
+    private void putCoordinates(Cursor c, SparseArray<SparseArray<Point>> coords) {
+        int polygon = c.getInt(c.getColumnIndex("polygon"));
+        int multipoint = c.getInt(c.getColumnIndex("multipoint"));
+        Point p = new Point(
+                c.getDouble(c.getColumnIndex("x")),
+                c.getDouble(c.getColumnIndex("y"))
+        );
 
-		if(coords.get(polygon) == null) {
-			coords.put(polygon, new SparseArray<Point>());
-		}
-		coords.get(polygon).put(multipoint, p);
-	}
+        if (coords.get(polygon) == null) {
+            coords.put(polygon, new SparseArray<Point>());
+        }
+        coords.get(polygon).put(multipoint, p);
+    }
 
-	private Coordinate buildCoordinates(SparseArray<SparseArray<Point>> coords) {
-		int size = coords.size();
-		if(size == 1) {
-			SparseArray<Point> multipoint = coords.get(0);
-			size = multipoint.size();
-			if(size == 1) {
-				return multipoint.get(0);
-			} else if(size > 1) {
-				return getMultipoint(multipoint, size);
-			}
-		} else if(size > 1) {
-			MultiPoint[] multiPoints = new MultiPoint[size];
-			for(int n=0; n < size; n++) {
-				SparseArray<Point> multipoint = coords.valueAt(n);
-				multiPoints[n] = getMultipoint(multipoint, multipoint.size());
-			}
-			return new Polygon(multiPoints);
-		}
-		return null;
-	}
+    private Coordinate buildCoordinates(SparseArray<SparseArray<Point>> coords) {
+        int size = coords.size();
+        if (size == 1) {
+            SparseArray<Point> multipoint = coords.get(0);
+            size = multipoint.size();
+            if (size == 1) {
+                return multipoint.get(0);
+            } else if (size > 1) {
+                return getMultipoint(multipoint, size);
+            }
+        } else if (size > 1) {
+            MultiPoint[] multiPoints = new MultiPoint[size];
+            for (int n = 0; n < size; n++) {
+                SparseArray<Point> multipoint = coords.valueAt(n);
+                multiPoints[n] = getMultipoint(multipoint, multipoint.size());
+            }
+            return new Polygon(multiPoints);
+        }
+        return null;
+    }
 
     /**
      * Gets coordinates.
@@ -85,23 +85,23 @@ public class ObjectTable {
      */
     public Coordinate getCoordinates(com.resist.mus3d.objects.Object object) {
         SparseArray<SparseArray<Point>> coords = new SparseArray<>();
-		Cursor c = db.rawQuery("SELECT * FROM coordinaten WHERE objecttype = ? AND id = ?", new String[] {String.valueOf(object.getType()), String.valueOf(object.getObjectid())});
-		c.moveToFirst();
-		while(!c.isAfterLast()) {
-			putCoordinates(c, coords);
-			c.moveToNext();
-		}
-		c.close();
-		return buildCoordinates(coords);
-	}
+        Cursor c = db.rawQuery("SELECT * FROM coordinaten WHERE objecttype = ? AND id = ?", new String[]{String.valueOf(object.getType()), String.valueOf(object.getObjectid())});
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            putCoordinates(c, coords);
+            c.moveToNext();
+        }
+        c.close();
+        return buildCoordinates(coords);
+    }
 
-	private MultiPoint getMultipoint(SparseArray<Point> multipoint, int size) {
-		Point[] points = new Point[size];
-		for(int n=0; n < size; n++) {
-			points[n] = multipoint.valueAt(n);
-		}
-		return new MultiPoint(points);
-	}
+    private MultiPoint getMultipoint(SparseArray<Point> multipoint, int size) {
+        Point[] points = new Point[size];
+        for (int n = 0; n < size; n++) {
+            points[n] = multipoint.valueAt(n);
+        }
+        return new MultiPoint(points);
+    }
 
     /**
      * Append types.
@@ -113,12 +113,12 @@ public class ObjectTable {
      */
     protected String[] appendTypes(StringBuilder sb, int[] types, int start) {
         String[] args = new String[start];
-        if(types != null) {
+        if (types != null) {
             args = new String[start + types.length];
             sb.append("objecten.objecttype IN (");
-            for(int n=0; n < types.length; n++) {
+            for (int n = 0; n < types.length; n++) {
                 args[n] = String.valueOf(types[n]);
-                if(n > 0) {
+                if (n > 0) {
                     sb.append(", ");
                 }
                 sb.append('?');
@@ -133,7 +133,7 @@ public class ObjectTable {
      *
      * @param location the location
      * @param distance the distance
-     * @param types the types
+     * @param types    the types
      * @return the objects around
      */
     public List<? extends com.resist.mus3d.objects.Object> getObjectsAround(Coordinate location, double distance, int[] types) {
@@ -152,7 +152,7 @@ public class ObjectTable {
                 .append("WHERE ");
         String[] args = appendTypes(sb, types, 6);
         int typeLength = args.length - 6;
-        if(typeLength != 0) {
+        if (typeLength != 0) {
             sb.append(" AND ");
         }
         sb.append(" (coordinaten.x-?)*(coordinaten.x-?)+(coordinaten.y-?)*(coordinaten.y-?) <= ?*? ")
@@ -169,8 +169,8 @@ public class ObjectTable {
         );
         com.resist.mus3d.objects.Object current = null;
         c.moveToFirst();
-        while(!c.isAfterLast()) {
-            if(current == null || c.getInt(c.getColumnIndex("objecttype")) != current.getType() || c.getInt(c.getColumnIndex("objectid")) != current.getObjectid()) {
+        while (!c.isAfterLast()) {
+            if (current == null || c.getInt(c.getColumnIndex("objecttype")) != current.getType() || c.getInt(c.getColumnIndex("objectid")) != current.getObjectid()) {
                 current = createObjectFromCursor(c);
                 out.add(current);
                 coords.put(current, new SparseArray<SparseArray<Point>>());
@@ -180,7 +180,7 @@ public class ObjectTable {
         }
         c.close();
 
-        for(com.resist.mus3d.objects.Object o : out) {
+        for (com.resist.mus3d.objects.Object o : out) {
             o.setLocation(buildCoordinates(coords.get(o)));
         }
 
@@ -206,7 +206,7 @@ public class ObjectTable {
      * @throws ParseException the parse exception
      */
     protected Date parseDate(String date) throws ParseException {
-        if(date == null) {
+        if (date == null) {
             return null;
         }
         return DATE.parse(date);
@@ -216,7 +216,7 @@ public class ObjectTable {
      * Find objects.
      *
      * @param searchQuery the search query
-     * @param searchType the search type
+     * @param searchType  the search type
      * @return a list with objects
      */
     public List<com.resist.mus3d.objects.Object> findObjects(String searchQuery, int searchType) {
@@ -224,40 +224,40 @@ public class ObjectTable {
         List<String> args = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT objecten.* FROM objecten ");
-        if(searchType == Ligplaats.TYPE) {
+        if (searchType == Ligplaats.TYPE) {
             sb.append("JOIN ligplaatsen ON(ligplaatsen.id = objecten.objectid AND objecten.objecttype = ?) ");
-            args.add(""+searchType);
-        } else if(searchType == Bolder.TYPE) {
+            args.add("" + searchType);
+        } else if (searchType == Bolder.TYPE) {
             sb.append("JOIN bolders ON(bolders.id = objecten.objectid AND objecten.objecttype = ?) ");
-            args.add(""+searchType);
-        } else if(searchType == Koningspaal.TYPE) {
+            args.add("" + searchType);
+        } else if (searchType == Koningspaal.TYPE) {
             sb.append("JOIN koningspalen ON(koningspalen.id = objecten.objectid AND objecten.objecttype = ?) ");
-            args.add(""+searchType);
+            args.add("" + searchType);
         }
         sb.append("WHERE (");
-        for(int n=0; n < terms.length;n++) {
-            if(n != 0) {
+        for (int n = 0; n < terms.length; n++) {
+            if (n != 0) {
                 sb.append("AND ");
             }
-            if(searchType == Ligplaats.TYPE) {
+            if (searchType == Ligplaats.TYPE) {
                 sb.append("xmeText LIKE ? ");
-            } else if(searchType == Bolder.TYPE || searchType == Koningspaal.TYPE) {
+            } else if (searchType == Bolder.TYPE || searchType == Koningspaal.TYPE) {
                 sb.append("description LIKE ? ");
             } else {
                 sb.append("objecten.featureId LIKE ? ");
             }
-            terms[n] = '%'+terms[n]+'%';
+            terms[n] = '%' + terms[n] + '%';
         }
         sb.append(") AND objecten.objecttype = ?");
         args.addAll(Arrays.asList(terms));
-        args.add(""+searchType);
-        if(searchType == Ligplaats.TYPE) {
+        args.add("" + searchType);
+        if (searchType == Ligplaats.TYPE) {
             sb.append(" AND kenmerkZe != ?");
             args.add("Binnenvaart");
         }
-        if(searchType == Ligplaats.TYPE) {
+        if (searchType == Ligplaats.TYPE) {
             sb.append(" ORDER BY xmeText");
-        } else if(searchType == Bolder.TYPE || searchType == Koningspaal.TYPE) {
+        } else if (searchType == Bolder.TYPE || searchType == Koningspaal.TYPE) {
             sb.append(" ORDER BY description");
         } else {
             sb.append(" ORDER BY objecten.objecttype, objecten.featureId");
@@ -266,65 +266,65 @@ public class ObjectTable {
         Log.v(Mus3D.LOG_TAG, args.toString());
         Cursor c = db.rawQuery(sb.toString(), args.toArray(new String[0]));
         List<com.resist.mus3d.objects.Object> out = new ArrayList<>();
-        while(c.moveToNext()) {
+        while (c.moveToNext()) {
             out.add(createObjectFromCursor(c));
         }
         c.close();
         return out;
     }
 
-	private com.resist.mus3d.objects.Object createObjectFromCursor(Cursor c) {
-		int type = c.getInt(c.getColumnIndex("objecttype"));
-		try {
-			if(type == Afmeerboei.TYPE) {
-				return new Afmeerboei(
-						c.getInt(c.getColumnIndex("objectid")),
-						c.getString(c.getColumnIndex("createdBy")),
-                        parseDate(c.getString(c.getColumnIndex("createdAt"))),
-						c.getString(c.getColumnIndex("editedBy")),
-                        parseDate(c.getString(c.getColumnIndex("editedAt"))),
-						c.getString(c.getColumnIndex("featureId"))
-				);
-			} else if(type == Ligplaats.TYPE) {
-				return new Ligplaats(
+    private com.resist.mus3d.objects.Object createObjectFromCursor(Cursor c) {
+        int type = c.getInt(c.getColumnIndex("objecttype"));
+        try {
+            if (type == Afmeerboei.TYPE) {
+                return new Afmeerboei(
                         c.getInt(c.getColumnIndex("objectid")),
                         c.getString(c.getColumnIndex("createdBy")),
                         parseDate(c.getString(c.getColumnIndex("createdAt"))),
                         c.getString(c.getColumnIndex("editedBy")),
                         parseDate(c.getString(c.getColumnIndex("editedAt"))),
                         c.getString(c.getColumnIndex("featureId"))
-				);
-			} else if(type == Bolder.TYPE) {
-				return new Bolder(
+                );
+            } else if (type == Ligplaats.TYPE) {
+                return new Ligplaats(
                         c.getInt(c.getColumnIndex("objectid")),
                         c.getString(c.getColumnIndex("createdBy")),
                         parseDate(c.getString(c.getColumnIndex("createdAt"))),
                         c.getString(c.getColumnIndex("editedBy")),
                         parseDate(c.getString(c.getColumnIndex("editedAt"))),
                         c.getString(c.getColumnIndex("featureId"))
-				);
-			} else if(type == Koningspaal.TYPE) {
-				return new Koningspaal(
+                );
+            } else if (type == Bolder.TYPE) {
+                return new Bolder(
                         c.getInt(c.getColumnIndex("objectid")),
                         c.getString(c.getColumnIndex("createdBy")),
                         parseDate(c.getString(c.getColumnIndex("createdAt"))),
                         c.getString(c.getColumnIndex("editedBy")),
                         parseDate(c.getString(c.getColumnIndex("editedAt"))),
                         c.getString(c.getColumnIndex("featureId"))
-				);
-			} else if(type == Meerpaal.TYPE) {
-				return new Meerpaal(
+                );
+            } else if (type == Koningspaal.TYPE) {
+                return new Koningspaal(
                         c.getInt(c.getColumnIndex("objectid")),
                         c.getString(c.getColumnIndex("createdBy")),
                         parseDate(c.getString(c.getColumnIndex("createdAt"))),
                         c.getString(c.getColumnIndex("editedBy")),
                         parseDate(c.getString(c.getColumnIndex("editedAt"))),
                         c.getString(c.getColumnIndex("featureId"))
-				);
-			}
-		} catch (ParseException e) {
-			Log.e(Mus3D.LOG_TAG, "Failed to parse date", e);
-		}
-		return null;
-	}
+                );
+            } else if (type == Meerpaal.TYPE) {
+                return new Meerpaal(
+                        c.getInt(c.getColumnIndex("objectid")),
+                        c.getString(c.getColumnIndex("createdBy")),
+                        parseDate(c.getString(c.getColumnIndex("createdAt"))),
+                        c.getString(c.getColumnIndex("editedBy")),
+                        parseDate(c.getString(c.getColumnIndex("editedAt"))),
+                        c.getString(c.getColumnIndex("featureId"))
+                );
+            }
+        } catch (ParseException e) {
+            Log.e(Mus3D.LOG_TAG, "Failed to parse date", e);
+        }
+        return null;
+    }
 }

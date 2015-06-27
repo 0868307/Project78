@@ -29,12 +29,11 @@ public class SensorTracker implements SensorEventListener {
      * @param activity the activity
      */
     public SensorTracker(SensorActivity activity) {
-        sensorManager = (SensorManager)((Activity)activity).getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) ((Activity) activity).getSystemService(Context.SENSOR_SERVICE);
         this.activity = activity;
     }
 
-    private float getDirection()
-    {
+    private float getDirection() {
 
         float[] temp = new float[9];
         float[] R = new float[9];
@@ -52,7 +51,7 @@ public class SensorTracker implements SensorEventListener {
         SensorManager.getOrientation(R, values);
 
         //Convert to degrees
-        for (int i=0; i < values.length; i++) {
+        for (int i = 0; i < values.length; i++) {
             Double degrees = (values[i] * 180) / Math.PI;
             values[i] = degrees.floatValue();
         }
@@ -63,7 +62,7 @@ public class SensorTracker implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        switch(event.sensor.getType()) {
+        switch (event.sensor.getType()) {
 
             case Sensor.TYPE_ACCELEROMETER:
                 mGravity = event.values.clone();
@@ -74,18 +73,18 @@ public class SensorTracker implements SensorEventListener {
             default:
                 return;
         }
-        if(mGravity != null && mMagnetic != null && System.currentTimeMillis() % INTERVAL <= 2) {
+        if (mGravity != null && mMagnetic != null && System.currentTimeMillis() % INTERVAL <= 2) {
 
             float x = 0;
             float y = directionY;
             float z = 0;
-            if(((getDirection() > directionY -SKIP_DISTANCE && getDirection() < directionY +SKIP_DISTANCE) && (getDirection() > directionY + DEGREE_DIFFERENCE || getDirection() < directionY - DEGREE_DIFFERENCE)) || first ) {
+            if (((getDirection() > directionY - SKIP_DISTANCE && getDirection() < directionY + SKIP_DISTANCE) && (getDirection() > directionY + DEGREE_DIFFERENCE || getDirection() < directionY - DEGREE_DIFFERENCE)) || first) {
                 first = false;
                 directionY = getDirection();
                 notUpdated = 0;
-            }else if(getDirection() < directionY -SKIP_DISTANCE || getDirection() > directionY +SKIP_DISTANCE){
+            } else if (getDirection() < directionY - SKIP_DISTANCE || getDirection() > directionY + SKIP_DISTANCE) {
                 notUpdated++;
-                if(notUpdated > NOT_UPDATED_MAX){
+                if (notUpdated > NOT_UPDATED_MAX) {
                     notUpdated = 0;
                     directionY = getDirection();
                 }
@@ -103,14 +102,14 @@ public class SensorTracker implements SensorEventListener {
     /**
      * On stop.
      */
-    public void onStop(){
+    public void onStop() {
         sensorManager.unregisterListener(this);
     }
 
     /**
      * On resume.
      */
-    public void onResume(){
+    public void onResume() {
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_FASTEST);
     }

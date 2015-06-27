@@ -20,9 +20,9 @@ public class SplashLoader extends AsyncTask<Void, Void, Boolean> {
     /**
      * Instantiates a new Splash loader.
      *
-     * @param ctx the context
+     * @param ctx    the context
      * @param intent the intent
-     * @param delay the delay
+     * @param delay  the delay
      */
     public SplashLoader(Activity ctx, Intent intent, long delay) {
         this.ctx = ctx;
@@ -46,7 +46,7 @@ public class SplashLoader extends AsyncTask<Void, Void, Boolean> {
     }
 
     protected void onPostExecute(Boolean result) {
-        if(!result) {
+        if (!result) {
             Toast.makeText(ctx, R.string.failed_to_load_db, Toast.LENGTH_LONG).show();
         }
         long time = delay - (System.currentTimeMillis() - startTime);

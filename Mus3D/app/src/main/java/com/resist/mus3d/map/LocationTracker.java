@@ -21,26 +21,9 @@ public class LocationTracker implements LocationListener {
      */
     public LocationTracker(GpsActivity activity) {
         this.activity = activity;
-        mlocManager = (LocationManager) ((Activity)activity).getSystemService(Context.LOCATION_SERVICE);
+        mlocManager = (LocationManager) ((Activity) activity).getSystemService(Context.LOCATION_SERVICE);
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         currentLocation = mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-    }
-
-    public void onLocationChanged(Location location) {
-        currentLocation = location;
-        activity.update();
-    }
-
-	@Override
-    public void onProviderDisabled(String provider) {
-    }
-
-	@Override
-    public void onProviderEnabled(String provider) {
-    }
-
-	@Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
     /**
@@ -52,17 +35,34 @@ public class LocationTracker implements LocationListener {
         return currentLocation;
     }
 
+    public void onLocationChanged(Location location) {
+        currentLocation = location;
+        activity.update();
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
+
     /**
      * On stop.
      */
-    public void onStop(){
+    public void onStop() {
         mlocManager.removeUpdates(this);
     }
 
     /**
      * On resume.
      */
-    public void onResume(){
+    public void onResume() {
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 }

@@ -1,43 +1,41 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mus3d.resist.com.mus3d.map"
     android:orientation="vertical"
-    >
+    tools:context="mus3d.resist.com.mus3d.map">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <org.osmdroid.views.MapView
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
+            android:id="@+id/mapview"
             android:layout_width="145dp"
             android:layout_height="145dp"
-            android:id="@+id/mapview"
-            >
-        </org.osmdroid.views.MapView>
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"></org.osmdroid.views.MapView>
     </RelativeLayout>
+
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="205dp"
         android:layout_height="205dp"
-        android:background="@drawable/circle">
+        android:background="@drawable/circle"
+        android:orientation="vertical">
 
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="205dp"
         android:layout_height="205dp"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
         <TextView
             android:layout_width="2dp"
             android:layout_height="2dp"
-            android:background="@color/red"
-            ></TextView>
+            android:background="@color/red"></TextView>
     </LinearLayout>
-
 
 
 </RelativeLayout>

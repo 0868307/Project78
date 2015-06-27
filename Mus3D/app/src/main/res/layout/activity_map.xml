@@ -1,14 +1,12 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mus3d.resist.com.mus3d.map"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:context="mus3d.resist.com.mus3d.map">
 
     <org.osmdroid.views.MapView
+        android:id="@+id/mapview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/mapview">
-    </org.osmdroid.views.MapView>
+        android:layout_height="fill_parent"></org.osmdroid.views.MapView>
 </LinearLayout>

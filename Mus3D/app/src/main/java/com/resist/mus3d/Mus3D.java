@@ -25,7 +25,7 @@ public class Mus3D {
      * @throws IOException the iO exception
      */
     public static void openDatabase(Context ctx) throws IOException {
-        if(database == null) {
+        if (database == null) {
             database = new ObjectDatabase(ctx);
             database.open();
         }

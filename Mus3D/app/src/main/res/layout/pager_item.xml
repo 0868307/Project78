@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/imageView"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop" />
 
     <Button
         android:id="@+id/btn_Start"
-        android:onClick="submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/content_fragment"
-        android:textSize="25sp"
-        android:textColor="@color/text_secondary"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" />
+        android:onClick="submit"
+        android:text="@string/content_fragment"
+        android:textColor="@color/text_secondary"
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/tutorialTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:textSize="20sp" />
 </RelativeLayout>

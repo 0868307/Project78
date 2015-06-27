@@ -5,7 +5,7 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 public class MarkerListener implements ItemizedIconOverlay.OnItemGestureListener<Marker> {
     @Override
     public boolean onItemSingleTapUp(int i, Marker o) {
-		o.getDialog().show();
+        o.getDialog().show();
         return false;
     }
 

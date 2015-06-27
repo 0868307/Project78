@@ -6,18 +6,18 @@
     <ImageView
         android:id="@+id/iv_row_icon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/tv_row_objecttitle"
-        android:layout_toRightOf="@id/iv_row_icon"
-        android:layout_toEndOf="@id/iv_row_icon"
-        android:padding="3dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/iv_row_icon"
+        android:layout_toRightOf="@id/iv_row_icon"
+        android:padding="3dp"
+        android:textStyle="bold" />
 </RelativeLayout>

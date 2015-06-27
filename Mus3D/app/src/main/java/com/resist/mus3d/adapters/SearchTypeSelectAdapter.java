@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.resist.mus3d.R;
 
 public class SearchTypeSelectAdapter extends ArrayAdapter<String> {
-    private static final int[] images = { R.drawable.ic_afmeerboei,
+    private static final int[] images = {R.drawable.ic_afmeerboei,
             R.drawable.ic_bolder, R.drawable.ic_koningspaal,
             R.drawable.ic_aanlegplaats, R.drawable.ic_meerpaal};
     private Activity activity;
@@ -39,10 +39,10 @@ public class SearchTypeSelectAdapter extends ArrayAdapter<String> {
     private View getCustomView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();
         View row = inflater.inflate(R.layout.row, parent, false);
-        TextView label = (TextView)row.findViewById(R.id.tv_row_objecttitle);
+        TextView label = (TextView) row.findViewById(R.id.tv_row_objecttitle);
         label.setText(getItem(position));
 
-        ImageView icon = (ImageView)row.findViewById(R.id.iv_row_icon);
+        ImageView icon = (ImageView) row.findViewById(R.id.iv_row_icon);
         icon.setImageResource(images[position]);
 
         return row;

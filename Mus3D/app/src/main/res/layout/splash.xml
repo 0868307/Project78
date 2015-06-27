@@ -6,22 +6,23 @@
     android:background="@color/white">
 
     <RelativeLayout
-        android:layout_alignParentBottom="true"
         android:id="@+id/loadingPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" >
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
 
         <ProgressBar
             android:id="@+id/splash_progress_determinate"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="false"
-            android:paddingBottom="20dp"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:visibility="gone"
             android:max="1000"
-            android:progressDrawable="@drawable/progressbar"/>
+            android:paddingBottom="20dp"
+            android:progressDrawable="@drawable/progressbar"
+            android:visibility="gone" />
+
         <ProgressBar
             android:id="@+id/splash_progress_indeterminate"
             android:layout_width="wrap_content"
@@ -31,17 +32,17 @@
     </RelativeLayout>
 
     <ImageView
-        android:layout_alignParentTop="true"
-        android:layout_above="@id/loadingPanel"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/resist"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
+        android:layout_above="@id/loadingPanel"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
         android:cropToPadding="false"
-        android:paddingTop="40dp"
+        android:gravity="center"
         android:paddingBottom="40dp"
-        android:adjustViewBounds="true"/>
+        android:paddingTop="40dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/resist" />
 
 </RelativeLayout>

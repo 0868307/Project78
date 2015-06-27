@@ -1,14 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.resist.mus3d.Settings">
 
-    <item android:id="@+id/action_2D"
+    <item
+        android:id="@+id/action_2D"
         android:title="@string/action_2D"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/settings_Settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
+    <item
+        android:id="@+id/settings_Settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
         app:showAsAction="never" />
 </menu>

@@ -30,30 +30,30 @@ public class Search extends Activity {
     private int[] spinnerIds;
     private SearchResultAdapter resultAdapter;
     private SearchResultAdapter selectedAdapter;
-	private EditText searchText;
+    private EditText searchText;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search);
 
         spinnerIds = getResources().getIntArray(R.array.objectwaardenArray);
 
-		Spinner searchSpinner = (Spinner)findViewById(R.id.sp_search_objecttype);
-		searchText = (EditText)findViewById(R.id.search_text);
+        Spinner searchSpinner = (Spinner) findViewById(R.id.sp_search_objecttype);
+        searchText = (EditText) findViewById(R.id.search_text);
 
         SearchTypeSelectAdapter selectAdapter = new SearchTypeSelectAdapter(this);
         selectAdapter.addAll(getResources().getStringArray(R.array.objectnamenArray));
-		searchSpinner.setAdapter(selectAdapter);
+        searchSpinner.setAdapter(selectAdapter);
 
         resultAdapter = new SearchResultAdapter(this);
         selectedAdapter = new SearchResultAdapter(this);
-        ListView results = (ListView)findViewById(R.id.search_results);
-        ListView selected = (ListView)findViewById(R.id.search_selected);
+        ListView results = (ListView) findViewById(R.id.search_results);
+        ListView selected = (ListView) findViewById(R.id.search_selected);
 
-		results.setEmptyView(findViewById(R.id.search_results_empty));
+        results.setEmptyView(findViewById(R.id.search_results_empty));
         results.setAdapter(resultAdapter);
-		selected.setEmptyView(findViewById(R.id.search_selected_empty));
+        selected.setEmptyView(findViewById(R.id.search_selected_empty));
         selected.setAdapter(selectedAdapter);
 
         results.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -66,94 +66,94 @@ public class Search extends Activity {
         });
 
         selected.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Object object = selectedAdapter.getItem(position);
-				resultAdapter.add(object);
-				selectedAdapter.remove(object);
-			}
-		});
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object object = selectedAdapter.getItem(position);
+                resultAdapter.add(object);
+                selectedAdapter.remove(object);
+            }
+        });
 
-		searchEnterPressHandler();
-	}
+        searchEnterPressHandler();
+    }
 
 
-	/**
-	 * Search query handler.
-	 *
-	 * @param v the view
-	 */
-	public void searchQueryHandler(View v) {
-		ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
-        int index = ((Spinner)findViewById(R.id.sp_search_objecttype)).getSelectedItemPosition();
-		List<com.resist.mus3d.objects.Object> objects = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), spinnerIds[index]);
-        Log.d(Mus3D.LOG_TAG, "objects found: "+objects.size());
-		resultAdapter.clear();
+    /**
+     * Search query handler.
+     *
+     * @param v the view
+     */
+    public void searchQueryHandler(View v) {
+        ObjectTable objectTable = new ObjectTable(Mus3D.getDatabase().getDatabase());
+        int index = ((Spinner) findViewById(R.id.sp_search_objecttype)).getSelectedItemPosition();
+        List<com.resist.mus3d.objects.Object> objects = objectTable.findObjects(((EditText) findViewById(R.id.search_text)).getText().toString(), spinnerIds[index]);
+        Log.d(Mus3D.LOG_TAG, "objects found: " + objects.size());
+        resultAdapter.clear();
         resultAdapter.addAll(objects);
-	}
+    }
 
-	private void searchEnterPressHandler() {
+    private void searchEnterPressHandler() {
 
-		searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-					in.hideSoftInputFromWindow(searchText.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-					searchQueryHandler(null);
-					return true;
-				}
-				return false;
-			}
-		});
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    in.hideSoftInputFromWindow(searchText.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    searchQueryHandler(null);
+                    return true;
+                }
+                return false;
+            }
+        });
 
-	}
+    }
 
-	/**
-	 * Clear search box.
-	 *
-	 * @param v the view
-	 */
-	public void clearSearchBox(View v) {
-		searchText.setText("");
-	}
+    /**
+     * Clear search box.
+     *
+     * @param v the view
+     */
+    public void clearSearchBox(View v) {
+        searchText.setText("");
+    }
 
-	/**
-	 * Search button
-	 *
-	 * @param v the view
-	 */
-	public void search(View v){
-		if(selectedAdapter.isEmpty()) {
-			Toast.makeText(this, R.string.select_items_first, Toast.LENGTH_SHORT).show();
-		} else {
-			goToNext(true);
-		}
-	}
+    /**
+     * Search button
+     *
+     * @param v the view
+     */
+    public void search(View v) {
+        if (selectedAdapter.isEmpty()) {
+            Toast.makeText(this, R.string.select_items_first, Toast.LENGTH_SHORT).show();
+        } else {
+            goToNext(true);
+        }
+    }
 
-	/**
-	 * Skip button.
-	 *
-	 * @param v the view
-	 */
-	public void skip(View v){
-		goToNext(false);
-	}
+    /**
+     * Skip button.
+     *
+     * @param v the view
+     */
+    public void skip(View v) {
+        goToNext(false);
+    }
 
 
-	private void goToNext(boolean search) {
-		Intent intent;
-		ToggleButton toggle = (ToggleButton)findViewById(R.id.search_toggle);
-		if(toggle.isChecked()) {
-			intent = new Intent(this, Map.class);
-		} else {
-			intent = new Intent(this, Rajawali.class);
-		}
-		if(search) {
-			Log.d(Mus3D.LOG_TAG, "num items: "+selectedAdapter.getItems().size());
-			intent.putParcelableArrayListExtra("objectList", selectedAdapter.getItems());
-		}
-		startActivity(intent);
-	}
+    private void goToNext(boolean search) {
+        Intent intent;
+        ToggleButton toggle = (ToggleButton) findViewById(R.id.search_toggle);
+        if (toggle.isChecked()) {
+            intent = new Intent(this, Map.class);
+        } else {
+            intent = new Intent(this, Rajawali.class);
+        }
+        if (search) {
+            Log.d(Mus3D.LOG_TAG, "num items: " + selectedAdapter.getItems().size());
+            intent.putParcelableArrayListExtra("objectList", selectedAdapter.getItems());
+        }
+        startActivity(intent);
+    }
 }

@@ -9,34 +9,34 @@ import com.resist.mus3d.objects.coords.Coordinate;
 import java.util.List;
 
 public class Bolders extends CommonTable {
-	/**
-	 * Instantiates a new Bolders.
-	 *
-	 * @param db the database
-	 */
-	public Bolders(SQLiteDatabase db) {
-		super(db);
-	}
+    /**
+     * Instantiates a new Bolders.
+     *
+     * @param db the database
+     */
+    public Bolders(SQLiteDatabase db) {
+        super(db);
+    }
 
-	/**
-	 * Load object.
-	 *
-	 * @param object the object
-	 */
-	public void loadObject(Bolder object) {
-		Cursor c = db.rawQuery("SELECT * FROM bolders WHERE id = ?", new String[] {String.valueOf(object.getObjectid())});
-		if(c.moveToFirst()) {
-			object.setMaterial(c.getString(c.getColumnIndex("materiaal")));
-			object.setDescription(c.getString(c.getColumnIndex("description")));
-			object.setAnchor(c.getString(c.getColumnIndex("verankering")));
-			object.setPartner(c.getString(c.getColumnIndex("partner")));
-			object.setCompany(c.getString(c.getColumnIndex("bedrijf")));
-		}
-		c.close();
-	}
+    /**
+     * Load object.
+     *
+     * @param object the object
+     */
+    public void loadObject(Bolder object) {
+        Cursor c = db.rawQuery("SELECT * FROM bolders WHERE id = ?", new String[]{String.valueOf(object.getObjectid())});
+        if (c.moveToFirst()) {
+            object.setMaterial(c.getString(c.getColumnIndex("materiaal")));
+            object.setDescription(c.getString(c.getColumnIndex("description")));
+            object.setAnchor(c.getString(c.getColumnIndex("verankering")));
+            object.setPartner(c.getString(c.getColumnIndex("partner")));
+            object.setCompany(c.getString(c.getColumnIndex("bedrijf")));
+        }
+        c.close();
+    }
 
     @Override
     public List<Bolder> getObjectsAround(Coordinate location, double distance) {
-        return (List<Bolder>)getObjectsAround(location, distance, new int[] {Bolder.TYPE});
+        return (List<Bolder>) getObjectsAround(location, distance, new int[]{Bolder.TYPE});
     }
 }

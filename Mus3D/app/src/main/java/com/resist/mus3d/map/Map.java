@@ -2,16 +2,13 @@ package com.resist.mus3d.map;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
 import com.resist.mus3d.GpsActivity;
 import com.resist.mus3d.Mus3D;
 import com.resist.mus3d.R;
 import com.resist.mus3d.database.ObjectTable;
-import com.resist.mus3d.objects.*;
 import com.resist.mus3d.objects.coords.MultiPoint;
 import com.resist.mus3d.objects.coords.Point;
 import com.resist.mus3d.objects.coords.Polygon;
@@ -28,15 +25,13 @@ import org.osmdroid.views.overlay.PathOverlay;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Map extends Activity implements GpsActivity {
     private MapView mapView;
     private MapController mapController;
     private LocationTracker locationListener;
-	private List<com.resist.mus3d.objects.Object> highlighted = new ArrayList<>();
+    private List<com.resist.mus3d.objects.Object> highlighted = new ArrayList<>();
     private boolean addedHighlighted = false;
 
     @Override
@@ -44,12 +39,12 @@ public class Map extends Activity implements GpsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-		if(getIntent() != null) {
+        if (getIntent() != null) {
             List<com.resist.mus3d.objects.Object> objects = getIntent().getParcelableArrayListExtra("objectList");
-            if(objects != null) {
+            if (objects != null) {
                 highlighted = objects;
             }
-		}
+        }
 
         locationListener = new LocationTracker(this);
 
@@ -62,11 +57,11 @@ public class Map extends Activity implements GpsActivity {
 
         ScaleBarOverlay myScaleBarOverlay = new ScaleBarOverlay(this);
         mapView.getOverlays().add(myScaleBarOverlay);
-		if(!highlighted.isEmpty()) {
-			goToObject(highlighted.get(0));
-		} else {
-			goToCurrentLocation();
-		}
+        if (!highlighted.isEmpty()) {
+            goToObject(highlighted.get(0));
+        } else {
+            goToCurrentLocation();
+        }
     }
 
     /**
@@ -75,8 +70,8 @@ public class Map extends Activity implements GpsActivity {
      * @param location the location
      */
     public void updateMarkers(IGeoPoint location) {
-        if(!highlighted.isEmpty()) {
-            if(!addedHighlighted) {
+        if (!highlighted.isEmpty()) {
+            if (!addedHighlighted) {
                 addedHighlighted = true;
                 addAllItems(highlighted);
             }
@@ -87,32 +82,32 @@ public class Map extends Activity implements GpsActivity {
         }
     }
 
-	private void addPath(List<PathOverlay> paths, MultiPoint mp) {
-		PathOverlay path = new PathOverlay(Color.BLACK, this);
-		for(Point p : mp.getPoints()) {
-			path.addPoint(new GeoPoint(p.getPosition().getLatitude(), p.getPosition().getLongitude()));
-		}
-		paths.add(path);
-	}
+    private void addPath(List<PathOverlay> paths, MultiPoint mp) {
+        PathOverlay path = new PathOverlay(Color.BLACK, this);
+        for (Point p : mp.getPoints()) {
+            path.addPoint(new GeoPoint(p.getPosition().getLatitude(), p.getPosition().getLongitude()));
+        }
+        paths.add(path);
+    }
 
     private void addAllItems(List<? extends com.resist.mus3d.objects.Object> list) {
         List<Marker> overlayItemArray = new ArrayList<>();
-		List<PathOverlay> paths = new ArrayList<>();
+        List<PathOverlay> paths = new ArrayList<>();
         for (com.resist.mus3d.objects.Object o : list) {
             overlayItemArray.add(new Marker(this, o));
-			if(o.getLocation() instanceof MultiPoint) {
-				addPath(paths, (MultiPoint)o.getLocation());
-			} else if(o.getLocation() instanceof Polygon) {
-				Polygon polygon = (Polygon)o.getLocation();
-				for(MultiPoint mp : polygon.getMultiPoints()) {
-					addPath(paths, mp);
-				}
-			}
+            if (o.getLocation() instanceof MultiPoint) {
+                addPath(paths, (MultiPoint) o.getLocation());
+            } else if (o.getLocation() instanceof Polygon) {
+                Polygon polygon = (Polygon) o.getLocation();
+                for (MultiPoint mp : polygon.getMultiPoints()) {
+                    addPath(paths, mp);
+                }
+            }
         }
         ItemizedIconOverlay<Marker> itemizedIconOverlay = new ItemizedIconOverlay<>(this, overlayItemArray, new MarkerListener());
         mapView.getOverlays().clear();
-		mapView.getOverlays().addAll(paths);
-		mapView.getOverlays().add(itemizedIconOverlay);
+        mapView.getOverlays().addAll(paths);
+        mapView.getOverlays().add(itemizedIconOverlay);
         addCurrentPosition();
     }
 
@@ -129,15 +124,15 @@ public class Map extends Activity implements GpsActivity {
     /**
      * Go to current location.
      */
-	public void goToCurrentLocation() {
-		if (locationListener != null && LocationTracker.getCurrentLocation() != null) {
-			GeoPoint currentLocation = new GeoPoint(LocationTracker.getCurrentLocation());
-			mapView.getController().setCenter(currentLocation);
-			addCurrentPosition();
-		}
-	}
+    public void goToCurrentLocation() {
+        if (locationListener != null && LocationTracker.getCurrentLocation() != null) {
+            GeoPoint currentLocation = new GeoPoint(LocationTracker.getCurrentLocation());
+            mapView.getController().setCenter(currentLocation);
+            addCurrentPosition();
+        }
+    }
 
-	private void goToObject(final com.resist.mus3d.objects.Object object) {
+    private void goToObject(final com.resist.mus3d.objects.Object object) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -146,7 +141,7 @@ public class Map extends Activity implements GpsActivity {
                 mapView.getController().setCenter(location);
             }
         }, 1000);
-	}
+    }
 
     @Override
     protected void onStop() {

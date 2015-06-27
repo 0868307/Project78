@@ -38,7 +38,7 @@ public class Tutorial extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
-        slides = new Slide[] {
+        slides = new Slide[]{
                 new Slide1(), new Slide2(), new Slide9(), new Slide3(), new Slide4(), new Slide5(), new Slide6(), new Slide7(), new Slide8()
         };
 
@@ -60,7 +60,6 @@ public class Tutorial extends FragmentActivity {
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }
     }
-
 
 
     class CustomPagerAdapter extends PagerAdapter {
