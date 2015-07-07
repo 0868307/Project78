@@ -24,6 +24,7 @@ public class LocationTracker implements LocationListener {
         mlocManager = (LocationManager) ((Activity) activity).getSystemService(Context.LOCATION_SERVICE);
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         currentLocation = mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        activity.update();
     }
 
     /**

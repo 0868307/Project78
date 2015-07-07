@@ -41,7 +41,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
     private ObjectRenderer objectRenderer;
     private LocationTracker locationListener;
     private SensorTracker sensorTracker;
-    private int counter = 1000;
+    private int counter = 1001;
     private View progressBarGPS;
     private View progressBarObjects;
     private MapView minimap;
@@ -185,9 +185,10 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
      *
      * @param progress the progress
      */
-    public void onObjectLoadingProgress(double progress) {
+    public void onObjectLoadingProgress(double progress) throws Exception {
         ProgressBar bar = (ProgressBar) ((ViewGroup) progressBarObjects).getChildAt(0);
-        bar.setProgress((int) (progress * 10));
+        if(bar != null)
+            bar.setProgress((int) (progress * 10));
     }
 
     /**
@@ -202,9 +203,21 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
     }
 
     @Override
+    protected void onPause() {
+        locationListener.onStop();
+        sensorTracker.onStop();
+        if(objectRenderer.longOperation != null)
+            objectRenderer.longOperation.cancel(false);
+
+        super.onPause();
+    }
+
+    @Override
     protected void onStop() {
         locationListener.onStop();
         sensorTracker.onStop();
+        if(objectRenderer.longOperation != null)
+            objectRenderer.longOperation.cancel(false);
         super.onStop();
 
     }
@@ -218,7 +231,7 @@ public class Rajawali extends RajawaliActivity implements GpsActivity, SensorAct
 
     @Override
     public void update() {
-        if (locationListener != null) {
+        if (LocationTracker.getCurrentLocation() != null) {
             if (progressBarGPS.getVisibility() == View.VISIBLE) {
                 Log.d(Mus3D.LOG_TAG, "Loaded GPS");
                 progressBarGPS.setVisibility(View.GONE);

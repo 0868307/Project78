@@ -35,6 +35,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
     private Map<BaseObject3D, Object> object3Ds = new HashMap<>();
     private Rajawali context;
     private ObjectColorPicker mPicker;
+    public AsyncTask longOperation;
     private int background = 0xFFFFFFFF;
 
     /**
@@ -90,8 +91,9 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
      * Make objects.
      */
     public void makeObjects() {
-        new LongOperation().execute();
+        longOperation = new LongOperation().execute();
     }
+
 
     @Override
     public void onObjectPicked(BaseObject3D object) {
@@ -196,6 +198,7 @@ public class ObjectRenderer extends RajawaliRenderer implements OnObjectPickedLi
         @Override
         protected void onPostExecute(Boolean result) {
             context.onObjectsLoaded(result);
+            cancel(true);
         }
 
         @Override
